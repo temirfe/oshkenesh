@@ -12,6 +12,10 @@ $this->title = 'My Yii Application';
         <p class="lead">New text from local.</p>
 
         <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
+        <?php
+        $users=Yii::$app->db->createCommand('SELECT * FROM users')->queryAll();
+        echo count($users);
+        ?>
     </div>
 
     <div class="body-content">
