@@ -23,12 +23,7 @@ AppAsset::register($this);
 </head>
 <body>
 <?php $this->beginBody() ?>
-<?php
-    $yiiuser=Yii::$app->user;
-    $username=$yiiuser->identity->username;
-    $userid=$yiiuser->identity->id;
-    //$isAdmin=$yiiuser->identity->isAdmin;
-?>
+
 <div class="wrap">
     <?php
     NavBar::begin([
@@ -38,32 +33,22 @@ AppAsset::register($this);
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
-    $navItems=[
-        ['label' => 'Home', 'url' => ['/site/index']],
-        ['label' => 'About', 'url' => ['/site/about']],
-        ['label' => 'Contact', 'url' => ['/site/contact']]
-    ];
-    if ($yiiuser->isGuest) {
-        array_push($navItems,['label' => 'Sign In', 'url' => ['/site/login']],['label' => 'Sign Up', 'url' => ['/site/signup']]);
-    } else {
-        array_push($navItems,[
-                'label' => $username,
-                'items' => [
-                    ['label' => 'Profile', 'url' => ['/user/profile?id='.$userid]],
-                    ['label' => 'Logout', 'url' => ['/site/logout'], 'linkOptions' => ['data-method' => 'post']],
-                ],
-            ]
-        );
-    }
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
-        'items' => $navItems,
+        'items' => [
+            ['label' => 'Home', 'url' => ['/site/index']],
+            ['label' => 'About', 'url' => ['/site/about']],
+            ['label' => 'Contact', 'url' => ['/site/contact']],
+            Yii::$app->user->isGuest ?
+                ['label' => 'Login', 'url' => ['/site/login']] :
+                [
+                    'label' => 'Logout (' . Yii::$app->user->identity->username . ')',
+                    'url' => ['/site/logout'],
+                    'linkOptions' => ['data-method' => 'post']
+                ],
+        ],
     ]);
     NavBar::end();
-    ?>
-
-    <?php
-
     ?>
 
     <div class="container">
@@ -76,7 +61,7 @@ AppAsset::register($this);
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; CollegeStatistics <?= date('Y') ?></p>
+        <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
 
         <p class="pull-right"><?= Yii::powered() ?></p>
     </div>
