@@ -11,11 +11,30 @@ use yii\helpers\Html;
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=<?= Yii::$app->charset ?>" />
     <title><?= Html::encode($this->title) ?></title>
+    <style type="text/css">
+        table{border-collapse: collapse;border-spacing: 0;}
+        tr {
+            display: table-row;
+            vertical-align: inherit;
+            border-color: inherit;
+        }
+        td{vertical-align: top;text-align: -webkit-left;}
+        .body{max-width:600px;margin:0 auto;}
+    </style>
     <?php $this->head() ?>
 </head>
 <body>
     <?php $this->beginBody() ?>
-    <?= $content ?>
+    <table>
+        <tr>
+            <td>
+                <div class="body">
+                    <?= $content ?>
+                </div>
+            </td>
+        </tr>
+    </table>
+
     <?php $this->endBody() ?>
 </body>
 </html>
