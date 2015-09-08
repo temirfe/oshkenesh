@@ -4,6 +4,7 @@ use yii\helpers\Html;
 /* @var $this \yii\web\View view component instance */
 /* @var $message \yii\mail\MessageInterface the message being composed */
 /* @var $content string main view render result */
+$confirmLink = Yii::$app->urlManager->createAbsoluteUrl(['site/email-confirm', 'token' => $user->email_confirm_token]);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -19,7 +20,15 @@ use yii\helpers\Html;
         <tr>
             <td style="vertical-align: top;text-align: -webkit-left;">
                 <div style="max-width:600px;margin:0 auto;">
-                    <?= $content ?>
+                    Hello, <?= Html::encode($user->username) ?>!<br /><br />
+
+                    Thank you for signing up on CollegeStatistics.org In order to complete your registration, please click the link below.<br /><br />
+
+                    <?= Html::a(Html::encode($confirmLink), $confirmLink) ?><br /><br />
+
+                    If you cannot click the link, please try pasting the text into your browser.<br />
+
+                    If you did not make this request you can ignore this email.
                 </div>
             </td>
         </tr>

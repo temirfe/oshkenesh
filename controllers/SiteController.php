@@ -9,6 +9,11 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\SignupForm;
 use app\models\ContactForm;
+use app\models\EmailConfirmForm;
+use app\models\PasswordResetRequestForm;
+use app\models\ResetPasswordForm;
+use yii\base\InvalidParamException;
+use yii\web\BadRequestHttpException;
 
 class SiteController extends Controller
 {
@@ -103,22 +108,8 @@ class SiteController extends Controller
         $model = new SignupForm();
         if ($model->load(Yii::$app->request->post())) {
             if ($user = $model->signup()) {
-                $user->requestConfirm();
-            }
-        }
-
-        return $this->render('signup', [
-            'model' => $model,
-        ]);
-    }
-    public function actionActivate()
-    {
-        $model = new SignupForm();
-        if ($model->load(Yii::$app->request->post())) {
-            if ($user = $model->signup()) {
-                if (Yii::$app->getUser()->login($user)) {
-                    return $this->goHome();
-                }
+                Yii::$app->getSession()->setFlash('success', 'Your account has been created, activation code has been sent to your email.');
+                return $this->goHome();
             }
         }
 
@@ -135,10 +126,11 @@ class SiteController extends Controller
             throw new BadRequestHttpException($e->getMessage());
         }
 
-        if ($model->confirmEmail()) {
-            Yii::$app->getSession()->setFlash('success', 'Спасибо! Ваш Email успешно подтверждён.');
+        if ($test=$model->confirmEmail()) {
+            $signin=Html::a('sign in', Yii::$app->urlManager->createUrl(['site/login']));
+            Yii::$app->getSession()->setFlash('success', 'Your Email has been successfully confirmed! You can now '.$signin);
         } else {
-            Yii::$app->getSession()->setFlash('error', 'Ошибка подтверждения Email.');
+            Yii::$app->getSession()->setFlash('error', "Couldn't confirm your Email.");
         }
 
         return $this->goHome();
