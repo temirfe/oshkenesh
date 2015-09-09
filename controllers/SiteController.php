@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use Yii;
+use yii\helpers\Html;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -14,6 +15,7 @@ use app\models\PasswordResetRequestForm;
 use app\models\ResetPasswordForm;
 use yii\base\InvalidParamException;
 use yii\web\BadRequestHttpException;
+use yii\web\UploadedFile;
 
 class SiteController extends Controller
 {
@@ -61,6 +63,97 @@ class SiteController extends Controller
     public function actionIndex()
     {
         return $this->render('index');
+    }
+
+    public function actionUpload()
+    {
+
+        if(isset($_POST['upform'])){
+            echo $_POST['upform']['field1'];
+            $file=UploadedFile::getInstanceByName('upform[xfile]');
+            if($file->extension !='xls' && $file->extension !='xlsx')
+                return "Error: only Excel files should be uploaded!".$file->extension;
+            $file->saveAs('uploads/' . $file->baseName . '.' . $file->extension);
+        }
+
+        else
+
+        return $this->render('upload');
+    }
+
+    public function actionExcel(){
+        $file='uploads/Data.xlsx';
+        //$objPHPExcel = new \PHPExcel();
+
+        //$file=mb_convert_encoding($file, 'Windows-1251', 'UTF-8');
+        $inputFileType = \PHPExcel_IOFactory::identify($file);
+        $objReader = \PHPExcel_IOFactory::createReader($inputFileType);
+        $objPHPExcel=$objReader->load($file);
+
+        $objWorksheet = $objPHPExcel->getActiveSheet();
+
+        $highestRow = $objWorksheet->getHighestRow(); // e.g. 10
+        $highestColumn = $objWorksheet->getHighestColumn(); // e.g 'F'
+        $columnIndex=\PHPExcel_Cell::stringFromColumnIndex($highestColumn);
+        $highestColumnIndex = \PHPExcel_Cell::columnIndexFromString($highestColumn); // e.g. 5
+
+        echo 'highestRow'.$highestRow."<br />highestColumn ".$highestColumn;
+
+        /*for ($row = 1; $row <= $highestRow; ++$row) {
+            $title=''; $price='';
+            for ($col = 0; $col <= $highestColumnIndex; ++$col) {
+                $curval=$objWorksheet->getCellByColumnAndRow($col, $row)->getValue();
+                echo "-->".$curval."<--";
+                if (isset($tcolumn) && isset($prcolumn)) {
+                    if($col==$tcolumn && $curval) $title=$curval;
+                    elseif($col==$prcolumn && $curval) $price=$curval;
+                }
+            }
+            echo "<br />";
+
+            if($title && $price)
+            {
+                echo 'title: '.$title." price:".$price."</br>";
+            }
+        }*/
+    }
+
+    public function actionExcelsave(){
+        $objPHPExcel = new \PHPExcel();
+        $sheet=0;
+
+        $objPHPExcel->setActiveSheetIndex($sheet);
+        $foos = [
+            ['firstname'=>'John',
+                'lastname'=>'Doe'],
+            ['firstname'=>'John',
+                'lastname'=>'Jones'],
+            ['firstname'=>'Jane',
+                'lastname'=>'Doe'],
+        ];
+
+        $objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(20);
+        $objPHPExcel->getActiveSheet()->getColumnDimension('B')->setWidth(20);
+
+        $objPHPExcel->getActiveSheet()->setTitle('xxx')
+            ->setCellValue('A1', 'Firstname')
+            ->setCellValue('B1', 'Lastname');
+
+        $row=2;
+
+        foreach ($foos as $foo) {
+
+            $objPHPExcel->getActiveSheet()->setCellValue('A'.$row,$foo['firstname']);
+            $objPHPExcel->getActiveSheet()->setCellValue('B'.$row,$foo['lastname']);
+            $row++ ;
+        }
+
+        header('Content-Type: application/vnd.ms-excel');
+        $filename = "MyExcelReport_".date("d-m-Y-His").".xls";
+        header('Content-Disposition: attachment;filename='.$filename .' ');
+        header('Cache-Control: max-age=0');
+        $objWriter = \PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+        $objWriter->save('php://output');
     }
 
     public function actionLogin()
