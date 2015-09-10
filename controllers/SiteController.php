@@ -81,8 +81,75 @@ class SiteController extends Controller
         return $this->render('upload');
     }
 
+    public function actionExceldb(){
+        $file='uploads/Undergrad.xlsx';
+        //$objPHPExcel = new \PHPExcel();
+
+        //$file=mb_convert_encoding($file, 'Windows-1251', 'UTF-8');
+        $inputFileType = \PHPExcel_IOFactory::identify($file);
+        $objReader = \PHPExcel_IOFactory::createReader($inputFileType);
+        $objPHPExcel=$objReader->load($file);
+
+        $objWorksheet = $objPHPExcel->getActiveSheet();
+
+        $highestRow = $objWorksheet->getHighestRow(); // e.g. 10
+        $highestColumn = $objWorksheet->getHighestColumn(); // e.g 'F'
+        //$columnIndex=\PHPExcel_Cell::stringFromColumnIndex($highestColumn);
+        $highestColumnIndex = \PHPExcel_Cell::columnIndexFromString($highestColumn); // e.g. 5
+
+        $headRow=false;
+        $parsedData=array();
+        $name='Institution Name'; $parsedData['name']=array(); $nameCol=false; //CI = ColumnIndex
+        $address='Address'; $parsedData['address']=array(); $addressCol=false;
+        $city='City'; $parsedData['city']=array(); $cityCol=false;
+        //parse each row
+        for ($row = 1; $row <= $highestRow; ++$row) {
+            if(!$headRow) //set index variables
+            {
+                //parse each column
+                for ($col = 0; $col <= $highestColumnIndex; ++$col) {
+                    if ($curval = $objWorksheet->getCellByColumnAndRow($col, $row)->getValue()) //if current cell has text
+                    {
+                        if(!$nameCol && $curval==$name) { $nameCol=$col; $headRow=$row;}
+                        elseif(!$addressCol && $curval==$address) { $addressCol=$col;}
+                        elseif(!$cityCol && $curval==$city) { $cityCol=$col;}
+                    }
+                }
+            }
+            else //header has been set, now insert data
+            {
+                //parse each column
+                for ($col = 0; $col <= $highestColumnIndex; ++$col) {
+                    if ($curval = $objWorksheet->getCellByColumnAndRow($col, $row)->getValue()) //if current cell has text
+                    {
+                        if($col==$nameCol) {$parsedData['name'][$row]=$curval;}
+                        elseif($col==$addressCol) {$parsedData['address'][$row]=$curval;}
+                        elseif($col==$cityCol) {$parsedData['city'][$row]=$curval;}
+                    }
+                }
+            }
+        }
+
+
+        /*echo 'nameCol: '.$nameCol."<br />";
+        echo 'addressCol: '.$addressCol."<br />";
+        echo 'cityCol: '.$cityCol."<br />";*/
+
+
+        $db=Yii::$app->db;
+        for ($i = 1; $i<= $highestRow; ++$i) {
+            if($parsedData['name'][$i]){
+                $db->createCommand()->insert('university', [
+                    'name' => $parsedData['name'][$i],
+                    'address' => $parsedData['address'][$i],
+                    'city' => $parsedData['city'][$i],
+                ])->execute();
+            }
+        }
+    }
+
     public function actionExcel(){
-        $file='uploads/Data.xlsx';
+        $file='uploads/Undergrad.xlsx';
         //$objPHPExcel = new \PHPExcel();
 
         //$file=mb_convert_encoding($file, 'Windows-1251', 'UTF-8');
@@ -97,13 +164,13 @@ class SiteController extends Controller
         $columnIndex=\PHPExcel_Cell::stringFromColumnIndex($highestColumn);
         $highestColumnIndex = \PHPExcel_Cell::columnIndexFromString($highestColumn); // e.g. 5
 
-        echo 'highestRow'.$highestRow."<br />highestColumn ".$highestColumn;
 
-        /*for ($row = 1; $row <= $highestRow; ++$row) {
+
+        for ($row = 1; $row <= $highestRow; ++$row) {
             $title=''; $price='';
             for ($col = 0; $col <= $highestColumnIndex; ++$col) {
                 $curval=$objWorksheet->getCellByColumnAndRow($col, $row)->getValue();
-                echo "-->".$curval."<--";
+                if($col==2) echo "-->".$curval."<--";
                 if (isset($tcolumn) && isset($prcolumn)) {
                     if($col==$tcolumn && $curval) $title=$curval;
                     elseif($col==$prcolumn && $curval) $price=$curval;
@@ -115,45 +182,7 @@ class SiteController extends Controller
             {
                 echo 'title: '.$title." price:".$price."</br>";
             }
-        }*/
-    }
-
-    public function actionExcelsave(){
-        $objPHPExcel = new \PHPExcel();
-        $sheet=0;
-
-        $objPHPExcel->setActiveSheetIndex($sheet);
-        $foos = [
-            ['firstname'=>'John',
-                'lastname'=>'Doe'],
-            ['firstname'=>'John',
-                'lastname'=>'Jones'],
-            ['firstname'=>'Jane',
-                'lastname'=>'Doe'],
-        ];
-
-        $objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(20);
-        $objPHPExcel->getActiveSheet()->getColumnDimension('B')->setWidth(20);
-
-        $objPHPExcel->getActiveSheet()->setTitle('xxx')
-            ->setCellValue('A1', 'Firstname')
-            ->setCellValue('B1', 'Lastname');
-
-        $row=2;
-
-        foreach ($foos as $foo) {
-
-            $objPHPExcel->getActiveSheet()->setCellValue('A'.$row,$foo['firstname']);
-            $objPHPExcel->getActiveSheet()->setCellValue('B'.$row,$foo['lastname']);
-            $row++ ;
         }
-
-        header('Content-Type: application/vnd.ms-excel');
-        $filename = "MyExcelReport_".date("d-m-Y-His").".xls";
-        header('Content-Disposition: attachment;filename='.$filename .' ');
-        header('Cache-Control: max-age=0');
-        $objWriter = \PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
-        $objWriter->save('php://output');
     }
 
     public function actionLogin()
