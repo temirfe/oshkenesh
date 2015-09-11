@@ -25,3 +25,11 @@ composer.phar
 phpunit.phar
 # local phpunit config
 /phpunit.xml
+
+#yii
+web/assets/*
+!web/assets/.gitignore
+protected/runtime/*
+!protected/runtime/.gitignore
+protected/data/*.db
+themes/classic/views/
