@@ -26,8 +26,11 @@ AppAsset::register($this);
     <?php $this->beginBody() ?>
     <?php
     $yiiuser=Yii::$app->user;
-    $username=$yiiuser->identity->username;
-    $userid=$yiiuser->identity->id;
+    if(!$yiiuser->isGuest){
+        $username=$yiiuser->identity->username;
+        $userid=$yiiuser->identity->id;
+    }
+
     //$isAdmin=$yiiuser->identity->isAdmin;
     ?>
     <div class="wrap">
