@@ -19,7 +19,12 @@
         "yiisoft/yii2-bootstrap": "*",
         "yiisoft/yii2-swiftmailer": "*",
         "kartik-v/yii2-builder": "@dev",
-        "phpoffice/phpexcel": "dev-develop"
+        "phpoffice/phpexcel": "dev-develop",
+        "kartik-v/yii2-widget-datepicker": "@dev",
+        "kartik-v/yii2-widget-select2": "@dev",
+        "vova07/yii2-imperavi-widget": "^1.2",
+        "kartik-v/yii2-widget-fileinput": "@dev",
+        "yiisoft/yii2-imagine": "*"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",
