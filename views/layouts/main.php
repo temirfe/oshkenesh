@@ -92,9 +92,9 @@ AppAsset::register($this);
 
     <footer class="footer">
         <div class="container">
-            <p class="pull-left">&copy; CollegeStatistics <?= date('Y') ?></p>
+            <p class="pull-left">&copy; Ош Шаардык Кеңеши <?= date('Y') ?></p>
 
-            <p class="pull-right"><?= Yii::powered() ?></p>
+            <p class="pull-right"></p>
         </div>
     </footer>
 
