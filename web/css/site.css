@@ -101,3 +101,13 @@ option{padding: 3px 6px;}
 .dropdown:hover .dropdown-menu {
     display: block;
 }
+h2.title{font-size:20px;margin-top: 0;}
+.img_list{margin-right: 15px;
+    text-align: center;
+    width: 120px;}
+.img_list img{}
+.desc_list{}
+.desc_list a{ color: #777;
+    text-decoration: none;}
+div.item{clear:both; display: inline-block;margin-top: 15px;}
+article.item{}

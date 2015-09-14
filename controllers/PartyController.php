@@ -72,7 +72,7 @@ class PartyController extends Controller
                 $model->imageFile->saveAs('uploads/images/' . $imageName);
                 $model->image=$imageName;
                 Image::getImagine()->open('uploads/images/'.$imageName)->thumbnail(new Box(500, 500))->save(Yii::getAlias('@webroot').'/uploads/images/'.$imageName);
-                Image::getImagine()->open('uploads/images/'.$imageName)->thumbnail(new Box(120, 120))->save(Yii::getAlias('@webroot').'/uploads/images/s_'.$imageName);
+                Image::getImagine()->open('uploads/images/'.$imageName)->thumbnail(new Box(120, 120))->save(Yii::getAlias('@webroot').'/uploads/images/small/s_'.$imageName);
             }
             $model->save(false);
             return $this->redirect(['view', 'id' => $model->id]);
@@ -100,7 +100,7 @@ class PartyController extends Controller
                 $model->imageFile->saveAs('uploads/images/' . $imageName);
                 $model->image=$imageName;
                 Image::getImagine()->open('uploads/images/'.$imageName)->thumbnail(new Box(500, 500))->save(Yii::getAlias('@webroot').'/uploads/images/'.$imageName);
-                Image::getImagine()->open('uploads/images/'.$imageName)->thumbnail(new Box(120, 120))->save(Yii::getAlias('@webroot').'/uploads/images/s_'.$imageName);
+                Image::getImagine()->open('uploads/images/'.$imageName)->thumbnail(new Box(120, 120))->save(Yii::getAlias('@webroot').'/uploads/images/small/s_'.$imageName);
 
             }
 

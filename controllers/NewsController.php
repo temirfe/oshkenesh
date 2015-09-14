@@ -118,7 +118,7 @@ class NewsController extends Controller
 
                 Image::getImagine()->open('uploads/images/'.$imageName)->thumbnail(new Box(1000, 1000))->save(Yii::getAlias('@webroot').'/uploads/images/'.$imageName);
                 Image::thumbnail('@webroot/uploads/images/' . $imageName, 110, 100)
-                    ->save(Yii::getAlias('@webroot/uploads/images/s_' . $imageName), ['quality' => 90]);
+                    ->save(Yii::getAlias('@webroot/uploads/images/small/s_' . $imageName), ['quality' => 90]);
             }
             $model->save(false);
             return $this->redirect(['view', 'id' => $model->id]);
@@ -147,7 +147,7 @@ class NewsController extends Controller
                 $model->image=$imageName;
                 Image::getImagine()->open('uploads/images/'.$imageName)->thumbnail(new Box(1000, 1000))->save(Yii::getAlias('@webroot').'/uploads/images/'.$imageName);
                 Image::thumbnail('@webroot/uploads/images/' . $imageName, 110, 100)
-                    ->save(Yii::getAlias('@webroot/uploads/images/s_' . $imageName), ['quality' => 90]);
+                    ->save(Yii::getAlias('@webroot/uploads/images/small/s_' . $imageName), ['quality' => 90]);
             }
 
             $model->save(false);
@@ -187,4 +187,24 @@ class NewsController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
+   /* //these functions were used to deal with old images. once.
+    public function actionResize(){
+        $dir=Yii::getAlias('@webroot/big');
+        $imgs=scandir($dir);
+        foreach($imgs as $img){
+            if($img!='.' && $img!='..'){
+                Image::getImagine()->open('big/'.$img)->thumbnail(new Box(120, 100))->save(Yii::getAlias('@webroot').'/small/s_'.$img);
+            }
+        }
+    }
+
+    //these functions were used to deal with old images. once.
+    public function actionRename(){
+        $row=Yii::$app->db->createCommand("SELECT id, image FROM news WHERE id='215'")->queryOne();
+        $image = explode(".",$row['image']);
+        $ext=end($image);
+        $name=time()."_".rand(1000,100000).'.'.$ext;
+        Image::getImagine()->open('big/'.escapeshellarg($row['image']))->thumbnail(new Box(120, 100))->save(Yii::getAlias('@webroot').'/small/s_'.$name);
+    }*/
 }
