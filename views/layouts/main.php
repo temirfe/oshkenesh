@@ -36,31 +36,42 @@ AppAsset::register($this);
     <div class="wrap">
         <?php
         NavBar::begin([
-            'brandLabel' => 'My Company',
             'brandUrl' => Yii::$app->homeUrl,
             'options' => [
-                'class' => 'navbar-inverse navbar-fixed-top',
+                'class' => 'navbar',
             ],
         ]);
         $navItems=[
-            ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'About', 'url' => ['/site/about']],
-            ['label' => 'Contact', 'url' => ['/site/contact']]
+            ['label' => Yii::t('app', 'News'), 'url' => ['/news/index']],
+            [
+                'label' => Yii::t('app', 'Documents'),
+                'items' => [
+                    ['label' => Yii::t('app', 'Legislation'), 'url' => ['/legislation/index']],
+                    ['label' => Yii::t('app', 'Decrees'), 'url' => ['/decree/index']],
+                    ['label' => Yii::t('app', 'Bills'), 'url' => ['/bill/index']],
+                ],
+            ],
+            [
+                'label' => Yii::t('app', 'Structure'),
+                'items' => [
+                    ['label' => Yii::t('app', 'Presidium'), 'url' => ['/page/1']],
+                    ['label' => Yii::t('app', 'Deputy Commission'), 'url' => ['/page/2']],
+                    ['label' => Yii::t('app', 'Deputies'), 'url' => ['/deputy/index']],
+                ],
+            ],
+            ['label' => Yii::t('app', 'Apparatus'), 'url' => ['/page/3']],
+            ['label' => Yii::t('app', 'Activity'), 'url' => ['#']],
+            ['label' => Yii::t('app', 'Gallery'), 'url' => ['#']],
+            ['label' => Yii::t('app', 'Vacancy'), 'url' => ['/page/4']],
+            ['label' => Yii::t('app', 'Contacts'), 'url' => ['/page/5']],
         ];
         if ($yiiuser->isGuest) {
-            array_push($navItems,['label' => 'Sign In', 'url' => ['/site/login']],['label' => 'Sign Up', 'url' => ['/site/signup']]);
+            array_push($navItems,['label' => Yii::t('app', 'Sing in'), 'url' => ['/site/login']],['label' => 'Sign Up', 'url' => ['/site/signup']]);
         } else {
-            array_push($navItems,[
-                    'label' => $username,
-                    'items' => [
-                        ['label' => 'Profile', 'url' => ['/user/profile?id='.$userid]],
-                        ['label' => 'Logout', 'url' => ['/site/logout'], 'linkOptions' => ['data-method' => 'post']],
-                    ],
-                ]
-            );
+            array_push($navItems,['label' => Yii::t('app', 'Logout'), 'url' => ['/site/logout'], 'linkOptions' => ['data-method' => 'post']]);
         }
         echo Nav::widget([
-            'options' => ['class' => 'navbar-nav navbar-right'],
+            'options' => ['class' => 'navbar-nav'],
             'items' => $navItems,
         ]);
         NavBar::end();

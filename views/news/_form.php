@@ -41,7 +41,10 @@ use kartik\file\FileInput;
             ],
         ]
     ]); ?>
-    <?= $form->field($model, 'imageFile')->widget(FileInput::classname(), [
+    <?php if($model->image) $iniImg=[
+        Html::img("@web/uploads/images/".$model->image, ['class'=>'file-preview-image', 'alt'=>'']),
+    ]; else $iniImg=false;
+    echo $form->field($model, 'imageFile')->widget(FileInput::classname(), [
         'options' => ['accept' => 'image/*'],
         'name' => 'input-ru[]',
         'language' => 'ru',
@@ -49,9 +52,7 @@ use kartik\file\FileInput;
             'showCaption' => false,
             'showRemove' => false,
             'showUpload' => false,
-            'initialPreview'=>[
-                Html::img("@web/uploads/images/".$model->image, ['class'=>'file-preview-image', 'alt'=>'']),
-            ],
+            'initialPreview'=>$iniImg,
         ],
     ]); ?>
 

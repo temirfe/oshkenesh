@@ -3,16 +3,19 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\NursingSchools;
-use app\models\NursingSearch;
+use app\models\Party;
+use app\models\PartySearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
+use yii\imagine\Image;
+use Imagine\Image\Box;
 
 /**
- * NursingController implements the CRUD actions for NursingSchools model.
+ * PartyController implements the CRUD actions for Party model.
  */
-class NursingController extends Controller
+class PartyController extends Controller
 {
     public function behaviors()
     {
@@ -27,12 +30,12 @@ class NursingController extends Controller
     }
 
     /**
-     * Lists all NursingSchools models.
+     * Lists all Party models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new NursingSearch();
+        $searchModel = new PartySearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -42,7 +45,7 @@ class NursingController extends Controller
     }
 
     /**
-     * Displays a single NursingSchools model.
+     * Displays a single Party model.
      * @param integer $id
      * @return mixed
      */
@@ -54,15 +57,24 @@ class NursingController extends Controller
     }
 
     /**
-     * Creates a new NursingSchools model.
+     * Creates a new Party model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new NursingSchools();
+        $model = new Party();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
+            if($model->imageFile){
+                $imageName=time(). '.' . $model->imageFile->extension;
+                $model->imageFile->saveAs('uploads/images/' . $imageName);
+                $model->image=$imageName;
+                Image::getImagine()->open('uploads/images/'.$imageName)->thumbnail(new Box(500, 500))->save(Yii::getAlias('@webroot').'/uploads/images/'.$imageName);
+                Image::getImagine()->open('uploads/images/'.$imageName)->thumbnail(new Box(120, 120))->save(Yii::getAlias('@webroot').'/uploads/images/s_'.$imageName);
+            }
+            $model->save(false);
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
@@ -72,7 +84,7 @@ class NursingController extends Controller
     }
 
     /**
-     * Updates an existing NursingSchools model.
+     * Updates an existing Party model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -81,7 +93,18 @@ class NursingController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
+            if($model->imageFile){
+                $imageName=time(). '.' . $model->imageFile->extension;
+                $model->imageFile->saveAs('uploads/images/' . $imageName);
+                $model->image=$imageName;
+                Image::getImagine()->open('uploads/images/'.$imageName)->thumbnail(new Box(500, 500))->save(Yii::getAlias('@webroot').'/uploads/images/'.$imageName);
+                Image::getImagine()->open('uploads/images/'.$imageName)->thumbnail(new Box(120, 120))->save(Yii::getAlias('@webroot').'/uploads/images/s_'.$imageName);
+
+            }
+
+            $model->save(false);
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
@@ -91,7 +114,7 @@ class NursingController extends Controller
     }
 
     /**
-     * Deletes an existing NursingSchools model.
+     * Deletes an existing Party model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -104,15 +127,15 @@ class NursingController extends Controller
     }
 
     /**
-     * Finds the NursingSchools model based on its primary key value.
+     * Finds the Party model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return NursingSchools the loaded model
+     * @return Party the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = NursingSchools::findOne($id)) !== null) {
+        if (($model = Party::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

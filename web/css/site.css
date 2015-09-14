@@ -97,3 +97,7 @@ a.desc:after {
 }
 a.nodecor{text-decoration: none;}
 .print{}
+option{padding: 3px 6px;}
+.dropdown:hover .dropdown-menu {
+    display: block;
+}

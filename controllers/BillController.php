@@ -3,19 +3,17 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\News;
-use app\models\NewsSearch;
+use app\models\Bill;
+use app\models\BillSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use vova07\imperavi\actions\GetAction;
-use yii\web\UploadedFile;
-use yii\imagine\Image;
-use Imagine\Image\Box;
+
 /**
- * NewsController implements the CRUD actions for News model.
+ * BillController implements the CRUD actions for Bill model.
  */
-class NewsController extends Controller
+class BillController extends Controller
 {
     public function behaviors()
     {
@@ -32,18 +30,6 @@ class NewsController extends Controller
     public function actions()
     {
         return [
-            'image-upload' => [
-                'class' => 'vova07\imperavi\actions\UploadAction',
-                'url' => Yii::getAlias('@web').'/uploads/images/', // Directory URL address, where files are stored.
-                'path' => '@webroot/uploads/images', // Or absolute path to directory where files are stored.
-                //'validatorOptions' => ['maxSize' => 40000],    //макс. размер файла
-            ],
-            'images-get' => [
-                'class' => 'vova07\imperavi\actions\GetAction',
-                'url' => Yii::getAlias('@web').'/uploads/images/', // Directory URL address, where files are stored.
-                'path' => '@webroot/uploads/images', // Or absolute path to directory where files are stored.
-                'type' => GetAction::TYPE_IMAGES,
-            ],
             'file-upload' => [
                 'class' => 'vova07\imperavi\actions\UploadAction',
                 'url' => Yii::getAlias('@web').'/uploads/files/', // Directory URL address, where files are stored.
@@ -60,12 +46,12 @@ class NewsController extends Controller
     }
 
     /**
-     * Lists all News models.
+     * Lists all Bill models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new NewsSearch();
+        $searchModel = new BillSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -75,7 +61,7 @@ class NewsController extends Controller
     }
 
     /**
-     * Displays a single News model.
+     * Displays a single Bill model.
      * @param integer $id
      * @return mixed
      */
@@ -87,26 +73,15 @@ class NewsController extends Controller
     }
 
     /**
-     * Creates a new News model.
+     * Creates a new Bill model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new News();
+        $model = new Bill();
 
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
-            if($model->imageFile){
-                $imageName=time(). '.' . $model->imageFile->extension;
-                $model->imageFile->saveAs('uploads/images/' . $imageName);
-                $model->image=$imageName;
-
-                Image::getImagine()->open('uploads/images/'.$imageName)->thumbnail(new Box(1000, 1000))->save(Yii::getAlias('@webroot').'/uploads/images/'.$imageName);
-                Image::thumbnail('@webroot/uploads/images/' . $imageName, 110, 100)
-                    ->save(Yii::getAlias('@webroot/uploads/images/s_' . $imageName), ['quality' => 90]);
-            }
-            $model->save(false);
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
@@ -116,7 +91,7 @@ class NewsController extends Controller
     }
 
     /**
-     * Updates an existing News model.
+     * Updates an existing Bill model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -125,18 +100,7 @@ class NewsController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
-            if($model->imageFile){
-                $imageName=time(). '.' . $model->imageFile->extension;
-                $model->imageFile->saveAs('uploads/images/' . $imageName);
-                $model->image=$imageName;
-                Image::getImagine()->open('uploads/images/'.$imageName)->thumbnail(new Box(1000, 1000))->save(Yii::getAlias('@webroot').'/uploads/images/'.$imageName);
-                Image::thumbnail('@webroot/uploads/images/' . $imageName, 110, 100)
-                    ->save(Yii::getAlias('@webroot/uploads/images/s_' . $imageName), ['quality' => 90]);
-            }
-
-            $model->save(false);
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
@@ -146,7 +110,7 @@ class NewsController extends Controller
     }
 
     /**
-     * Deletes an existing News model.
+     * Deletes an existing Bill model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -159,15 +123,15 @@ class NewsController extends Controller
     }
 
     /**
-     * Finds the News model based on its primary key value.
+     * Finds the Bill model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return News the loaded model
+     * @return Bill the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = News::findOne($id)) !== null) {
+        if (($model = Bill::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

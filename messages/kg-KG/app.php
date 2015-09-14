@@ -1,0 +1,22 @@
+﻿<?php
+return [
+    'Home' => 'Башкы бет',
+    'About' => 'Маалымат',
+    'Legislation' => 'Мыйзамдар',
+    'Documents' => 'Документтер',
+    'News' => 'Жаңылыктар',
+    'Decrees' => 'Токтомдор',
+    'Bills' => 'Долбоорлор',
+    'Structure' => 'Структурасы',
+    'Presidium' => 'Президиум',
+    'Deputy Commission' => 'Депутаттык комиссия',
+    'Deputies' => 'Курамы',
+    'Apparatus' => 'Аппарат',
+    'Activity' => 'Ишмердүүлүк',
+    'Gallery' => 'Галерея',
+    'Contacts' => 'Контактар',
+    'Vacancy' => 'Вакансиялар',
+    'Sign in' => 'Кирүү',
+    'Logout' => 'Чыгуу',
+    '' => '',
+];
