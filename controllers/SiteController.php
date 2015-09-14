@@ -294,4 +294,20 @@ class SiteController extends Controller
             'model' => $model,
         ]);
     }
+
+    public function actionTnews(){
+        $db=Yii::$app->db;
+        $contents=$db->createCommand("SELECT * FROM content WHERE category_id='1'")->queryAll();
+        foreach($contents as $c){
+            if(!$c['image']) $image=''; else $image=$c['image'];
+            $db->createCommand()->insert('news', [
+                'title' => $c['title'],
+                'date' => $c['date'],
+                'image' => $image,
+                'content' => $c['content'],
+                'description' => $c['description'],
+
+            ])->execute();
+        }
+    }
 }

@@ -12,6 +12,7 @@ use vova07\imperavi\actions\GetAction;
 use yii\web\UploadedFile;
 use yii\imagine\Image;
 use Imagine\Image\Box;
+use yii\data\ActiveDataProvider;
 /**
  * NewsController implements the CRUD actions for News model.
  */
@@ -64,6 +65,19 @@ class NewsController extends Controller
      * @return mixed
      */
     public function actionIndex()
+    {
+        $dataProvider = new ActiveDataProvider([
+            'query' => News::find()->orderBy('date DESC'),
+            'pagination' => [
+                'pageSize' => 10,
+            ],
+        ]);
+
+        return $this->render('index', [
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+    public function actionAdmin()
     {
         $searchModel = new NewsSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
