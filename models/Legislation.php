@@ -32,7 +32,7 @@ class Legislation extends \yii\db\ActiveRecord
         return [
             [['date'], 'safe'],
             [['title'], 'required'],
-            [['content'], 'string'],
+            [['content','word','pdf'], 'string'],
             [['ru', 'views'], 'integer'],
             [['title'], 'string', 'max' => 500]
         ];

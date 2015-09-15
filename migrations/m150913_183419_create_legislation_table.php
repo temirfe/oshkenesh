@@ -19,6 +19,8 @@ class m150913_183419_create_legislation_table extends Migration
             'content' => $this->text(),
             'ru' => $this->smallInteger()->notNull()->defaultValue(0),
             'views' => $this->integer()->notNull()->defaultValue(0),
+            'word' => $this->string()->notNull(),
+            'pdf' => $this->string()->notNull(),
         ], $tableOptions);
 
         $this->createIndex('idx_legislation_title', 'news', 'title');

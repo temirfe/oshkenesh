@@ -1,5 +1,7 @@
 ﻿<?php
 return [
+    'oun'=>'ң ө ү Ү Ө Ң',
+    'Osh city Kenesh' => 'Ош шаардык Кеңеши',
     'Home' => 'Башкы бет',
     'About' => 'Маалымат',
     'Legislation' => 'Мыйзамдар',
@@ -14,9 +16,13 @@ return [
     'Apparatus' => 'Аппарат',
     'Activity' => 'Ишмердүүлүк',
     'Gallery' => 'Галерея',
+    'Contact' => 'Байланыш',
     'Contacts' => 'Контактар',
     'Vacancy' => 'Вакансиялар',
     'Sign in' => 'Кирүү',
     'Logout' => 'Чыгуу',
+    'Chairman' => 'Шаардык кеңештин төрагасы',
+    'Are you sure you want to delete this item?' => 'Өчүрүлгөндөн кийин кайра калыбына келбейт, макулсузбу?',
+    'Add new' => 'Кошуу',
     '' => '',
 ];

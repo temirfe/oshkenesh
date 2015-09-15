@@ -36,11 +36,17 @@ AppAsset::register($this);
     <div class="wrap">
         <?php
         NavBar::begin([
+            'brandLabel' => '<div class="logo logo1"></div>',
             'brandUrl' => Yii::$app->homeUrl,
             'options' => [
-                'class' => 'navbar',
+                'class' => 'navbar-inverse navbar-fixed-top',
             ],
         ]);
+        if ($yiiuser->isGuest) {
+            $addItems=['label' => Yii::t('app', 'Sign in'), 'url' => ['/site/login']];
+        } else {
+            $addItems=['label' => Yii::t('app', 'Logout'), 'url' => ['/site/logout'], 'linkOptions' => ['data-method' => 'post']];
+        }
         $navItems=[
             ['label' => Yii::t('app', 'News'), 'url' => ['/news/index']],
             [
@@ -62,29 +68,27 @@ AppAsset::register($this);
             ['label' => Yii::t('app', 'Apparatus'), 'url' => ['/page/3']],
             ['label' => Yii::t('app', 'Activity'), 'url' => ['#']],
             ['label' => Yii::t('app', 'Gallery'), 'url' => ['#']],
-            ['label' => Yii::t('app', 'Vacancy'), 'url' => ['/page/4']],
-            ['label' => Yii::t('app', 'Contacts'), 'url' => ['/page/5']],
+            [
+                'label' => Yii::t('app', 'Contact'),
+                'items' => [
+                    ['label' => Yii::t('app', 'Contacts'), 'url' => ['/page/5']],
+                    ['label' => Yii::t('app', 'Vacancy'), 'url' => ['/page/4']],
+                    $addItems
+
+                ],
+            ],
         ];
-        if ($yiiuser->isGuest) {
-            array_push($navItems,['label' => Yii::t('app', 'Sing in'), 'url' => ['/site/login']],['label' => 'Sign Up', 'url' => ['/site/signup']]);
-        } else {
-            array_push($navItems,['label' => Yii::t('app', 'Logout'), 'url' => ['/site/logout'], 'linkOptions' => ['data-method' => 'post']]);
-        }
+
         echo Nav::widget([
             'options' => ['class' => 'navbar-nav'],
             'items' => $navItems,
         ]);
         NavBar::end();
         ?>
-
-        <?php
-
-        ?>
-
         <div class="container">
-            <?= Breadcrumbs::widget([
-                'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-            ]) ?>
+            <div class="mycontainer">
+
+            </div>
             <?= Alert::widget() ?>
             <?= $content ?>
         </div>

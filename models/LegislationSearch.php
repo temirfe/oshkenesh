@@ -19,7 +19,7 @@ class LegislationSearch extends Legislation
     {
         return [
             [['id', 'ru', 'views'], 'integer'],
-            [['date', 'title', 'content'], 'safe'],
+            [['date', 'title', 'content','word','pdf'], 'safe'],
         ];
     }
 

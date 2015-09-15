@@ -3,6 +3,15 @@ body {
     height: 100%;
 }
 
+.rel{position:relative;}
+.abs{position:absolute;}
+h1, .h1 {
+    font-size: 25px;
+}
+h2, .h2 {
+    font-size: 18px;
+}
+
 .wrap {
     min-height: 100%;
     height: auto;
@@ -13,6 +22,8 @@ body {
 .wrap > .container {
     padding: 70px 15px 20px;
 }
+
+
 
 .footer {
     height: 60px;
@@ -111,3 +122,63 @@ h2.title{font-size:20px;margin-top: 0;}
     text-decoration: none;}
 div.item{clear:both; display: inline-block;margin-top: 15px;}
 article.item{}
+.logowrap{display: inline-block;}
+.logo{background-image: url("img/logo.svg");
+    background-repeat: no-repeat;}
+.logo1{
+    background-position: 0 -39px;
+    background-size: 144px auto;
+    height: 42px;
+    width: 42px;
+}
+.logo2{
+    background-position: 0 0;
+    background-size: 400px auto;
+    height: 133px;
+    width: 127px;
+}
+.logotext1{}
+.logotext2{
+    color: #787878;
+    display: inline-block;
+    font-family: "Roboto Condensed",sans-serif;
+    font-size: 26px;
+    margin-top: 29px;
+}
+.navbar-brand {
+    padding: 4px 0 4px 15px;
+}
+.toraga_image{border: 1px solid #ccc;
+    display: inline-block;
+    padding: 2px;}
+.toraga_image img{max-height: 160px;
+    max-width: 120px;}
+.toraga{float: right;
+    text-align: center;}
+.toraga_name span {
+    color: #777;
+    display: block;
+    font-size: 12px;
+    padding: 5px 0 2px;
+}
+/*--------customize bootstrap start-------------------*/
+.navbar-inverse .navbar-nav > li > a {
+    transition: color 400ms cubic-bezier(0.23, 1, 0.32, 1) 0s;
+}
+.navbar-header {
+    margin-left: -42px !important;
+}
+
+/*--------customize bootstrap end-------------------*/
+
+p.MsoNormal, li.MsoNormal, div.MsoNormal {
+    margin: 0 0 6pt;
+    text-align: justify;
+}
+p.MsoSignature, li.MsoSignature, div.MsoSignature {
+    font-weight: bold;
+    margin: 0 0 0.0001pt;
+}
+.legislation-view h2{
+    text-align: center;
+}
