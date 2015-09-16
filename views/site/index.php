@@ -177,7 +177,40 @@ $bills= $db->cache(function ($db) {
         </div>
     </div>
 
-
+    <div class="deputies-slider">
+        <!-- Slider main container -->
+        <div class="swiper-container">
+            <!-- Additional required wrapper -->
+            <div class="swiper-wrapper">
+                <!-- Slides -->
+                <?php
+                foreach ($result as $deputy) {
+                    if($deputy['listorder']!=1) {
+                        ?>
+                        <div class="swiper-slide">
+                            <div class="toraga_image">
+                                <?php
+                                $img=Html::img("@web/uploads/images/".$deputy['image'], ['alt'=>'']);
+                                echo Html::a($img,Url::toRoute(['deputy/view','id'=>$deputy['id']]));
+                                ?>
+                            </div>
+                            <div class="deputy-name">
+                                <?php
+                                echo Html::a($deputy['fullname'],Url::toRoute(['deputy/view','id'=>$deputy['id']]));
+                                ?>
+                            </div>
+                        </div>
+                    <?php
+                    }
+                }
+                ?>
+            </div>
+            <!-- If we need pagination -->
+            <!--<div class="swiper-pagination"></div>-->
+            <!-- If we need scrollbar -->
+            <div class="swiper-scrollbar"></div>
+        </div>
+    </div>
 
 
 </div>
