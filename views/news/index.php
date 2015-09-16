@@ -12,11 +12,11 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="deputy-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <div class="pull-right">
+        <?= Html::a('<span class="glyphicon glyphicon-plus" aria-hidden="true" title="'.Yii::t('app', 'Add new').'"></span>', ['create'], ['class' => 'btn btn-success btn-sm']) ?>
+    </div>
 
-    <p>
-        <?= Html::a(Yii::t('app', 'Create News'), ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+    <h1><?= Html::encode($this->title) ?></h1>
 
     <?= ListView::widget([
         'dataProvider' => $dataProvider,

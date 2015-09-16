@@ -4,13 +4,13 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\News */
+/* @var $model app\models\Announce */
 
 $this->title = $model->title;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'News'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Announces'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<article class="news_view">
+<div class="announce-view">
     <div class="pull-right">
         <div class="btn-group" role="group" aria-label="admin-actions">
             <?= Html::a('<span class="glyphicon glyphicon-plus" aria-hidden="true" title="'.Yii::t('app', 'Add new').'"></span>', ['create'], ['class' => 'btn btn-success btn-sm']) ?>
@@ -27,19 +27,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-
-    <div>
-        <?=$model->description;?>
-    </div>
-
     <div>
         <?=date("d.m.Y",strtotime($model->date));?>
     </div>
     <div>
-        <?=Html::img("@web/uploads/images/".$model->image, ['class'=>'news_image', 'alt'=>''])?>
-    </div>
-    <div>
         <?=$model->content;?>
     </div>
-</article>
-<a href="javascript:window.print()" class="print print_hide nodecor"><span class="glyphicon glyphicon-print"></span> <?=Yii::t('app', 'Print')?></a>
+
+</div>

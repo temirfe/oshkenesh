@@ -25,6 +25,24 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
     <h1><?= Html::encode($this->title) ?></h1>
-    <div class=""><?=$model->content;?></div>
+    <div class="pull-left">
+        <?php
+
+        if($model->word){
+            if($model->word_size > 1024) $word_size=round($model->word_size/1024,2)." MB"; else $word_size=$model->word_size." KB";
+            echo '<span class="glyphicon glyphicon-file blue"></span> '.Html::a(Yii::t('app', 'Document in MS Word')." (".$word_size.")",
+                    "@web/uploads/files/".$model->word, ['class' => '']);
+        } ?>
+    </div>
+    <div class="pull-left">
+        <?php if($model->pdf) {
+            if($model->pdf_size > 1024) $pdf_size=round($model->pdf_size/1024,2)." MB"; else $pdf_size=$model->pdf_size." KB";
+            echo '<span class="glyphicon glyphicon-file blue"></span> '.Html::a(Yii::t('app', 'Document in PDF')."
+        (".$pdf_size.")", "@web/uploads/files/".$model->pdf, ['class' => '']);
+        } ?>
+    </div>
+    <div class="pull-right"><a href="javascript:window.print()" class="print print_hide nodecor"><span class="glyphicon glyphicon-print"></span> <?=Yii::t('app', 'Print')?></a></div>
+
+    <div class="mt50 iblock"><?=$model->content;?></div>
 
 </div>

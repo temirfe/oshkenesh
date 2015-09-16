@@ -9,6 +9,8 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use vova07\imperavi\actions\GetAction;
+use yii\web\UploadedFile;
+use yii\data\ActiveDataProvider;
 
 /**
  * DecreeController implements the CRUD actions for Decree model.
@@ -50,10 +52,24 @@ class DecreeController extends Controller
      */
     public function actionIndex()
     {
+        $dataProvider = new ActiveDataProvider([
+            'query' => Decree::find()->orderBy('id DESC'),
+            'pagination' => [
+                'pageSize' => 20,
+            ],
+        ]);
+
+        return $this->render('index', [
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionAdmin()
+    {
         $searchModel = new DecreeSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        return $this->render('index', [
+        return $this->render('admin', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
@@ -80,7 +96,22 @@ class DecreeController extends Controller
     {
         $model = new Decree();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            $model->wordFile = UploadedFile::getInstance($model, 'wordFile');
+            $model->pdfFile = UploadedFile::getInstance($model, 'pdfFile');
+            if($model->wordFile){
+                $fileName=time(). '.' . $model->wordFile->extension;
+                $model->wordFile->saveAs('uploads/files/' . $fileName);
+                $model->word=$fileName;
+                $model->word_size=round($model->wordFile->size/1024,1); //kb
+            }
+            if($model->pdfFile){
+                $fileName=time(). '.' . $model->pdfFile->extension;
+                $model->pdfFile->saveAs('uploads/files/' . $fileName);
+                $model->pdf=$fileName;
+                $model->pdf_size=round($model->pdfFile->size/1024,1); //kb
+            }
+            $model->save(false);
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
@@ -99,7 +130,26 @@ class DecreeController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            $model->wordFile = UploadedFile::getInstance($model, 'wordFile');
+            $model->pdfFile = UploadedFile::getInstance($model, 'pdfFile');
+            if($model->wordFile){
+                $old ='uploads/files/'.$model->word;
+                @unlink($old);
+                $fileName=time(). '.' . $model->wordFile->extension;
+                $model->wordFile->saveAs('uploads/files/' . $fileName);
+                $model->word=$fileName;
+                $model->word_size=round($model->wordFile->size/1024,1); //kb
+            }
+            if($model->pdfFile){
+                $old ='uploads/files/'.$model->pdf;
+                @unlink($old);
+                $fileName=time(). '.' . $model->pdfFile->extension;
+                $model->pdfFile->saveAs('uploads/files/' . $fileName);
+                $model->pdf=$fileName;
+                $model->pdf_size=round($model->pdfFile->size/1024,1); //kb
+            }
+            $model->save(false);
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [

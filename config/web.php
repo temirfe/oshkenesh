@@ -69,6 +69,7 @@ $config = [
                     'baseUrl' => '@web',
                     'css' => ['css/bootstrap.min.css']
                 ],
+                'appendTimestamp' => true,
             ],
         ],
     ],

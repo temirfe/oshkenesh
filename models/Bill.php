@@ -21,6 +21,8 @@ use Yii;
  */
 class Bill extends \yii\db\ActiveRecord
 {
+    public $wordFile;
+    public $pdfFile;
     /**
      * @inheritdoc
      */
@@ -37,12 +39,14 @@ class Bill extends \yii\db\ActiveRecord
         return [
             [['date'], 'safe'],
             [['title'], 'required'],
-            [['content'], 'string'],
+            [['content','word','pdf','word_size','pdf_size'], 'string'],
             [['ru', 'views'], 'integer'],
             [['title'], 'string', 'max' => 500],
             [['description'], 'string', 'max' => 1000],
             [['number'], 'string', 'max' => 20],
-            [['author', 'word', 'pdf'], 'string', 'max' => 255]
+            [['author', 'word', 'pdf'], 'string', 'max' => 255],
+            [['wordFile'], 'file', 'extensions' => 'doc,docx,rtf'],
+            [['pdfFile'], 'file', 'extensions' => 'pdf']
         ];
     }
 
@@ -63,6 +67,8 @@ class Bill extends \yii\db\ActiveRecord
             'author' => Yii::t('app', 'Author'),
             'word' => Yii::t('app', 'Word'),
             'pdf' => Yii::t('app', 'Pdf'),
+            'wordFile' => Yii::t('app', 'Word File'),
+            'pdfFile' => Yii::t('app', 'PDF File'),
         ];
     }
 }

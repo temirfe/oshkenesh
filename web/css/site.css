@@ -11,7 +11,9 @@ h1, .h1 {
 h2, .h2 {
     font-size: 18px;
 }
-
+.blue{color:#0066b3;}
+.mt50{margin-top: 50px;}
+.iblock{display: inline-block;}
 .wrap {
     min-height: 100%;
     height: auto;
@@ -20,7 +22,7 @@ h2, .h2 {
 }
 
 .wrap > .container {
-    padding: 70px 15px 20px;
+    padding: 50px 15px 20px;
 }
 
 
@@ -134,7 +136,7 @@ article.item{}
 .logo2{
     background-position: 0 0;
     background-size: 400px auto;
-    height: 133px;
+    height: 130px;
     width: 127px;
 }
 .logotext1{}
@@ -148,13 +150,20 @@ article.item{}
 .navbar-brand {
     padding: 4px 0 4px 15px;
 }
+.toraga{
+    background-color: #f9f9f9;
+    padding: 20px 5px;
+    text-align: center;
+    border-top: 1px solid #eaeaea;
+    border-bottom: 1px solid #eaeaea;
+}
 .toraga_image{border: 1px solid #ccc;
     display: inline-block;
     padding: 2px;}
+
+.toraga_image a{}
 .toraga_image img{max-height: 160px;
     max-width: 120px;}
-.toraga{float: right;
-    text-align: center;}
 .toraga_name span {
     color: #777;
     display: block;
@@ -182,3 +191,59 @@ p.MsoSignature, li.MsoSignature, div.MsoSignature {
 .legislation-view h2{
     text-align: center;
 }
+.field140{width:140px;}
+.decree-view table, .bill-view table{width:100%;}
+
+.deputies-slider{clear: both;}
+.deputy-name{text-align: center;}
+.deputy-name a{display: block;}
+.swiper-slide{text-align: center;}
+.mains_news img{max-width: 480px;}
+.mains_news_title{margin: 10px 0;}
+.mains_news_title a{
+    font-family: "Roboto Condensed",sans-serif;
+    line-height: 38px;
+    color: #000000;
+    font-size: 30px;
+    padding-top: 8px;
+}
+.entry_news_date{color: #858e9b;
+    font-size: 14px;
+    margin-bottom: 3px;}
+
+.mains_news_date{
+    padding-top: 22px;}
+
+.other_news{margin: 20px 0;border-bottom: 1px solid #ededed;padding-bottom: 20px;}
+.other_news:last-child{border-bottom: none;}
+.other_news:first-child{margin-top: -4px;}
+.other_news_title{}
+.other_news_title a{
+    color: #333;
+    font-size: 16px;
+}
+.toraga_name a{
+    font-size: 16px;}
+.announce{padding: 18px 24px 25px; border:1px solid #dddde2; margin-top: 25px;}
+.announce h3{margin: 0;}
+.announce_title{ margin: 15px 0;}
+.announce_title a{ color: black;
+    font-size: 15px !important;
+    margin-bottom: 15px;}
+.main_laws{ border-bottom: 1px solid #eaeaea;
+    border-top: 1px solid #eaeaea;
+    margin: 60px 0;
+    padding-bottom: 15px;
+    background-color: #f9f9f9;}
+h3.dots{ color: #333;
+    font-family: "roboto condensed",sans-serif;
+    font-size: 20px;
+    margin-bottom: 15px;}
+h3.dots:after{background-color: #ffcb05;
+    border-radius: 4px;
+    content: "";
+    display: inline-block;
+    height: 8px;
+    margin: 0 0 2px 6px;
+    width: 8px;}
+.law_title{margin-bottom: 15px;}

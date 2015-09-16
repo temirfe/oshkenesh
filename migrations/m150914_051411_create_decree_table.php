@@ -21,9 +21,11 @@ class m150914_051411_create_decree_table extends Migration
             'ru' => $this->smallInteger()->notNull()->defaultValue(0),
             'views' => $this->integer()->notNull()->defaultValue(0),
             'number' => $this->string(20)->notNull(),
-            'session' => $this->string()->notNull(),
+            'session' => $this->string(500)->notNull(),
             'word' => $this->string()->notNull(),
             'pdf' => $this->string()->notNull(),
+            'word_size' => $this->string(20)->notNull(),
+            'pdf_size' => $this->string(20)->notNull(),
         ], $tableOptions);
 
         $this->createIndex('idx_decree_title', 'decree', 'title');

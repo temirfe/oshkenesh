@@ -3,19 +3,18 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\Legislation;
-use app\models\LegislationSearch;
+use app\models\Announce;
+use app\models\AnnounceSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use vova07\imperavi\actions\GetAction;
-use yii\web\UploadedFile;
 use yii\data\ActiveDataProvider;
 
 /**
- * LegislationController implements the CRUD actions for Legislation model.
+ * AnnounceController implements the CRUD actions for Announce model.
  */
-class LegislationController extends Controller
+class AnnounceController extends Controller
 {
     public function behaviors()
     {
@@ -32,6 +31,18 @@ class LegislationController extends Controller
     public function actions()
     {
         return [
+            'image-upload' => [
+                'class' => 'vova07\imperavi\actions\UploadAction',
+                'url' => Yii::getAlias('@web').'/uploads/images/', // Directory URL address, where files are stored.
+                'path' => '@webroot/uploads/images', // Or absolute path to directory where files are stored.
+                //'validatorOptions' => ['maxSize' => 40000],    //макс. размер файла
+            ],
+            'images-get' => [
+                'class' => 'vova07\imperavi\actions\GetAction',
+                'url' => Yii::getAlias('@web').'/uploads/images/', // Directory URL address, where files are stored.
+                'path' => '@webroot/uploads/images', // Or absolute path to directory where files are stored.
+                'type' => GetAction::TYPE_IMAGES,
+            ],
             'file-upload' => [
                 'class' => 'vova07\imperavi\actions\UploadAction',
                 'url' => Yii::getAlias('@web').'/uploads/files/', // Directory URL address, where files are stored.
@@ -48,14 +59,13 @@ class LegislationController extends Controller
     }
 
     /**
-     * Lists all Legislation models.
+     * Lists all Announce models.
      * @return mixed
      */
-
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => Legislation::find(),
+            'query' => Announce::find()->orderBy('id DESC'),
             'pagination' => [
                 'pageSize' => 20,
             ],
@@ -65,10 +75,9 @@ class LegislationController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
-
     public function actionAdmin()
     {
-        $searchModel = new LegislationSearch();
+        $searchModel = new AnnounceSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('admin', [
@@ -78,7 +87,7 @@ class LegislationController extends Controller
     }
 
     /**
-     * Displays a single Legislation model.
+     * Displays a single Announce model.
      * @param integer $id
      * @return mixed
      */
@@ -90,30 +99,15 @@ class LegislationController extends Controller
     }
 
     /**
-     * Creates a new Legislation model.
+     * Creates a new Announce model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Legislation();
+        $model = new Announce();
 
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            $model->wordFile = UploadedFile::getInstance($model, 'wordFile');
-            $model->pdfFile = UploadedFile::getInstance($model, 'pdfFile');
-            if($model->wordFile){
-                $fileName=time(). '.' . $model->wordFile->extension;
-                $model->wordFile->saveAs('uploads/files/' . $fileName);
-                $model->word=$fileName;
-                $model->word_size=round($model->wordFile->size/1024,1); //kb
-            }
-            if($model->pdfFile){
-                $fileName=time(). '.' . $model->pdfFile->extension;
-                $model->pdfFile->saveAs('uploads/files/' . $fileName);
-                $model->pdf=$fileName;
-                $model->pdf_size=round($model->pdfFile->size/1024,1); //kb
-            }
-            $model->save(false);
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
@@ -123,7 +117,7 @@ class LegislationController extends Controller
     }
 
     /**
-     * Updates an existing Legislation model.
+     * Updates an existing Announce model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -132,26 +126,7 @@ class LegislationController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            $model->wordFile = UploadedFile::getInstance($model, 'wordFile');
-            $model->pdfFile = UploadedFile::getInstance($model, 'pdfFile');
-            if($model->wordFile){
-                $old ='uploads/files/'.$model->word;
-                @unlink($old);
-                $fileName=time(). '.' . $model->wordFile->extension;
-                $model->wordFile->saveAs('uploads/files/' . $fileName);
-                $model->word=$fileName;
-                $model->word_size=round($model->wordFile->size/1024,1); //kb
-            }
-            if($model->pdfFile){
-                $old ='uploads/files/'.$model->pdf;
-                @unlink($old);
-                $fileName=time(). '.' . $model->pdfFile->extension;
-                $model->pdfFile->saveAs('uploads/files/' . $fileName);
-                $model->pdf=$fileName;
-                $model->pdf_size=round($model->pdfFile->size/1024,1); //kb
-            }
-            $model->save(false);
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
@@ -161,7 +136,7 @@ class LegislationController extends Controller
     }
 
     /**
-     * Deletes an existing Legislation model.
+     * Deletes an existing Announce model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -174,15 +149,15 @@ class LegislationController extends Controller
     }
 
     /**
-     * Finds the Legislation model based on its primary key value.
+     * Finds the Announce model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Legislation the loaded model
+     * @return Announce the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Legislation::findOne($id)) !== null) {
+        if (($model = Announce::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

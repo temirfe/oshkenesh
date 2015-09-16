@@ -21,6 +21,8 @@ use Yii;
  */
 class Decree extends \yii\db\ActiveRecord
 {
+    public $wordFile;
+    public $pdfFile;
     /**
      * @inheritdoc
      */
@@ -37,12 +39,14 @@ class Decree extends \yii\db\ActiveRecord
         return [
             [['date'], 'safe'],
             [['title'], 'required'],
-            [['content'], 'string'],
+            [['content','word','pdf','word_size','pdf_size'], 'string'],
             [['ru', 'views'], 'integer'],
             [['title'], 'string', 'max' => 500],
             [['description'], 'string', 'max' => 1000],
             [['number'], 'string', 'max' => 20],
-            [['session', 'word', 'pdf'], 'string', 'max' => 255]
+            [['session', 'word', 'pdf'], 'string', 'max' => 255],
+            [['wordFile'], 'file', 'extensions' => 'doc,docx,rtf'],
+            [['pdfFile'], 'file', 'extensions' => 'pdf']
         ];
     }
 
@@ -53,16 +57,18 @@ class Decree extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'date' => Yii::t('app', 'Date'),
+            'date' => Yii::t('app', 'Date of adoption'),
             'title' => Yii::t('app', 'Title'),
             'description' => Yii::t('app', 'Description'),
             'content' => Yii::t('app', 'Content'),
             'ru' => Yii::t('app', 'Ru'),
             'views' => Yii::t('app', 'Views'),
-            'number' => Yii::t('app', 'Number'),
-            'session' => Yii::t('app', 'Session'),
+            'number' => Yii::t('app', 'Decree number'),
+            'session' => Yii::t('app', 'Session name'),
             'word' => Yii::t('app', 'Word'),
             'pdf' => Yii::t('app', 'Pdf'),
+            'wordFile' => Yii::t('app', 'Word File'),
+            'pdfFile' => Yii::t('app', 'PDF File'),
         ];
     }
 }

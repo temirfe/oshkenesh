@@ -148,43 +148,6 @@ class SiteController extends Controller
         }
     }
 
-    public function actionExcel(){
-        $file='uploads/Undergrad.xlsx';
-        //$objPHPExcel = new \PHPExcel();
-
-        //$file=mb_convert_encoding($file, 'Windows-1251', 'UTF-8');
-        $inputFileType = \PHPExcel_IOFactory::identify($file);
-        $objReader = \PHPExcel_IOFactory::createReader($inputFileType);
-        $objPHPExcel=$objReader->load($file);
-
-        $objWorksheet = $objPHPExcel->getActiveSheet();
-
-        $highestRow = $objWorksheet->getHighestRow(); // e.g. 10
-        $highestColumn = $objWorksheet->getHighestColumn(); // e.g 'F'
-        $columnIndex=\PHPExcel_Cell::stringFromColumnIndex($highestColumn);
-        $highestColumnIndex = \PHPExcel_Cell::columnIndexFromString($highestColumn); // e.g. 5
-
-
-
-        for ($row = 1; $row <= $highestRow; ++$row) {
-            $title=''; $price='';
-            for ($col = 0; $col <= $highestColumnIndex; ++$col) {
-                $curval=$objWorksheet->getCellByColumnAndRow($col, $row)->getValue();
-                if($col==2) echo "-->".$curval."<--";
-                if (isset($tcolumn) && isset($prcolumn)) {
-                    if($col==$tcolumn && $curval) $title=$curval;
-                    elseif($col==$prcolumn && $curval) $price=$curval;
-                }
-            }
-            echo "<br />";
-
-            if($title && $price)
-            {
-                echo 'title: '.$title." price:".$price."</br>";
-            }
-        }
-    }
-
     public function actionLogin()
     {
         if (!\Yii::$app->user->isGuest) {

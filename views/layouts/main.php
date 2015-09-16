@@ -19,6 +19,7 @@ AppAsset::register($this);
         <meta charset="<?= Yii::$app->charset ?>">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <?= Html::csrfMetaTags() ?>
+        <link rel="shortcut icon" href="<?=Yii::getAlias('@web');?>/favicon.ico?v=2" type="image/x-icon" />
         <title><?= Html::encode($this->title) ?></title>
         <?php $this->head() ?>
     </head>
@@ -36,7 +37,7 @@ AppAsset::register($this);
     <div class="wrap">
         <?php
         NavBar::begin([
-            'brandLabel' => '<div class="logo logo1"></div>',
+            'brandLabel' => '<div class="logo logo1 js_logo1"></div>',
             'brandUrl' => Yii::$app->homeUrl,
             'options' => [
                 'class' => 'navbar-inverse navbar-fixed-top',

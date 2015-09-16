@@ -5,7 +5,7 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for table "legislation".
+ * This is the model class for table "announce".
  *
  * @property integer $id
  * @property string $date
@@ -13,19 +13,15 @@ use Yii;
  * @property string $content
  * @property integer $ru
  * @property integer $views
- * @property string $word
- * @property string $pdf
  */
-class Legislation extends \yii\db\ActiveRecord
+class Announce extends \yii\db\ActiveRecord
 {
-    public $wordFile;
-    public $pdfFile;
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'legislation';
+        return 'announce';
     }
 
     /**
@@ -36,11 +32,9 @@ class Legislation extends \yii\db\ActiveRecord
         return [
             [['date'], 'safe'],
             [['title'], 'required'],
-            [['content','word','pdf','word_size','pdf_size'], 'string'],
+            [['content'], 'string'],
             [['ru', 'views'], 'integer'],
-            [['title'], 'string', 'max' => 500],
-            [['wordFile'], 'file', 'extensions' => 'doc,docx,rtf'],
-            [['pdfFile'], 'file', 'extensions' => 'pdf']
+            [['title'], 'string', 'max' => 500]
         ];
     }
 
@@ -51,13 +45,11 @@ class Legislation extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'date' => Yii::t('app', 'Date of adoption'),
-            'title' => Yii::t('app', 'Legislation title'),
+            'date' => Yii::t('app', 'Date'),
+            'title' => Yii::t('app', 'Title'),
             'content' => Yii::t('app', 'Content'),
             'ru' => Yii::t('app', 'Ru'),
             'views' => Yii::t('app', 'Views'),
-            'wordFile' => Yii::t('app', 'Word File'),
-            'pdfFile' => Yii::t('app', 'PDF File'),
         ];
     }
 }
