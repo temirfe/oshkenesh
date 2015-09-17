@@ -4,9 +4,10 @@ $params = require(__DIR__ . '/params.php');
 
 $config = [
     'id' => 'basic',
+    'name'=>'Ош шаардык Кеңеши',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
-    'language' => 'kg-KG',
+    'language' => 'ky',
     // set source language to be English
     'sourceLanguage' => 'en-US',
     'components' => [
@@ -30,9 +31,9 @@ $config = [
             'useFileTransport' => false,
             'transport' => [
                 'class' => 'Swift_SmtpTransport',
-                'host' => 'smtp.gmail.com',
-                'username' => 'prosoftmailer@gmail.com',
-                'password' => 'temirbek',
+                'host' => 'smtp.yandex.ru',
+                'username' => 'oshkenesh@yandex.ru',
+                'password' => 'oshkenesh85qw',
                 'port' => '465',
                 'encryption' => 'ssl',
             ],
@@ -70,6 +71,20 @@ $config = [
                     'css' => ['css/bootstrap.min.css']
                 ],
                 'appendTimestamp' => true,
+            ],
+        ],
+
+        'i18n' => [
+            'translations' => [
+                'app*' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    //'basePath' => '@app/messages',
+                    //'sourceLanguage' => 'en-US',
+                    'fileMap' => [
+                        'app' => 'app.php',
+                        'app/error' => 'error.php',
+                    ],
+                ],
             ],
         ],
     ],
