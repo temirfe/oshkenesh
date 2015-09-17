@@ -47,7 +47,7 @@ return [
     'All legislation' => 'Баардык мыйзамдар',
     'All decrees' => 'Баардык токтомдор',
     'All bills' => 'Баардык долбоорлор',
-    'Questions / Suggestions' => 'Сурооло / Сунуштар',
+    'Questions / Suggestions' => 'Суроолор / Сунуштар',
     '' => '',
 
     'Legislations' => 'Мыйзамдар',

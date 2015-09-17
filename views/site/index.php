@@ -23,7 +23,7 @@ $result = $db->cache(function ($db) {
 $toraga=array();
 
 $legislations = $db->cache(function ($db) {
-    return $db->createCommand("SELECT id,title FROM legislation LIMIT 2")->queryAll();
+    return $db->createCommand("SELECT id,title FROM legislation LIMIT 3")->queryAll();
 },3600);
 
 $decrees = $db->cache(function ($db) {
