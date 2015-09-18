@@ -70,7 +70,7 @@ $bills= $db->cache(function ($db) {
         <div class="logotext2"><?=Yii::t('app', 'Osh city Kenesh');?></div>
     </div>
     <div class="ask pull-right btn btn-success">
-        <?=Html::a(Yii::t('app', 'Questions / Suggestions'),'#')?>
+        <?=Html::a(Yii::t('app', 'Questions / Suggestions'),Url::toRoute(['feedback/create']))?>
     </div>
     <div class="row">
         <div class="col-md-6 mains_news">
