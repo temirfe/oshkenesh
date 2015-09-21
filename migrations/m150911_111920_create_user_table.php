@@ -23,6 +23,7 @@ class m150911_111920_create_user_table extends Migration
             'password_reset_token' => $this->string(),
             'email' => $this->string()->notNull(),
             'status' => $this->smallInteger()->notNull()->defaultValue(0),
+            'role' => $this->integer()->notNull()->defaultValue(10),
         ], $tableOptions);
 
         $this->createIndex('idx_user_username', '{{%user}}', 'username');

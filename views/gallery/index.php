@@ -22,7 +22,13 @@ $this->params['breadcrumbs'][] = $this->title;
     }
 </style>
 <div class="gallery-index">
-
+    <?php if(!Yii::$app->user->isGuest && Yii::$app->user->identity->isAdmin()){
+        ?>
+        <div class="pull-right">
+            <?= Html::a('<span class="glyphicon glyphicon-plus" aria-hidden="true" title="'.Yii::t('app', 'Add new').'"></span>', ['create'], ['class' => 'btn btn-success btn-sm']) ?>
+        </div>
+    <?php
+    }?>
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
