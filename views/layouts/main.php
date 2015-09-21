@@ -105,6 +105,7 @@ AppAsset::register($this);
     <footer class="footer">
         <div class="container">
             <p class="pull-left">&copy; Ош Шаардык Кеңеши <?= date('Y') ?></p>
+            тест
 
             <p class="pull-right"></p>
         </div>
