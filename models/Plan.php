@@ -5,7 +5,7 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for table "news".
+ * This is the model class for table "plan".
  *
  * @property integer $id
  * @property string $date
@@ -16,16 +16,14 @@ use Yii;
  * @property integer $ru
  * @property integer $views
  */
-class News extends \yii\db\ActiveRecord
+class Plan extends \yii\db\ActiveRecord
 {
-
-    public $imageFile;
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'news';
+        return 'plan';
     }
 
     /**
@@ -35,13 +33,12 @@ class News extends \yii\db\ActiveRecord
     {
         return [
             [['date'], 'safe'],
-            [['title', 'content'], 'required'],
+            [['title', 'image'], 'required'],
             [['content'], 'string'],
             [['ru', 'views'], 'integer'],
             [['title'], 'string', 'max' => 500],
             [['description'], 'string', 'max' => 1000],
-            [['image'], 'string', 'max' => 255],
-            [['imageFile'], 'file', 'extensions' => 'jpg,jpeg,gif,png']
+            [['image'], 'string', 'max' => 255]
         ];
     }
 
@@ -57,7 +54,6 @@ class News extends \yii\db\ActiveRecord
             'description' => Yii::t('app', 'Description'),
             'content' => Yii::t('app', 'Content'),
             'image' => Yii::t('app', 'Image'),
-            'imageFile' => Yii::t('app', 'Image'),
             'ru' => Yii::t('app', 'Ru'),
             'views' => Yii::t('app', 'Views'),
         ];

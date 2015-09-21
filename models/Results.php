@@ -5,7 +5,7 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for table "news".
+ * This is the model class for table "results".
  *
  * @property integer $id
  * @property string $date
@@ -16,16 +16,15 @@ use Yii;
  * @property integer $ru
  * @property integer $views
  */
-class News extends \yii\db\ActiveRecord
+class Results extends \yii\db\ActiveRecord
 {
-
     public $imageFile;
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'news';
+        return 'results';
     }
 
     /**
@@ -35,7 +34,7 @@ class News extends \yii\db\ActiveRecord
     {
         return [
             [['date'], 'safe'],
-            [['title', 'content'], 'required'],
+            [['title'], 'required'],
             [['content'], 'string'],
             [['ru', 'views'], 'integer'],
             [['title'], 'string', 'max' => 500],

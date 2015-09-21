@@ -67,8 +67,15 @@ AppAsset::register($this);
                 ],
             ],
             ['label' => Yii::t('app', 'Apparatus'), 'url' => ['/page/3']],
-            ['label' => Yii::t('app', 'Activity'), 'url' => ['#']],
-            ['label' => Yii::t('app', 'Gallery'), 'url' => ['#']],
+            [
+                'label' => Yii::t('app', 'Activity'),
+                'items' => [
+                    ['label' => Yii::t('app', 'Plans'), 'url' => ['/plan']],
+                    ['label' => Yii::t('app', 'Results'), 'url' => ['/results']],
+
+                ],
+            ],
+            ['label' => Yii::t('app', 'Gallery'), 'url' => ['/gallery']],
             [
                 'label' => Yii::t('app', 'Contact'),
                 'items' => [

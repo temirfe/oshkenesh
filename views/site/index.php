@@ -34,9 +34,11 @@ $bills= $db->cache(function ($db) {
     return $db->createCommand("SELECT id,title FROM bill ORDER BY id DESC LIMIT 2")->queryAll();
 },3600);
 
-$galleries= $db->cache(function ($db) {
-    return $db->createCommand("SELECT id,title, main_img FROM gallery ORDER BY id DESC LIMIT 4")->queryAll();
-},3600);
+/*$galleries= $db->cache(function ($db) {
+    return $db->createCommand("SELECT id,title, main_img, directory FROM gallery ORDER BY id DESC LIMIT 4")->queryAll();
+},3600);*/
+
+$galleries= $db->createCommand("SELECT id,title, main_img, directory FROM gallery ORDER BY id DESC LIMIT 4")->queryAll();
 ?>
 <style type="text/css">
     .logo1{display: none;}
@@ -63,6 +65,18 @@ $galleries= $db->cache(function ($db) {
     a:active {
         outline: none;
     }
+
+    .main_gal{margin-top:30px; border-top: 1px solid #eaeaea;}
+    .gal_wrap{}
+    .gal_title{
+        clear: both;
+        margin-top: 5px;
+        max-width: 200px;
+        text-align: center;
+    }
+    .gal_title a{color:#000;}
+    .gal_index_item{}
+    .gal_index_item img{}
 
 </style>
 <link href='https://fonts.googleapis.com/css?family=Roboto+Condensed&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
@@ -180,6 +194,7 @@ $galleries= $db->cache(function ($db) {
     </div>
 
     <div class="deputies-slider">
+        <h3 class="dots"><?=Yii::t('app', 'Deputies');?></h3>
         <!-- Slider main container -->
         <div class="swiper-container">
             <!-- Additional required wrapper -->
@@ -215,9 +230,22 @@ $galleries= $db->cache(function ($db) {
     </div>
 
     <div class="row main_gal">
+
+        <h3 class="dots"><?=Yii::t('app', 'Gallery');?></h3>
         <?php
             foreach($galleries as $gal){
-
+                ?>
+                <div class="gal_wrap pull-left col-sm-3">
+                    <div class="gal_index_item">
+                        <?php $img=Html::img("@web/uploads/gallery/".$gal['directory']."/small/".$gal['main_img'], ['alt'=>'']);
+                        echo Html::a($img,Url::toRoute(['gallery/view','id'=>$gal['id']]));
+                        ?>
+                    </div>
+                    <div class="gal_title">
+                        <?=Html::a(Html::encode($gal['title']),Url::toRoute(['gallery/view','id'=>$gal['id']])); ?>
+                    </div>
+                </div>
+        <?php
             }
         ?>
     </div>

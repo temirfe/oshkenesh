@@ -8,27 +8,25 @@ use vova07\imperavi\Widget;
 use kartik\file\FileInput;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\News */
+/* @var $model app\models\Results */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="news-form">
+<div class="results-form">
 
     <?php $form = ActiveForm::begin(['options' => ['enctype'=>'multipart/form-data']]); ?>
     <?php echo $form->field($model, 'ru',['options'=>['class'=>'form-group field140']])->dropDownList(['кыргызча','русский'],[]); ?>
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'description')->textarea(['maxlength' => true, 'rows' => 3]) ?>
-
     <?= $form->field($model, 'content')->widget(Widget::className(), [
         'settings' => [
             'lang' => 'ru',
             'minHeight' => 200,
-            'imageUpload' => Url::to(['/news/image-upload']),
-            'imageManagerJson' => Url::to(['/news/images-get']),
-            'fileUpload' => Url::to(['/news/file-upload']),
-            'fileManagerJson' => Url::to(['/news/files-get']),
+            'imageUpload' => Url::to(['/results/image-upload']),
+            'imageManagerJson' => Url::to(['/results/images-get']),
+            'fileUpload' => Url::to(['/results/file-upload']),
+            'fileManagerJson' => Url::to(['/results/files-get']),
             'plugins' => [
                 'imagemanager',
                 'filemanager',
@@ -46,7 +44,6 @@ use kartik\file\FileInput;
     ]; else $iniImg=false;
     echo $form->field($model, 'imageFile')->widget(FileInput::classname(), [
         'options' => ['accept' => 'image/*'],
-        'name' => 'input-ru[]',
         'language' => 'ru',
         'pluginOptions' => [
             'showCaption' => false,
@@ -73,7 +70,6 @@ use kartik\file\FileInput;
     <div class="form-group field140">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success btn-block' : 'btn btn-primary btn-block']) ?>
     </div>
-
     <?php ActiveForm::end(); ?>
 
 </div>

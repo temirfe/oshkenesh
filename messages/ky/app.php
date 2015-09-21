@@ -35,6 +35,8 @@ return [
     'Main Image'=>'Негизги сүрөт',
     'Other Images'=>'Калган сүрөттөр',
     'You can upload at '=>'Калган сүрөттөр',
+    'No results found'=>'Эч нерсе табылбады',
+    'Image'=>'Негизги сүрөт',
 
     'Osh city Kenesh' => 'Ош шаардык Кеңеши',
     'Legislation' => 'Мыйзамдар',
@@ -107,4 +109,17 @@ return [
     'Galleries'=>'Галереялар',
     'Create Gallery'=>'Галерея кошуу',
     'Update Gallery'=>'Галереяны өзгөртүү',
+
+    'Plan'=>'План',
+    'Plans'=>'Пландар',
+    'Create Plan'=>'План кошуу',
+    'Update Plan'=>'Планды өзгөртүү',
+
+    'Results'=>'Жыйынтыктар',
+    'Create Results'=>'Жыйынтык кошуу',
+    'Update Results'=>'Жыйынтыкты өзгөртүү',
+
+    'Create News'=>'Жаңылык кошуу',
+    'Update News'=>'Жаңылыкты өзгөртүү',
+    'Delete News'=>'Жаңылыкты өзгөртүү',
 ];
