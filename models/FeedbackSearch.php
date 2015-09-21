@@ -10,7 +10,7 @@ use app\models\Feedback;
 class FeedbackSearch extends Feedback
 {
     /**
-     * @inheritdoc
+     * @inheritdoc test
      */
     public function rules()
     {
