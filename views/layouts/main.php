@@ -4,6 +4,7 @@
 /* @var $content string */
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use app\components\widgets\Alert;
@@ -27,6 +28,7 @@ AppAsset::register($this);
     <body>
     <?php $this->beginBody() ?>
     <?php
+    $current_url=Url::current();
     $yiiuser=Yii::$app->user;
     ?>
     <div class="wrap">
@@ -95,7 +97,30 @@ AppAsset::register($this);
             <?= $content ?>
         </div>
     </div>
+    <!-- Modal -->
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
 
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title"><?=Yii::t('app', 'Authentication');?></h4>
+                </div>
+                <div class="modal-body">
+                    <div class="socialicons adf">
+                        <div class="fb_icon s_icon" style="margin: 0;">
+                            <?=Html::a('Facebook',['site/redirect','to'=>'fb','from'=>$current_url],['title'=>'facebook']);?>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal"><?=Yii::t('app', 'Close');?></button>
+                </div>
+            </div>
+
+        </div>
+    </div>
     <footer class="footer">
         <div class="container">
             <p class="pull-left">&copy; Ош Шаардык Кеңеши <?= date('Y') ?></p>
