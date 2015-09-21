@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
+use yii\widgets\ListView;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\GallerySearch */
@@ -10,32 +10,31 @@ use yii\grid\GridView;
 $this->title = Yii::t('app', 'Galleries');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+<style type="text/css">
+    .gal_enter{  display: table-cell;
+        height: 144px;
+        vertical-align: middle;}
+    .gthumb {
+        margin-right: 40px;
+    }
+    article.item {
+        display: table;
+    }
+</style>
 <div class="gallery-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <p>
-        <?= Html::a(Yii::t('app', 'Create Gallery'), ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-
-    <?= GridView::widget([
+    <?= ListView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+        'layout' => "{items}\n{pager}",
+        'itemView' => function ($model, $key, $index, $widget) {
+            return $this->render('_list_item',['model' => $model]);
 
-            'id',
-            'title',
-            'title_ru',
-            'description',
-            'description_ru',
-            // 'date',
-            // 'views',
-            // 'main_img',
-
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
+            // or just do some echo
+            // return $model->title . ' posted by ' . $model->author;
+        },
+    ]) ?>
 
 </div>

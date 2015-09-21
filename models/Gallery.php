@@ -18,7 +18,7 @@ use Yii;
 class Gallery extends \yii\db\ActiveRecord
 {
     public $imageFile;
-    public $imageFiles;
+    public $imageFiles=array();
     /**
      * @inheritdoc
      */
@@ -33,12 +33,13 @@ class Gallery extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'title_ru'], 'required'],
-            [['date','main_img'], 'safe'],
+            [['title'], 'required'],
+            [['date','main_img','directory'], 'safe'],
             [['views'], 'integer'],
             [['title', 'title_ru'], 'string', 'max' => 500],
             [['description', 'description_ru'], 'string', 'max' => 1000],
-            [['imageFile','imageFiles'], 'file', 'extensions' => 'jpg,jpeg,gif,png']
+            [['imageFile'], 'file', 'extensions' => 'jpg,jpeg,gif,png'],
+            [['imageFiles'], 'file', 'extensions' => 'jpg,jpeg,gif,png', 'maxSize'=>20*1024*1024, 'maxFiles'=>10]
         ];
     }
 
@@ -56,6 +57,8 @@ class Gallery extends \yii\db\ActiveRecord
             'date' => Yii::t('app', 'Date'),
             'views' => Yii::t('app', 'Views'),
             'main_img' => Yii::t('app', 'Main Image'),
+            'imageFile' => Yii::t('app', 'Main Image'),
+            'imageFiles' => Yii::t('app', 'Other Images'),
         ];
     }
 }

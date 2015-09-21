@@ -57,6 +57,7 @@ class News extends \yii\db\ActiveRecord
             'description' => Yii::t('app', 'Description'),
             'content' => Yii::t('app', 'Content'),
             'image' => Yii::t('app', 'Image'),
+            'imageFile' => Yii::t('app', 'Image'),
             'ru' => Yii::t('app', 'Ru'),
             'views' => Yii::t('app', 'Views'),
         ];

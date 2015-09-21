@@ -249,3 +249,11 @@ h3.dots:after{background-color: #ffcb05;
     margin: 0 0 2px 6px;
     width: 8px;}
 .law_title{margin-bottom: 15px;}
+.gthumb{ border: 1px solid #cccccc;
+    float: left;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    min-height: 120px;
+    padding: 1px;}
+.gthumb img{height: 140px;
+    max-width: 186px;}

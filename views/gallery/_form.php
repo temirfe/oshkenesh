@@ -22,7 +22,7 @@ use kartik\file\FileInput;
     <?= $form->field($model, 'description_ru')->textArea(['row' => 6]) ?>
 
     <?php if($model->main_img) $iniImg=[
-        Html::img("@web/uploads/images/".$model->main_image, ['class'=>'file-preview-image', 'alt'=>'']),
+        Html::img("@web/uploads/gallery/".$model->directory."/".$model->main_img, ['class'=>'file-preview-image', 'alt'=>'']),
     ]; else $iniImg=false;
     echo $form->field($model, 'imageFile')->widget(FileInput::classname(), [
         'options' => ['accept' => 'image/*'],
@@ -31,6 +31,29 @@ use kartik\file\FileInput;
             'showCaption' => false,
             'showRemove' => false,
             'showUpload' => false,
+            'initialPreview'=>$iniImg,
+        ],
+    ]); ?>
+
+    <?php
+    $iniImg=false;
+    if($model->main_img && $model->directory) {
+        $iniImg=array();
+        $imgs=scandir("uploads/gallery/".$model->directory.'/small');
+        foreach($imgs as $img){
+            if($img!='.' && $img!='..' && $img!=$model->main_img){
+                $iniImg[]=Html::img("@web/uploads/gallery/".$model->directory."/small/".$img, ['class'=>'file-preview-image', 'alt'=>'']);
+            }
+        }
+    }
+    echo $form->field($model, 'imageFiles[]')->widget(FileInput::classname(), [
+        'options' => ['accept' => 'image/*','multiple'=>true],
+        'language' => 'ru',
+        'pluginOptions' => [
+            'showCaption' => false,
+            'showRemove' => false,
+            'showUpload' => false,
+            'overwriteInitial'=>false,
             'initialPreview'=>$iniImg,
         ],
     ]); ?>

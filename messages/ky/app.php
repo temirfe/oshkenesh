@@ -26,10 +26,17 @@ return [
     'Download'=>'Жүктөп алуу',
     'Date'=>'Дата',
     'Description'=>'Кыска маалымат',
+    'Description Ru'=>'Кыска маалымат орусча',
     'Send'=>'Жиберүү',
     'Select...'=>'Тандагыла',
     'Public'=>'Публичный',
     'Answer'=>'Жооп',
+    'Go to gallery'=>'Галереяга кирүү',
+    'Main Image'=>'Негизги сүрөт',
+    'Other Images'=>'Калган сүрөттөр',
+    'You can upload at '=>'Калган сүрөттөр',
+    'No results found'=>'Эч нерсе табылбады',
+    'Image'=>'Негизги сүрөт',
 
     'Osh city Kenesh' => 'Ош шаардык Кеңеши',
     'Legislation' => 'Мыйзамдар',
@@ -98,4 +105,21 @@ return [
     'Feedbacks'=>'Суроолор-сунуштар',
     'Create Feedback'=>'Онлайн суроолор-сунуштарды берүү жолу',
     'Update Feedback'=>'Суроолор-сунуштарды өзгөртүү',
+
+    'Galleries'=>'Галереялар',
+    'Create Gallery'=>'Галерея кошуу',
+    'Update Gallery'=>'Галереяны өзгөртүү',
+
+    'Plan'=>'План',
+    'Plans'=>'Пландар',
+    'Create Plan'=>'План кошуу',
+    'Update Plan'=>'Планды өзгөртүү',
+
+    'Results'=>'Жыйынтыктар',
+    'Create Results'=>'Жыйынтык кошуу',
+    'Update Results'=>'Жыйынтыкты өзгөртүү',
+
+    'Create News'=>'Жаңылык кошуу',
+    'Update News'=>'Жаңылыкты өзгөртүү',
+    'Delete News'=>'Жаңылыкты өзгөртүү',
 ];

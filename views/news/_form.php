@@ -61,6 +61,7 @@ use kartik\file\FileInput;
 
     echo $form->field($model, 'date',['options'=>['class'=>'form-group field140']])->widget(DatePicker::classname(), [
         'removeButton' => false,
+        'language'=>'ru',
         'pluginOptions' => [
             'autoclose'=>true,
             'format' => 'yyyy-mm-dd',
