@@ -79,7 +79,6 @@ $galleries= $db->createCommand("SELECT id,title, main_img, directory FROM galler
     .gal_index_item img{}
 
 </style>
-<link href='https://fonts.googleapis.com/css?family=Roboto+Condensed&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
 <div class="site-index">
     <div class="logowrap">
         <div class="logo logo2 pull-left"></div>

@@ -20,6 +20,7 @@ AppAsset::register($this);
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <?= Html::csrfMetaTags() ?>
         <link rel="shortcut icon" href="<?=Yii::getAlias('@web');?>/favicon.ico?v=2" type="image/x-icon" />
+        <link href='https://fonts.googleapis.com/css?family=Roboto+Condensed&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
         <title><?= Html::encode($this->title) ?></title>
         <?php $this->head() ?>
     </head>
@@ -27,12 +28,6 @@ AppAsset::register($this);
     <?php $this->beginBody() ?>
     <?php
     $yiiuser=Yii::$app->user;
-    if(!$yiiuser->isGuest){
-        $username=$yiiuser->identity->username;
-        $userid=$yiiuser->identity->id;
-    }
-
-    //$isAdmin=$yiiuser->identity->isAdmin;
     ?>
     <div class="wrap">
         <?php
@@ -94,10 +89,9 @@ AppAsset::register($this);
         NavBar::end();
         ?>
         <div class="container">
-            <div class="mycontainer">
-
-            </div>
             <?= Alert::widget() ?>
+            <?php if(Yii::$app->controller->action->id=='view')
+                echo Breadcrumbs::widget(['homeLink' =>['label' => Yii::t('app', 'Home'), 'url' => ['/index']],'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : []]) ?>
             <?= $content ?>
         </div>
     </div>
@@ -105,7 +99,6 @@ AppAsset::register($this);
     <footer class="footer">
         <div class="container">
             <p class="pull-left">&copy; Ош Шаардык Кеңеши <?= date('Y') ?></p>
-            тест test
 
             <p class="pull-right"></p>
         </div>
