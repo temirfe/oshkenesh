@@ -11,6 +11,7 @@ use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
 use yii\imagine\Image;
 use Imagine\Image\Box;
+use yii\data\ActiveDataProvider;
 
 /**
  * GalleryController implements the CRUD actions for Gallery model.
@@ -33,12 +34,25 @@ class GalleryController extends Controller
      * Lists all Gallery models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex(){
+        $dataProvider = new ActiveDataProvider([
+            'query' => Gallery::find()->orderBy('id DESC'),
+            'pagination' => [
+                'pageSize' => 10,
+            ],
+        ]);
+
+        return $this->render('index', [
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionAdmin()
     {
         $searchModel = new GallerySearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        return $this->render('index', [
+        return $this->render('admin', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
@@ -66,16 +80,7 @@ class GalleryController extends Controller
         $model = new Gallery();
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
-            if($model->imageFile){
-                $imageName=time(). '.' . $model->imageFile->extension;
-                $model->imageFile->saveAs('uploads/images/' . $imageName);
-                $model->main_img=$imageName;
-
-               // Image::getImagine()->open('uploads/images/'.$imageName)->thumbnail(new Box(1000, 1000))->save(Yii::getAlias('@webroot').'/uploads/images/'.$imageName);
-                Image::thumbnail('@webroot/uploads/images/' . $imageName, 120, 120)
-                    ->save(Yii::getAlias('@webroot/uploads/images/small/' . $imageName), ['quality' => 90]);
-            }
+            $this->saveImage($model);
             $model->save(false);
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
@@ -95,7 +100,9 @@ class GalleryController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            $this->saveImage($model);
+            $model->save(false);
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
@@ -104,6 +111,44 @@ class GalleryController extends Controller
         }
     }
 
+    protected function saveImage($model){
+        $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
+        $model->imageFiles = UploadedFile::getInstances($model, 'imageFiles');
+
+
+        if($model->directory){
+            $directory=$model->directory;
+        }
+        else{
+            $directory=time();
+            $model->directory=$directory;
+        }
+
+        $tosave=Yii::getAlias('@webroot').'/uploads/gallery/'.$directory;
+        if (!file_exists($tosave)) {
+            @mkdir($tosave);
+            @mkdir($tosave.'/small');
+        }
+
+        if($model->imageFile){
+            $imageName=time(). '.' . $model->imageFile->extension;
+            $model->imageFile->saveAs($tosave.'/' . $imageName);
+            $model->main_img=$imageName;
+            $imagine=Image::getImagine()->open($tosave.'/'.$imageName);
+            $imagine->thumbnail(new Box(1000, 1000))->save($tosave.'/'.$imageName);
+            $imagine->thumbnail(new Box(200, 140))->save($tosave.'/small/'.$imageName, ['quality' => 90]);
+        }
+        if($model->imageFiles){
+            foreach($model->imageFiles as $image)
+            {
+                $imageName=time().'_'.rand(1000, 100000).'.' . $image->extension;
+                $image->saveAs($tosave.'/' . $imageName);
+                $imagine=Image::getImagine()->open($tosave.'/'.$imageName);
+                $imagine->thumbnail(new Box(1000, 1000))->save($tosave.'/' .$imageName);
+                $imagine->thumbnail(new Box(200, 140))->save($tosave.'/small/'.$imageName, ['quality' => 90]);
+            }
+        }
+    }
     /**
      * Deletes an existing Gallery model.
      * If deletion is successful, the browser will be redirected to the 'index' page.

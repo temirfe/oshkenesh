@@ -273,4 +273,18 @@ class SiteController extends Controller
             ])->execute();
         }
     }
+
+    public function actionRun(){
+        $db=Yii::$app->db;
+        $contents=$db->createCommand("SELECT * FROM gallery_o")->queryAll();
+        foreach($contents as $c){
+            if(!$c['image']) $image=''; else $image=$c['image'];
+            $db->createCommand()->insert('gallery', [
+                'title' => $c['title'],
+                'main_img' => $c['main_img'],
+                'directory' => $c['uid'],
+
+            ])->execute();
+        }
+    }
 }

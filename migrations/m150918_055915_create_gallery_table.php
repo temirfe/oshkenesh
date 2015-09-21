@@ -21,6 +21,7 @@ class m150918_055915_create_gallery_table extends Migration
             'description_ru' => $this->string(1000)->notNull(),
             'date' => $this->date(),
             'views' => $this->integer()->notNull()->defaultValue(0),
+            'directory' => $this->string(25)->notNull(),
         ], $tableOptions);
     }
 
