@@ -49,6 +49,7 @@ return [
     'Text cannot be blank'=>'Комментарий жазбадыңыз',
     'Your name'=>'Атыңызды жазыңыз',
     'Authentication'=>'Кирүү',
+    'Close'=>'Жабуу',
 
     'Osh city Kenesh' => 'Ош шаардык Кеңеши',
     'Legislation' => 'Мыйзамдар',

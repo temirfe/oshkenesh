@@ -60,10 +60,12 @@ class CommentController extends Controller
      */
     public function actionCreate()
     {
+        Yii::$app->language='ru';
         $model = new Comment();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+
+            return $this->redirect(['/'.$model->model_name.'/view', 'id' => $model->model_id]);
         } else {
             return $this->render('create', [
                 'model' => $model,

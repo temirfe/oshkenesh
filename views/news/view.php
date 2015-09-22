@@ -12,8 +12,12 @@ $this->title = $model->title;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'News'), 'url' => ['index']];
 ?>
 <style type="text/css">
-    .comment-form{padding-left: 0;}
+    .comment-form{overflow: hidden;
+        width: 84%;padding-left: 12px;}
     .help-block {margin-bottom: 0;}
+    .avatar{width:50px;}
+    .avatar-col{ margin-top: 6px;}
+    .comment-wrap{clear:both;}
 </style>
 <article class="news_view">
     <?php if(!Yii::$app->user->isGuest && Yii::$app->user->identity->isAdmin()){
@@ -54,17 +58,21 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'News'), 'url' => ['i
                 <?=$model->content;?>
             </div>
 
-            <div class="row">
-                <div class="col-md-2">
-                    pic
+            <div class="comment-wrap">
+                <div class="avatar-col pull-left">
+                    <?=Html::img('@web/images/avatar.png',['class'=>'avatar']); ?>
                 </div>
-                <div class="comment-form col-md-10">
+                <div class="comment-form">
 
-                    <?php $cmodel=new Comment; $form = ActiveForm::begin([
+                    <?php
+
+                    $urname=Yii::t('app', 'Your name');
+
+                    $cmodel=new Comment; $form = ActiveForm::begin([
                         'action'=>['comment/create'],
                     ]); ?>
 
-                    <?= $form->field($cmodel, 'name',['options' => ['style'=>'width:200px;margin-top: -14px;']])->textInput(['maxlength' => true,'placeholder'=>Yii::t('app', 'Your name')])->label('') ?>
+                    <?= $form->field($cmodel, 'name',['options' => ['style'=>'width:200px;margin-top: -14px;']])->textInput(['maxlength' => true,'placeholder'=>'name'])->label('') ?>
 
                     <?= $form->field($cmodel, 'content')->textArea(['maxlength' => true, 'rows'=>6])->label('') ?>
 
