@@ -14,6 +14,8 @@ use yii\web\UploadedFile;
 use yii\imagine\Image;
 use Imagine\Image\Box;
 use yii\data\ActiveDataProvider;
+use yii\filters\AccessControl;
+use app\models\User;
 /**
  * NewsController implements the CRUD actions for News model.
  */
@@ -26,6 +28,20 @@ class NewsController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['post'],
+                ],
+            ],
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['create','admin','update','delete'],
+                'rules' => [
+                    [
+                        'actions' => ['create','admin','update','delete'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                        'matchCallback' => function ($rule, $action) {
+                            return User::isAdmin();
+                        }
+                    ],
                 ],
             ],
         ];

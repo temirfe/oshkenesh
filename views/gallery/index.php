@@ -34,6 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= ListView::widget([
         'dataProvider' => $dataProvider,
+        'emptyText' => Yii::t('app', 'No results found'),
         'layout' => "{items}\n{pager}",
         'itemView' => function ($model, $key, $index, $widget) {
             return $this->render('_list_item',['model' => $model]);

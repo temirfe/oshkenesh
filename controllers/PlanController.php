@@ -8,6 +8,8 @@ use app\models\PlanSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
+use app\models\User;
 
 /**
  * PlanController implements the CRUD actions for Plan model.
@@ -21,6 +23,20 @@ class PlanController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['post'],
+                ],
+            ],
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['create','admin','update','delete'],
+                'rules' => [
+                    [
+                        'actions' => ['create','admin','update','delete'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                        'matchCallback' => function ($rule, $action) {
+                            return User::isAdmin();
+                        }
+                    ],
                 ],
             ],
         ];

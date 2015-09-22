@@ -10,6 +10,8 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use vova07\imperavi\actions\GetAction;
 use yii\data\ActiveDataProvider;
+use yii\filters\AccessControl;
+use app\models\User;
 
 /**
  * AnnounceController implements the CRUD actions for Announce model.
@@ -23,6 +25,20 @@ class AnnounceController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['post'],
+                ],
+            ],
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['create','admin','update','delete'],
+                'rules' => [
+                    [
+                        'actions' => ['create','admin','update','delete'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                        'matchCallback' => function ($rule, $action) {
+                            return User::isAdmin();
+                        }
+                    ],
                 ],
             ],
         ];

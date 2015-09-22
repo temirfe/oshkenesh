@@ -50,6 +50,7 @@ return [
     'Your name'=>'Атыңызды жазыңыз',
     'Authentication'=>'Кирүү',
     'Close'=>'Жабуу',
+    'Pages'=>'Барактар',
 
     'Osh city Kenesh' => 'Ош шаардык Кеңеши',
     'Legislation' => 'Мыйзамдар',

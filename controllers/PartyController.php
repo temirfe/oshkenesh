@@ -11,6 +11,8 @@ use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
 use yii\imagine\Image;
 use Imagine\Image\Box;
+use yii\filters\AccessControl;
+use app\models\User;
 
 /**
  * PartyController implements the CRUD actions for Party model.
@@ -24,6 +26,20 @@ class PartyController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['post'],
+                ],
+            ],
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['create','admin','update','delete'],
+                'rules' => [
+                    [
+                        'actions' => ['create','admin','update','delete'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                        'matchCallback' => function ($rule, $action) {
+                            return User::isAdmin();
+                        }
+                    ],
                 ],
             ],
         ];

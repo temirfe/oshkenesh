@@ -9,6 +9,8 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\Json;
+use yii\filters\AccessControl;
+use app\models\User;
 
 /**
  * FeedbackController implements the CRUD actions for Feedback model.
@@ -22,6 +24,20 @@ class FeedbackController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['post'],
+                ],
+            ],
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['admin','update','delete'],
+                'rules' => [
+                    [
+                        'actions' => ['admin','update','delete'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                        'matchCallback' => function ($rule, $action) {
+                            return User::isAdmin();
+                        }
+                    ],
                 ],
             ],
         ];

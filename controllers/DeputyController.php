@@ -11,6 +11,8 @@ use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
 use yii\imagine\Image;
 use Imagine\Image\Box;
+use yii\filters\AccessControl;
+use app\models\User;
 
 /**
  * DeputyController implements the CRUD actions for Deputy model.
@@ -24,6 +26,20 @@ class DeputyController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['post'],
+                ],
+            ],
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['create','admin','update','delete'],
+                'rules' => [
+                    [
+                        'actions' => ['create','admin','update','delete'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                        'matchCallback' => function ($rule, $action) {
+                            return User::isAdmin();
+                        }
+                    ],
                 ],
             ],
         ];

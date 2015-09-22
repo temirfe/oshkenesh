@@ -24,6 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= ListView::widget([
         'dataProvider' => $dataProvider,
         'itemOptions' => ['class' => 'item'],
+        'emptyText' => Yii::t('app', 'No results found'),
         'itemView' => function ($model, $key, $index, $widget) {
             return Html::a(Html::encode($model->title), ['view', 'id' => $model->id]);
         },

@@ -25,6 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
+        'emptyText' => Yii::t('app', 'No results found'),
         'columns' => [
             [
                 'attribute' => 'title',

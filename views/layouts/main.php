@@ -24,6 +24,27 @@ AppAsset::register($this);
         <link href='https://fonts.googleapis.com/css?family=Roboto+Condensed&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
         <title><?= Html::encode($this->title) ?></title>
         <?php $this->head() ?>
+        <style type="text/css">
+            .admin-panel{
+                background-color: #eaeaea;
+                box-shadow: 0 0 2px #777;
+                color: #676767;
+                height: 100%;
+                padding-top: 16px;
+                position: fixed;
+                right: 0;
+                top:0;
+                width: 40px;
+                z-index: 2000;
+            }
+            .admin-panel ul{list-style-type: none;
+                padding: 0;margin-top: 28px;}
+            .admin-panel ul li{ margin: 10px 0;}
+            .admin-panel ul li a{padding: 5px 0 5px 13px; text-decoration: none; white-space: nowrap;}
+            .panel-opened{width: 140px;}
+            .adminicon{color:#3a5a96;; padding-right: 13px;}
+            .adminicon:hover, a:hover .adminicon{cursor:pointer;color:#1e2d4c;}
+        </style>
     </head>
     <body>
     <?php $this->beginBody() ?>
@@ -107,6 +128,20 @@ AppAsset::register($this);
             <?= $content ?>
         </div>
     </div>
+
+    <section>
+        <div class="admin-panel js_panel">
+            <span class='adminicon glyphicon glyphicon-th-list js_panel_toggle' style='padding-left:13px;'></span>
+            <ul>
+                <li>
+                    <?=Html::a("<span class='adminicon glyphicon glyphicon-bullhorn js_panel_toggle'></span>".Yii::t('app','News'), ['/news/admin']);?>
+                </li>
+                <li>
+                    <?=Html::a("<span class='adminicon glyphicon glyphicon-picture js_panel_toggle'></span>".Yii::t('app','Gallery'), ['/gallery/admin']);?>
+                </li>
+            </ul>
+        </div>
+    </section>
     <!-- Modal -->
     <div id="myModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
@@ -140,6 +175,15 @@ AppAsset::register($this);
     </footer>
 
     <?php $this->endBody() ?>
+    <script type="text/javascript">
+        window.onload = function(){
+            var panel=$('.js_panel');
+            $('.js_panel_toggle').click(function () {
+                if(panel.hasClass('panel-opened')){panel.removeClass('panel-opened');}
+                else {panel.addClass('panel-opened');}
+            });
+        }
+    </script>
     </body>
     </html>
 <?php $this->endPage() ?>

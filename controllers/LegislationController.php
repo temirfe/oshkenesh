@@ -11,7 +11,8 @@ use yii\filters\VerbFilter;
 use vova07\imperavi\actions\GetAction;
 use yii\web\UploadedFile;
 use yii\data\ActiveDataProvider;
-
+use yii\filters\AccessControl;
+use app\models\User;
 /**
  * LegislationController implements the CRUD actions for Legislation model.
  */
@@ -24,6 +25,20 @@ class LegislationController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['post'],
+                ],
+            ],
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['create','admin','update','delete'],
+                'rules' => [
+                    [
+                        'actions' => ['create','admin','update','delete'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                        'matchCallback' => function ($rule, $action) {
+                            return User::isAdmin();
+                        }
+                    ],
                 ],
             ],
         ];
