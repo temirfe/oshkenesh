@@ -62,4 +62,9 @@ class News extends \yii\db\ActiveRecord
             'views' => Yii::t('app', 'Views'),
         ];
     }
+
+    public function getComments()
+    {
+        return $this->hasMany(Comment::className(), ['model_id' => 'id']);
+    }
 }

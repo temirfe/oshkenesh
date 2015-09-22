@@ -25,10 +25,9 @@ $this->params['breadcrumbs'][] = $this->title;
             'date',
             'name',
             'content',
-            'user_id',
             // 'model_name',
             // 'model_id',
-            // 'public',
+            'public',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

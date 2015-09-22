@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Comment */
 
-$this->title = $model->name;
+$this->title = Yii::t('app', 'Comment')." #".$model->id;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Comments'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -25,18 +25,11 @@ $this->params['breadcrumbs'][] = $this->title;
         ]) ?>
     </p>
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id',
-            'date',
-            'name',
-            'content',
-            'user_id',
-            'model_name',
-            'model_id',
-            'public',
-        ],
-    ]) ?>
+
+    <div><?=Html::a($model->news->title, ['news/view','id'=>$model->model_id])?></div>
+    <br />
+    <b><?=$model->name;?></b> <?=$model->date;?>
+    <p><?=$model->content;?></p>
+    <b>Публичный: </b> <?php if($model->public) echo 'Ооба'; else echo 'Жок';?>
 
 </div>

@@ -65,6 +65,14 @@ class CommentController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
+            //$data=['id'=>$model->id,'model_name'=>$model->model_name, 'fromname'=>$model->from_name,'fromemail'=>$model->from_email, 'text'=>$model->text];
+            Yii::$app->mailer->compose('comment', ['model' => $model])
+                ->setFrom([Yii::$app->params['supportEmail'] => 'OshKenesh.KG'])
+                ->setTo(Yii::$app->params['adminEmail'])
+                ->setSubject('OshKenesh.KG сайтында комментарий жазылды')
+                ->send();
+
+            Yii::$app->getSession()->setFlash('success', 'Комментарий кабыл алынды. Модерациядан өткөндөн кийин сайтка коюлат.');
             return $this->redirect(['/'.$model->model_name.'/view', 'id' => $model->model_id]);
         } else {
             return $this->render('create', [
@@ -81,10 +89,14 @@ class CommentController extends Controller
      */
     public function actionUpdate($id)
     {
+
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if (Yii::$app->request->post()) {
+            Yii::$app->language='ru';
+            $model->load(Yii::$app->request->post());
+            $model->save();
+                return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
                 'model' => $model,

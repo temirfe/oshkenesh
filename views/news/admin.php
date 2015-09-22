@@ -26,10 +26,14 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'id',
-            'date',
+            [
+                'attribute' => 'date',
+                'format' => 'raw',
+                'value' => function($model) {
+                    return date('d.m.Y', strtotime($model->date));
+                },
+            ],
             'title',
-            'description',
-            'content:ntext',
             // 'image',
             // 'ru',
             // 'views',

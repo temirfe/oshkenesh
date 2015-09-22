@@ -34,7 +34,7 @@ class Comment extends \yii\db\ActiveRecord
         return [
             [['name'], 'required', 'message'=>Yii::t('app', 'Name cannot be blank')],
             [['content'], 'required', 'message'=>Yii::t('app', 'Text cannot be blank')],
-            [['date'], 'safe'],
+            [['date','public'], 'safe'],
             [['user_id','model_id'], 'integer'],
             [['name', 'model_name'], 'string', 'max' => 100],
             [['content'], 'string', 'max' => 1000]
@@ -56,5 +56,10 @@ class Comment extends \yii\db\ActiveRecord
             'model_id' => Yii::t('app', 'Model ID'),
             'public' => Yii::t('app', 'Public'),
         ];
+    }
+
+    public function getNews()
+    {
+        return $this->hasOne(News::className(), ['id' => 'model_id']);
     }
 }
