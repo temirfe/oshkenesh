@@ -13,6 +13,7 @@ return [
     'News' => 'Жаңылыктар',
     'Vacancy' => 'Вакансиялар',
     'Sign in' => 'Кирүү',
+    'Login' => 'Кирүү',
     'Logout' => 'Чыгуу',
     'Are you sure you want to delete this item?' => 'Өчүрүлгөндөн кийин кайра калыбына келбейт, макулсузбу?',
     'Your question has been posted and will be delivered accordingly. Thank you!' =>
@@ -35,6 +36,20 @@ return [
     'Main Image'=>'Негизги сүрөт',
     'Other Images'=>'Калган сүрөттөр',
     'You can upload at '=>'Калган сүрөттөр',
+    'No results found'=>'Эч нерсе табылбады',
+    'Image'=>'Негизги сүрөт',
+    'If you forgot your password you can'=>'Эгер сырсөздү унутуп калсаныз',
+    'reset it'=>'кайра орнотсоңуз болот',
+    'Name'=>'Атыңыз',
+    'Username'=>'Логин',
+    'Password'=>'Сырсөз',
+    'Remember me'=>'Эстеп кал',
+    'Add comment'=>'Комментарий кошуу',
+    'Name cannot be blank'=>'Атыңызды жазыңыз',
+    'Text cannot be blank'=>'Комментарий жазбадыңыз',
+    'Your name'=>'Атыңызды жазыңыз',
+    'Authentication'=>'Кирүү',
+    'Close'=>'Жабуу',
 
     'Osh city Kenesh' => 'Ош шаардык Кеңеши',
     'Legislation' => 'Мыйзамдар',
@@ -107,4 +122,17 @@ return [
     'Galleries'=>'Галереялар',
     'Create Gallery'=>'Галерея кошуу',
     'Update Gallery'=>'Галереяны өзгөртүү',
+
+    'Plan'=>'План',
+    'Plans'=>'Пландар',
+    'Create Plan'=>'План кошуу',
+    'Update Plan'=>'Планды өзгөртүү',
+
+    'Results'=>'Жыйынтыктар',
+    'Create Results'=>'Жыйынтык кошуу',
+    'Update Results'=>'Жыйынтыкты өзгөртүү',
+
+    'Create News'=>'Жаңылык кошуу',
+    'Update News'=>'Жаңылыкты өзгөртүү',
+    'Delete News'=>'Жаңылыкты өзгөртүү',
 ];

@@ -4,6 +4,7 @@
 /* @var $content string */
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use app\components\widgets\Alert;
@@ -20,19 +21,15 @@ AppAsset::register($this);
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <?= Html::csrfMetaTags() ?>
         <link rel="shortcut icon" href="<?=Yii::getAlias('@web');?>/favicon.ico?v=2" type="image/x-icon" />
+        <link href='https://fonts.googleapis.com/css?family=Roboto+Condensed&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
         <title><?= Html::encode($this->title) ?></title>
         <?php $this->head() ?>
     </head>
     <body>
     <?php $this->beginBody() ?>
     <?php
+    $current_url=Url::current();
     $yiiuser=Yii::$app->user;
-    if(!$yiiuser->isGuest){
-        $username=$yiiuser->identity->username;
-        $userid=$yiiuser->identity->id;
-    }
-
-    //$isAdmin=$yiiuser->identity->isAdmin;
     ?>
     <div class="wrap">
         <?php
@@ -67,8 +64,15 @@ AppAsset::register($this);
                 ],
             ],
             ['label' => Yii::t('app', 'Apparatus'), 'url' => ['/page/3']],
-            ['label' => Yii::t('app', 'Activity'), 'url' => ['#']],
-            ['label' => Yii::t('app', 'Gallery'), 'url' => ['#']],
+            [
+                'label' => Yii::t('app', 'Activity'),
+                'items' => [
+                    ['label' => Yii::t('app', 'Plans'), 'url' => ['/plan']],
+                    ['label' => Yii::t('app', 'Results'), 'url' => ['/results']],
+
+                ],
+            ],
+            ['label' => Yii::t('app', 'Gallery'), 'url' => ['/gallery']],
             [
                 'label' => Yii::t('app', 'Contact'),
                 'items' => [
@@ -87,14 +91,36 @@ AppAsset::register($this);
         NavBar::end();
         ?>
         <div class="container">
-            <div class="mycontainer">
-
-            </div>
             <?= Alert::widget() ?>
+            <?php if(Yii::$app->controller->action->id=='view')
+                echo Breadcrumbs::widget(['homeLink' =>['label' => Yii::t('app', 'Home'), 'url' => ['/index']],'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : []]) ?>
             <?= $content ?>
         </div>
     </div>
+    <!-- Modal -->
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
 
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title"><?=Yii::t('app', 'Authentication');?></h4>
+                </div>
+                <div class="modal-body">
+                    <div class="socialicons adf">
+                        <div class="fb_icon s_icon" style="margin: 0;">
+                            <?=Html::a('Facebook',['site/redirect','to'=>'fb','from'=>$current_url],['title'=>'facebook']);?>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal"><?=Yii::t('app', 'Close');?></button>
+                </div>
+            </div>
+
+        </div>
+    </div>
     <footer class="footer">
         <div class="container">
             <p class="pull-left">&copy; Ош Шаардык Кеңеши <?= date('Y') ?></p>

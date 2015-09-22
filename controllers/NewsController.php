@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use app\models\News;
+use app\models\Comment;
 use app\models\NewsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;

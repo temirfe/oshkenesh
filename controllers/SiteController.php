@@ -287,4 +287,27 @@ class SiteController extends Controller
             ])->execute();
         }
     }
+
+    public function actionRedirect()
+    {
+        echo 'req '.$_SERVER['REQUEST_URI'];
+        echo '<br />qs '.$_SERVER['QUERY_STRING'];
+        if(isset($_GET['from']) && isset($_GET['to']))
+        {
+            $action='login';
+            $sender=$_GET['from'];
+            Yii::$app->session['return_url']=$sender;
+            if($_GET['to']=='fb') {header('Location: https://www.facebook.com/dialog/oauth?client_id=892335240862509&redirect_uri=http://oshkenesh.ml/site/loginfb');}
+            if($_GET['to']=='vk') {header('Location: http://oauth.vk.com/authorize?client_id=4195734&response_type=code&redirect_uri=http://desko.kg/auth/'.$action.'vk');}
+            if($_GET['to']=='ok') {header('Location: http://www.odnoklassniki.ru/oauth/authorize?client_id=223808256&response_type=code&redirect_uri=http://desko.kg/auth/'.$action.'ok');}
+            if($_GET['to']=='mailru') {header('Location: https://connect.mail.ru/oauth/authorize?client_id=717376&response_type=code&redirect_uri=http%3A%2F%2Fdesko.kg%2Fauth%2F'.$action.'mailru');}
+            if($_GET['to']=='gplus') {header('Location: https://accounts.google.com/o/oauth2/auth?client_id=553652608799-ud3uk6foe45h3stkbj2304mc9r61rphc.apps.googleusercontent.com&response_type=code&scope=openid%20email&redirect_uri=http://desko.kg/auth/googleauth&state='.$action.'google');}
+        }
+        else echo 'nope';
+    }
+
+    public function actionLoginfb()
+    {
+        print_r($_GET);
+    }
 }

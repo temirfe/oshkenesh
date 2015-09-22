@@ -11,13 +11,14 @@ $this->title = Yii::t('app', 'Deputies');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="deputy-index">
-
+    <?php if(!Yii::$app->user->isGuest && Yii::$app->user->identity->isAdmin()){
+        ?>
+        <div class="pull-right">
+            <?= Html::a('<span class="glyphicon glyphicon-plus" aria-hidden="true" title="'.Yii::t('app', 'Add new').'"></span>', ['create'], ['class' => 'btn btn-success btn-sm']) ?>
+        </div>
+    <?php
+    }?>
     <h1><?= Html::encode($this->title) ?></h1>
-    <?php echo $this->render('_search', ['model' => $searchModel]); ?>
-
-    <p>
-        <?= Html::a(Yii::t('app', 'Create Deputy'), ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
 
     <?= ListView::widget([
         'dataProvider' => $dataProvider,

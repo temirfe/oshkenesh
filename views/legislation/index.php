@@ -13,9 +13,13 @@ $this->title = Yii::t('app', 'Legislation');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="deputy-index">
-    <div class="pull-right">
-        <?= Html::a('<span class="glyphicon glyphicon-plus" aria-hidden="true" title="'.Yii::t('app', 'Add new').'"></span>', ['create'], ['class' => 'btn btn-success btn-sm']) ?>
-    </div>
+    <?php if(!Yii::$app->user->isGuest && Yii::$app->user->identity->isAdmin()){
+        ?>
+        <div class="pull-right">
+            <?= Html::a('<span class="glyphicon glyphicon-plus" aria-hidden="true" title="'.Yii::t('app', 'Add new').'"></span>', ['create'], ['class' => 'btn btn-success btn-sm']) ?>
+        </div>
+    <?php
+    }?>
 
     <h1><?= Html::encode($this->title) ?></h1>
 
