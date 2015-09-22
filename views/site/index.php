@@ -34,7 +34,9 @@ $bills= $db->cache(function ($db) {
     return $db->createCommand("SELECT id,title FROM bill ORDER BY id DESC LIMIT 2")->queryAll();
 },3600);
 
-
+$galleries= $db->cache(function ($db) {
+    return $db->createCommand("SELECT id,title, main_img FROM gallery ORDER BY id DESC LIMIT 4")->queryAll();
+},3600);
 ?>
 <style type="text/css">
     .logo1{display: none;}
@@ -210,6 +212,14 @@ $bills= $db->cache(function ($db) {
             <!-- If we need scrollbar -->
             <div class="swiper-scrollbar"></div>
         </div>
+    </div>
+
+    <div class="row main_gal">
+        <?php
+            foreach($galleries as $gal){
+
+            }
+        ?>
     </div>
 
 
