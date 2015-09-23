@@ -89,6 +89,8 @@ return [
     'Date Asked'=>'Берилген күн',
     'Date Answered'=>'Жооптун датасы',
     'Answer it'=>'Жооп берүү',
+    'Order'=>'Тизме',
+    'Phone'=>'Телефон',
 
     'Legislations' => 'Мыйзамдар',
     'Update: ' => 'Өзгөртүү: ',
@@ -169,4 +171,8 @@ return [
     'Update Party'=>'Партияны өзгөртүү',
     'Delete Party'=>'Партияны өчүрүү',
     'Create Party'=>'Партия кошуу',
+
+    'Update Deputy'=>'Дупутатты өзгөртүү',
+    'Delete Deputy'=>'Дупутатты өчүрүү',
+    'Create Deputy'=>'Дупутат кошуу',
 ];

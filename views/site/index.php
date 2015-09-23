@@ -3,8 +3,6 @@
 /* @var $this yii\web\View */
 use yii\helpers\Html;
 use yii\helpers\Url;
-use app\assets\SwiperAsset;
-SwiperAsset::register($this);
 $this->title = Yii::t('app','Osh city Kenesh');
 
 $db=Yii::$app->db;

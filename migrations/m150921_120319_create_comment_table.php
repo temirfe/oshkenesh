@@ -14,7 +14,7 @@ class m150921_120319_create_comment_table extends Migration
 
         $this->createTable('comment', [
             'id' => $this->primaryKey(),
-            'date' => $this->date(),
+            'date' => $this->timestamp()->defaultValue(['expression'=>'CURRENT_TIMESTAMP']),
             'name' => $this->string(100),
             'content' => $this->string(1000),
             'user_id' => $this->integer()->notNull()->defaultValue(0),

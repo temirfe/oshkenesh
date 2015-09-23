@@ -88,6 +88,9 @@ return [
     'Date Asked'=>'Был задан',
     'Date Answered'=>'Отвечен',
     'Answer it'=>'Ответить',
+    'Order'=>'Порядок',
+    'Phone'=>'Телефон',
+
 
     'Legislations' => 'Законодательства',
     'Update: ' => 'Редактировать: ',
@@ -165,4 +168,8 @@ return [
     'Update Party'=>'Радактировать партию',
     'Delete Party'=>'Удалить партию',
     'Create Party'=>'Добавить партию',
+
+    'Update Deputy'=>'Радактировать депутата',
+    'Delete Deputy'=>'Удалить депутата',
+    'Create Deputy'=>'Добавить депутата',
 ];

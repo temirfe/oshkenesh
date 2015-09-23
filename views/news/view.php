@@ -105,6 +105,8 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'News'), 'url' => ['i
                 <h3 class="dots"><?=Yii::t('app', 'Comments');?></h3>
                 <div class="news-comments">
                     <?php foreach($model->comments as $comment){
+                        if($comment['public'])
+                        {
                         ?>
                         <div class="comment-row">
                             <div class="avatar-col pull-left iblock">
@@ -117,6 +119,7 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'News'), 'url' => ['i
                             </div>
                         </div>
                     <?php
+                        }
                     }?>
                 </div>
                 <hr />
@@ -165,4 +168,15 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'News'), 'url' => ['i
                 }};
             d.documentElement.appendChild(js);
         }(document,"ok_shareWidget",document.URL,"{width:115,height:30,st:'straight',sz:20,ck:2,nc:1}");
+
+
+        <!-- facebook begin ----->
+        (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/ru_RU/sdk.js#xfbml=1&version=v2.4&appId=892335240862509";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    <!-- facebook end----->
     </script>
