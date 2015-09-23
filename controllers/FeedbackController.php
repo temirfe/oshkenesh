@@ -11,6 +11,7 @@ use yii\filters\VerbFilter;
 use yii\helpers\Json;
 use yii\filters\AccessControl;
 use app\models\User;
+use yii\data\ActiveDataProvider;
 
 /**
  * FeedbackController implements the CRUD actions for Feedback model.
@@ -49,10 +50,24 @@ class FeedbackController extends Controller
      */
     public function actionIndex()
     {
+        $dataProvider = new ActiveDataProvider([
+            'query' => Feedback::find()->orderBy('id DESC'),
+            'pagination' => [
+                'pageSize' => 20,
+            ],
+        ]);
+
+        return $this->render('index', [
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionAdmin()
+    {
         $searchModel = new FeedbackSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        return $this->render('index', [
+        return $this->render('admin', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);

@@ -4,25 +4,27 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\LegislationSearch */
+/* @var $searchModel app\models\NewsSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Legislation');
+$this->title = Yii::t('app', 'Announce');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="legislation-index">
+<div class="news-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a(Yii::t('app', 'Create Legislation'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('app', 'Create Announce'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+            'title',
             [
                 'attribute' => 'date',
                 'format' => 'raw',
@@ -30,16 +32,11 @@ $this->params['breadcrumbs'][] = $this->title;
                     return date('d.m.Y', strtotime($model->date));
                 },
             ],
-            'title',
-            [
-                'attribute' => 'ru',
-                'format' => 'raw',
-                'value' => function($model) {
-                    if($model->ru) $lang='русский (1)'; else $lang='кыргызча (0)';
-                    return $lang;
-                },
-            ],
+            // 'image',
+            // 'ru',
             // 'views',
+
+            ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
 

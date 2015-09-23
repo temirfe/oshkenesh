@@ -50,7 +50,7 @@ class Deputy extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'fullname' => Yii::t('app', 'Fullname'),
+            'fullname' => Yii::t('app', 'Full name'),
             'party_id' => Yii::t('app', 'Party'),
             'content' => Yii::t('app', 'Content'),
             'image' => Yii::t('app', 'Image'),
@@ -61,5 +61,10 @@ class Deputy extends \yii\db\ActiveRecord
             'views' => Yii::t('app', 'Views'),
             'listorder' => Yii::t('app', 'Order'),
         ];
+    }
+
+    public function getParty()
+    {
+        return $this->hasOne(Party::className(), ['id' => 'party_id']);
     }
 }

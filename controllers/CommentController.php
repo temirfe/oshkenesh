@@ -10,6 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use app\models\User;
+use yii\data\ActiveDataProvider;
 
 /**
  * CommentController implements the CRUD actions for Comment model.
@@ -48,10 +49,24 @@ class CommentController extends Controller
      */
     public function actionIndex()
     {
+        $dataProvider = new ActiveDataProvider([
+            'query' => Comment::find()->orderBy('id DESC'),
+            'pagination' => [
+                'pageSize' => 20,
+            ],
+        ]);
+
+        return $this->render('index', [
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionAdmin()
+    {
         $searchModel = new CommentSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        return $this->render('index', [
+        return $this->render('admin', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);

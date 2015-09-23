@@ -4,19 +4,19 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\DeputySearch */
+/* @var $searchModel app\models\NewsSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Deputies');
+$this->title = Yii::t('app', 'Page');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="deputy-index">
+<div class="news-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a(Yii::t('app', 'Create Deputy'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('app', 'Create Page'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -24,19 +24,9 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-            'fullname',
-            [
-                'attribute' => 'party_id',
-                'format' => 'raw',
-                'value' => function($model) {
-                    return $model->party->name;
-                },
-            ],
-            'image',
-            // 'content_ru:ntext',
-            // 'phone',
-            // 'email:email',
-            // 'address',
+            'title',
+            // 'image',
+            // 'ru',
             // 'views',
 
             ['class' => 'yii\grid\ActionColumn'],

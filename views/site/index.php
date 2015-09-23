@@ -264,6 +264,7 @@ $galleries= $db->createCommand("SELECT id,title, main_img, directory FROM galler
         });
 
         $(window).scroll(function() {
+            console.log('asdf');
             if ($(window).scrollTop() > 100) {
                 $('.js_logo1').fadeIn();
             }

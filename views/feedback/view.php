@@ -9,7 +9,6 @@ use yii\widgets\ActiveForm;
 /* @var $model app\models\Feedback */
 
 $this->title = Yii::t('app', 'The Question')." №".$model->id;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Feedbacks'), 'url' => ['index']];
 ?>
 <div class="feedback-view">
     <?php if(!Yii::$app->user->isGuest && Yii::$app->user->identity->isAdmin()){

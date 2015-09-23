@@ -10,6 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use app\models\User;
+use yii\data\ActiveDataProvider;
 
 /**
  * PageController implements the CRUD actions for Page model.
@@ -48,10 +49,25 @@ class PageController extends Controller
      */
     public function actionIndex()
     {
+        $dataProvider = new ActiveDataProvider([
+            'query' => Page::find()->orderBy('id DESC'),
+            'pagination' => [
+                'pageSize' => 15,
+            ],
+        ]);
+
+        return $this->render('index', [
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+
+    public function actionAdmin()
+    {
         $searchModel = new PageSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        return $this->render('index', [
+        return $this->render('admin', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);

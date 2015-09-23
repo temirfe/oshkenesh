@@ -30,10 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             'from_name',
-            'from_email:email',
-            'date_create',
-            'date_answered',
-            // 'text:ntext',
+            'text:ntext',
             // 'answer:ntext',
             // 'to_parent',
             // 'to_child',

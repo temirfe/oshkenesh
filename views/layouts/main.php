@@ -44,6 +44,7 @@ AppAsset::register($this);
             .panel-opened{width: 140px;}
             .adminicon{color:#3a5a96;; padding-right: 13px;}
             .adminicon:hover, a:hover .adminicon{cursor:pointer;color:#1e2d4c;}
+            .tooltiphide .tooltip{display:none !important;}
         </style>
     </head>
     <body>
@@ -131,13 +132,47 @@ AppAsset::register($this);
 
     <section>
         <div class="admin-panel js_panel">
-            <span class='adminicon glyphicon glyphicon-th-list js_panel_toggle' style='padding-left:13px;'></span>
+            <span class='adminicon glyphicon glyphicon-option-vertical js_panel_toggle' style='padding-left:13px;'></span>
             <ul>
                 <li>
-                    <?=Html::a("<span class='adminicon glyphicon glyphicon-bullhorn js_panel_toggle'></span>".Yii::t('app','News'), ['/news/admin']);?>
+                    <?=Html::a("<span class='adminicon glyphicon glyphicon-header'></span>".Yii::t('app','News'), ['/news/admin'],
+                        ['title'=>Yii::t('app','News'),'data-toggle'=>'tooltip','data-placement'=>'left']);?>
                 </li>
                 <li>
-                    <?=Html::a("<span class='adminicon glyphicon glyphicon-picture js_panel_toggle'></span>".Yii::t('app','Gallery'), ['/gallery/admin']);?>
+                    <?=Html::a("<span class='adminicon glyphicon glyphicon-picture'></span>".Yii::t('app','Gallery'), ['/gallery/admin'],
+                        ['title'=>Yii::t('app','Gallery'),'data-toggle'=>'tooltip','data-placement'=>'left']);?>
+                </li>
+                <li>
+                    <?=Html::a("<span class='adminicon glyphicon glyphicon-bullhorn'></span>".Yii::t('app','Announces'), ['/announce/admin'],
+                        ['title'=>Yii::t('app','Announces'),'data-toggle'=>'tooltip','data-placement'=>'left']);?>
+                </li>
+                <li>
+                    <?=Html::a("<span class='adminicon glyphicon glyphicon-user'></span>".Yii::t('app','Deputies'), ['/deputy/admin'],
+                        ['title'=>Yii::t('app','Deputies'),'data-toggle'=>'tooltip','data-placement'=>'left']);?>
+                </li>
+                <li>
+                    <?=Html::a("<span class='adminicon glyphicon glyphicon-bookmark'></span>".Yii::t('app','Laws'), ['/legislation/admin'],
+                        ['title'=>Yii::t('app','Laws'),'data-toggle'=>'tooltip','data-placement'=>'left']);?>
+                </li>
+                <li>
+                    <?=Html::a("<span class='adminicon glyphicon glyphicon-folder-close'></span>".Yii::t('app','Decrees'), ['/decree/admin'],
+                        ['title'=>Yii::t('app','Decrees'),'data-toggle'=>'tooltip','data-placement'=>'left']);?>
+                </li>
+                <li>
+                    <?=Html::a("<span class='adminicon glyphicon glyphicon-folder-open'></span>".Yii::t('app','Bills'), ['/bill/admin'],
+                        ['title'=>Yii::t('app','Bills'),'data-toggle'=>'tooltip','data-placement'=>'left']);?>
+                </li>
+                <li>
+                    <?=Html::a("<span class='adminicon glyphicon glyphicon-duplicate'></span>".Yii::t('app','Pages'), ['/page/admin'],
+                        ['title'=>Yii::t('app','Pages'),'data-toggle'=>'tooltip','data-placement'=>'left']);?>
+                </li>
+                <li>
+                    <?=Html::a("<span class='adminicon glyphicon glyphicon-envelope'></span>".Yii::t('app','Feedback '), ['/feedback/admin'],
+                        ['title'=>Yii::t('app','Feedback '),'data-toggle'=>'tooltip','data-placement'=>'left']);?>
+                </li>
+                <li>
+                    <?=Html::a("<span class='adminicon glyphicon glyphicon-comment'></span>".Yii::t('app','Comments '), ['/comment/admin'],
+                        ['title'=>Yii::t('app','Comments'),'data-toggle'=>'tooltip','data-placement'=>'left']);?>
                 </li>
             </ul>
         </div>
@@ -178,10 +213,21 @@ AppAsset::register($this);
     <script type="text/javascript">
         window.onload = function(){
             var panel=$('.js_panel');
-            $('.js_panel_toggle').click(function () {
-                if(panel.hasClass('panel-opened')){panel.removeClass('panel-opened');}
-                else {panel.addClass('panel-opened');}
+            $(document).on('click','.js_panel_toggle',function () {
+                if(panel.hasClass('panel-opened')) //if open do close
+                {
+                    panel.removeClass('panel-opened tooltiphide');
+                    $(this).addClass('glyphicon-option-vertical').removeClass('glyphicon-option-horizontal');
+                }
+                else //if closed do open
+                {
+                    panel.addClass('panel-opened tooltiphide');
+                    $(this).removeClass('glyphicon-option-vertical').addClass('glyphicon-option-horizontal');
+                }
             });
+
+            $("[data-toggle='tooltip']").tooltip();
+            //$("[data-toggle='popover']").popover();
         }
     </script>
     </body>

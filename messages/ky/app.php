@@ -51,6 +51,7 @@ return [
     'Authentication'=>'Кирүү',
     'Close'=>'Жабуу',
     'Pages'=>'Барактар',
+    'Full name'=>'Аты-жөнү',
 
     'Osh city Kenesh' => 'Ош шаардык Кеңеши',
     'Legislation' => 'Мыйзамдар',
@@ -115,6 +116,7 @@ return [
     'Create Commission'=>'Комиссия кошуу',
     'Update Commission'=>'Комиссияны өзгөртүү',
 
+    'Feedback '=>'Суроолор ',
     'Feedback'=>'Суроолор-сунуштар',
     'Feedbacks'=>'Суроолор-сунуштар',
     'Create Feedback'=>'Онлайн суроолор-сунуштарды берүү жолу',
@@ -139,6 +141,24 @@ return [
 
     'Comment'=>'Комментарий',
     'Comments'=>'Комментарийлер',
-    'Update Comment'=>'Комментарийдп өзгөртүү',
+    'Comments '=>'Коммент.',
+    'Update Comment'=>'Комментарийди өзгөртүү',
     'Delete Comment'=>'Комментарийди өчүрүү',
+
+    'Law'=>'Мыйзам',
+    'Laws'=>'Мыйзамдар',
+    'Update Law'=>'Мыйзамды өзгөртүү',
+    'Delete Law'=>'Мыйзамды өчүрүү',
+    'Create Law'=>'Мыйзам кошуу',
+
+    'Page'=>'Барак',
+    'Update Page'=>'Баракты өзгөртүү',
+    'Delete Page'=>'Баракты өчүрүү',
+    'Create Page'=>'Барак кошуу',
+
+    'Party'=>'Партия',
+    'Parties'=>'Партиялар',
+    'Update Party'=>'Партияны өзгөртүү',
+    'Delete Party'=>'Партияны өчүрүү',
+    'Create Party'=>'Партия кошуу',
 ];
