@@ -251,31 +251,3 @@ $galleries= $db->createCommand("SELECT id,title, main_img, directory FROM galler
 
 
 </div>
-<script>
-    window.onload = function(){
-        var mySwiper = new Swiper ('.swiper-container', {
-            // If we need pagination
-            slidesPerView: 6,
-            spaceBetween: 30,
-            freeMode: true,
-            autoplay: 2500,
-            scrollbar: '.swiper-scrollbar',
-            autoplayDisableOnInteraction:false
-        });
-
-        $(window).scroll(function() {
-            console.log('asdf');
-            if ($(window).scrollTop() > 100) {
-                $('.js_logo1').fadeIn();
-            }
-            else {
-                $('.js_logo1').fadeOut();
-            }
-        });
-
-        $(".js_logo1").click(function() {
-            $("html, body").animate({ scrollTop: 0 });
-            return false;
-        });
-    }
-</script>

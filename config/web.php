@@ -6,10 +6,12 @@ $config = [
     'id' => 'basic',
     'name'=>'Ош шаардык Кеңеши',
     'basePath' => dirname(__DIR__),
-    'bootstrap' => ['log'],
+    'bootstrap' => ['log', [
+        'class' => 'app\components\LanguageSelect'
+    ],],
     'language' => 'ky',
     // set source language to be English
-    'sourceLanguage' => 'en-US',
+    //'sourceLanguage' => 'en-US',
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
@@ -62,6 +64,13 @@ $config = [
         ],
         'assetManager' => [
             'bundles' => [
+                [
+                    'yii\web\JqueryAsset' => [
+                        'js' => [
+                            YII_ENV_DEV ? 'jquery.js' : 'jquery.min.js'
+                        ]
+                    ],
+                ],
                 'yii\bootstrap\BootstrapAsset' => [
                     'sourcePath' => null,
                     'basePath' => '@webroot',

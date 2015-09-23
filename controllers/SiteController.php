@@ -310,4 +310,19 @@ class SiteController extends Controller
     {
         print_r($_GET);
     }
+
+    public function actionLanguage($l){
+        if($l=='ru' && $l=='ky')
+        {
+            $this->redirect(Yii::$app->request->referrer);
+        }
+        Yii::$app->language = $l;
+        $cookies = Yii::$app->response->cookies;
+        $cookies->add(new \yii\web\Cookie([
+            'name' => 'language',
+            'value' => $l,
+            'expire' => time() + 60 * 60 * 24 * 30, // 30 days
+        ]));
+        $this->redirect(Yii::$app->request->referrer);
+    }
 }

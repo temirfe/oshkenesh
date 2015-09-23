@@ -62,6 +62,7 @@ AppAsset::register($this);
     <?php
     $current_url=Url::current();
     $yiiuser=Yii::$app->user;
+    if(Yii::$app->language=='ky') {$changeTo='Русский'; $lan='ru';} else {$changeTo='Кыргызча'; $lan='ky';}
     ?>
     <div class="wrap">
         <?php
@@ -114,8 +115,14 @@ AppAsset::register($this);
 
                 ],
             ],
-        ];
 
+        ];
+        echo Nav::widget([
+            'options' => ['class' => 'navbar-nav navbar-right'],
+            'items' => [
+                ['label' => $changeTo, 'url' => ['site/language', 'l' => $lan]],
+            ],
+        ]);
         echo Nav::widget([
             'options' => ['class' => 'navbar-nav'],
             'items' => $navItems,
@@ -130,53 +137,59 @@ AppAsset::register($this);
         </div>
     </div>
 
-    <section>
-        <div class="admin-panel js_panel">
-            <span class='adminicon glyphicon glyphicon-option-vertical js_panel_toggle' style='padding-left:13px;'></span>
-            <ul>
-                <li>
-                    <?=Html::a("<span class='adminicon glyphicon glyphicon-header'></span>".Yii::t('app','News'), ['/news/admin'],
-                        ['title'=>Yii::t('app','News'),'data-toggle'=>'tooltip','data-placement'=>'left']);?>
-                </li>
-                <li>
-                    <?=Html::a("<span class='adminicon glyphicon glyphicon-picture'></span>".Yii::t('app','Gallery'), ['/gallery/admin'],
-                        ['title'=>Yii::t('app','Gallery'),'data-toggle'=>'tooltip','data-placement'=>'left']);?>
-                </li>
-                <li>
-                    <?=Html::a("<span class='adminicon glyphicon glyphicon-bullhorn'></span>".Yii::t('app','Announces'), ['/announce/admin'],
-                        ['title'=>Yii::t('app','Announces'),'data-toggle'=>'tooltip','data-placement'=>'left']);?>
-                </li>
-                <li>
-                    <?=Html::a("<span class='adminicon glyphicon glyphicon-user'></span>".Yii::t('app','Deputies'), ['/deputy/admin'],
-                        ['title'=>Yii::t('app','Deputies'),'data-toggle'=>'tooltip','data-placement'=>'left']);?>
-                </li>
-                <li>
-                    <?=Html::a("<span class='adminicon glyphicon glyphicon-bookmark'></span>".Yii::t('app','Laws'), ['/legislation/admin'],
-                        ['title'=>Yii::t('app','Laws'),'data-toggle'=>'tooltip','data-placement'=>'left']);?>
-                </li>
-                <li>
-                    <?=Html::a("<span class='adminicon glyphicon glyphicon-folder-close'></span>".Yii::t('app','Decrees'), ['/decree/admin'],
-                        ['title'=>Yii::t('app','Decrees'),'data-toggle'=>'tooltip','data-placement'=>'left']);?>
-                </li>
-                <li>
-                    <?=Html::a("<span class='adminicon glyphicon glyphicon-folder-open'></span>".Yii::t('app','Bills'), ['/bill/admin'],
-                        ['title'=>Yii::t('app','Bills'),'data-toggle'=>'tooltip','data-placement'=>'left']);?>
-                </li>
-                <li>
-                    <?=Html::a("<span class='adminicon glyphicon glyphicon-duplicate'></span>".Yii::t('app','Pages'), ['/page/admin'],
-                        ['title'=>Yii::t('app','Pages'),'data-toggle'=>'tooltip','data-placement'=>'left']);?>
-                </li>
-                <li>
-                    <?=Html::a("<span class='adminicon glyphicon glyphicon-envelope'></span>".Yii::t('app','Feedback '), ['/feedback/admin'],
-                        ['title'=>Yii::t('app','Feedback '),'data-toggle'=>'tooltip','data-placement'=>'left']);?>
-                </li>
-                <li>
-                    <?=Html::a("<span class='adminicon glyphicon glyphicon-comment'></span>".Yii::t('app','Comments '), ['/comment/admin'],
-                        ['title'=>Yii::t('app','Comments'),'data-toggle'=>'tooltip','data-placement'=>'left']);?>
-                </li>
-            </ul>
-        </div>
-    </section>
+    <?php if(!Yii::$app->user->isGuest && Yii::$app->user->identity->isAdmin()){
+        ?>
+        <section>
+            <div class="admin-panel js_panel">
+                <span class='adminicon glyphicon glyphicon-option-vertical js_panel_toggle' style='padding-left:13px;'></span>
+                <ul>
+                    <li>
+                        <?=Html::a("<span class='adminicon glyphicon glyphicon-header'></span>".Yii::t('app','News'), ['/news/admin'],
+                            ['title'=>Yii::t('app','News'),'data-toggle'=>'tooltip','data-placement'=>'left']);?>
+                    </li>
+                    <li>
+                        <?=Html::a("<span class='adminicon glyphicon glyphicon-picture'></span>".Yii::t('app','Gallery'), ['/gallery/admin'],
+                            ['title'=>Yii::t('app','Gallery'),'data-toggle'=>'tooltip','data-placement'=>'left']);?>
+                    </li>
+                    <li>
+                        <?=Html::a("<span class='adminicon glyphicon glyphicon-bullhorn'></span>".Yii::t('app','Announces'), ['/announce/admin'],
+                            ['title'=>Yii::t('app','Announces'),'data-toggle'=>'tooltip','data-placement'=>'left']);?>
+                    </li>
+                    <li>
+                        <?=Html::a("<span class='adminicon glyphicon glyphicon-user'></span>".Yii::t('app','Deputies'), ['/deputy/admin'],
+                            ['title'=>Yii::t('app','Deputies'),'data-toggle'=>'tooltip','data-placement'=>'left']);?>
+                    </li>
+                    <li>
+                        <?=Html::a("<span class='adminicon glyphicon glyphicon-bookmark'></span>".Yii::t('app','Laws'), ['/legislation/admin'],
+                            ['title'=>Yii::t('app','Laws'),'data-toggle'=>'tooltip','data-placement'=>'left']);?>
+                    </li>
+                    <li>
+                        <?=Html::a("<span class='adminicon glyphicon glyphicon-folder-close'></span>".Yii::t('app','Decrees'), ['/decree/admin'],
+                            ['title'=>Yii::t('app','Decrees'),'data-toggle'=>'tooltip','data-placement'=>'left']);?>
+                    </li>
+                    <li>
+                        <?=Html::a("<span class='adminicon glyphicon glyphicon-folder-open'></span>".Yii::t('app','Bills'), ['/bill/admin'],
+                            ['title'=>Yii::t('app','Bills'),'data-toggle'=>'tooltip','data-placement'=>'left']);?>
+                    </li>
+                    <li>
+                        <?=Html::a("<span class='adminicon glyphicon glyphicon-duplicate'></span>".Yii::t('app','Pages'), ['/page/admin'],
+                            ['title'=>Yii::t('app','Pages'),'data-toggle'=>'tooltip','data-placement'=>'left']);?>
+                    </li>
+                    <li>
+                        <?=Html::a("<span class='adminicon glyphicon glyphicon-envelope'></span>".Yii::t('app','Feedback '), ['/feedback/admin'],
+                            ['title'=>Yii::t('app','Feedback '),'data-toggle'=>'tooltip','data-placement'=>'left']);?>
+                    </li>
+                    <li>
+                        <?=Html::a("<span class='adminicon glyphicon glyphicon-comment'></span>".Yii::t('app','Comments '), ['/comment/admin'],
+                            ['title'=>Yii::t('app','Comments'),'data-toggle'=>'tooltip','data-placement'=>'left']);?>
+                    </li>
+                </ul>
+            </div>
+        </section>
+    <?php
+    }?>
+
+
     <!-- Modal -->
     <div id="myModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
@@ -210,26 +223,6 @@ AppAsset::register($this);
     </footer>
 
     <?php $this->endBody() ?>
-    <script type="text/javascript">
-        window.onload = function(){
-            var panel=$('.js_panel');
-            $(document).on('click','.js_panel_toggle',function () {
-                if(panel.hasClass('panel-opened')) //if open do close
-                {
-                    panel.removeClass('panel-opened tooltiphide');
-                    $(this).addClass('glyphicon-option-vertical').removeClass('glyphicon-option-horizontal');
-                }
-                else //if closed do open
-                {
-                    panel.addClass('panel-opened tooltiphide');
-                    $(this).removeClass('glyphicon-option-vertical').addClass('glyphicon-option-horizontal');
-                }
-            });
-
-            $("[data-toggle='tooltip']").tooltip();
-            //$("[data-toggle='popover']").popover();
-        }
-    </script>
     </body>
     </html>
 <?php $this->endPage() ?>
