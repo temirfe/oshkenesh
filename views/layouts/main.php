@@ -74,6 +74,7 @@ SwiperAsset::register($this);
             $addItems=['label' => Yii::t('app', 'Logout'), 'url' => ['/site/logout'], 'linkOptions' => ['data-method' => 'post']];
         }
         $navItems=[
+            ['label' => Yii::t('app', 'Home'), 'url' => ['/']],
             ['label' => Yii::t('app', 'News'), 'url' => ['/news/index']],
             [
                 'label' => Yii::t('app', 'Documents'),
@@ -110,7 +111,6 @@ SwiperAsset::register($this);
 
                 ],
             ],
-
         ];
         echo Nav::widget([
             'options' => ['class' => 'navbar-nav navbar-right'],
