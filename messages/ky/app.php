@@ -175,4 +175,12 @@ return [
     'Update Deputy'=>'Дупутатты өзгөртүү',
     'Delete Deputy'=>'Дупутатты өчүрүү',
     'Create Deputy'=>'Дупутат кошуу',
+
+    'Session'=>'Сессия',
+    'Sessions'=>'Сессиялар',
+    'Update Session'=>'Сессияны өзгөртүү',
+    'Delete Session'=>'Сессияны өчүрүү',
+    'Create Session'=>'Сессия кошуу',
+
+    'Select session'=>'Сессияны танда',
 ];

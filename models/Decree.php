@@ -23,6 +23,8 @@ class Decree extends \yii\db\ActiveRecord
 {
     public $wordFile;
     public $pdfFile;
+    public $word_size;
+    public $pdf_size;
     /**
      * @inheritdoc
      */
@@ -40,11 +42,11 @@ class Decree extends \yii\db\ActiveRecord
             [['date'], 'safe'],
             [['title'], 'required'],
             [['content','word','pdf','word_size','pdf_size'], 'string'],
-            [['ru', 'views'], 'integer'],
+            [['ru', 'views','session_id'], 'integer'],
             [['title'], 'string', 'max' => 500],
             [['description'], 'string', 'max' => 1000],
             [['number'], 'string', 'max' => 20],
-            [['session', 'word', 'pdf'], 'string', 'max' => 255],
+            [['word', 'pdf'], 'string', 'max' => 255],
             [['wordFile'], 'file', 'extensions' => 'doc,docx,rtf'],
             [['pdfFile'], 'file', 'extensions' => 'pdf']
         ];
@@ -64,11 +66,16 @@ class Decree extends \yii\db\ActiveRecord
             'ru' => Yii::t('app', 'Ru'),
             'views' => Yii::t('app', 'Views'),
             'number' => Yii::t('app', 'Decree number'),
-            'session' => Yii::t('app', 'Session name'),
+            'session_id' => Yii::t('app', 'Session name'),
             'word' => Yii::t('app', 'Word'),
             'pdf' => Yii::t('app', 'Pdf'),
             'wordFile' => Yii::t('app', 'Word File'),
             'pdfFile' => Yii::t('app', 'PDF File'),
         ];
+    }
+
+    public function getSession()
+    {
+        return $this->hasOne(Session::className(), ['id' => 'session_id']);
     }
 }

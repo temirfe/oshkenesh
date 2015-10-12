@@ -5,23 +5,42 @@ use yii\grid\GridView;
 use yii\helpers\Url;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\DeputySearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
+/* @var $model app\models\Session */
 
-$this->title = Yii::t('app', 'Decrees');
+$this->title = $model->title;
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Sessions'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="deputy-index">
+<div class="session-view">
     <?php if(!Yii::$app->user->isGuest && Yii::$app->user->identity->isAdmin()){
         ?>
         <div class="pull-right">
-            <?= Html::a('<span class="glyphicon glyphicon-plus" aria-hidden="true" title="'.Yii::t('app', 'Add new').'"></span>', ['create'], ['class' => 'btn btn-success btn-sm']) ?>
+            <div class="btn-group" role="group" aria-label="admin-actions">
+                <?= Html::a('<span class="glyphicon glyphicon-plus" aria-hidden="true" title="'.Yii::t('app', 'Add new').'"></span>', ['create'], ['class' => 'btn btn-success btn-sm']) ?>
+                <?= Html::a('<span class="glyphicon glyphicon-pencil" aria-hidden="true" title="'.Yii::t('app', 'Update').'"></span>', ['update', 'id' => $model->id], ['class' => 'btn btn-primary btn-sm']) ?>
+                <?= Html::a('<span class="glyphicon glyphicon-remove" aria-hidden="true" title="'.Yii::t('app', 'Delete').'"></span>', ['delete', 'id' => $model->id], [
+                    'class' => 'btn btn-danger btn-sm',
+                    'data' => [
+                        'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
+                        'method' => 'post',
+                    ],
+                ]) ?>
+            </div>
         </div>
     <?php
     }?>
-
     <h1><?= Html::encode($this->title) ?></h1>
 
+    <?php if(!Yii::$app->user->isGuest && Yii::$app->user->identity->isAdmin()){
+        ?>
+        <p>
+            <?= Html::a(Yii::t('app', 'Create Decree'), ['/decree/create'], ['class' => 'btn btn-success']) ?>
+        </p>
+    <?php
+    }?>
+    <div class="entry_news_date"><?=date('d.m.Y', strtotime($model->date));?></div>
+    <div class="description"><?=$model->description;?></div>
+<br />
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'emptyText' => Yii::t('app', 'No results found'),
@@ -63,6 +82,5 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
         'layout' => "{items}\n{pager}",
     ]); ?>
-
 
 </div>

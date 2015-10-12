@@ -30,17 +30,18 @@
         });
 
         $(window).scroll(function() {
-            console.log('asdf');
-            if ($(window).scrollTop() > 100) {
-                $('.js_logo1').fadeIn();
-            }
-            else {
-                $('.js_logo1').fadeOut();
+            if($('.logo2').length){
+                if ($(window).scrollTop() > 100) {
+                    $('.js_logo1').fadeIn();
+                }
+                else {
+                    $('.js_logo1').fadeOut();
+                }
             }
         });
 
-        $(".js_logo1").click(function() {
+        /*$(".js_logo1").click(function() {
             $("html, body").animate({ scrollTop: 0 });
             return false;
-        });
+        });*/
     });

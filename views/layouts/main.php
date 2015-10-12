@@ -80,7 +80,7 @@ SwiperAsset::register($this);
                 'label' => Yii::t('app', 'Documents'),
                 'items' => [
                     ['label' => Yii::t('app', 'Legislation'), 'url' => ['/legislation/index']],
-                    ['label' => Yii::t('app', 'Decrees'), 'url' => ['/decree/index']],
+                    ['label' => Yii::t('app', 'Decrees'), 'url' => ['/session/index']],
                     ['label' => Yii::t('app', 'Bills'), 'url' => ['/bill/index']],
                 ],
             ],
@@ -157,6 +157,10 @@ SwiperAsset::register($this);
                     <li>
                         <?=Html::a("<span class='adminicon glyphicon glyphicon-bookmark'></span>".Yii::t('app','Laws'), ['/legislation/admin'],
                             ['title'=>Yii::t('app','Laws'),'data-toggle'=>'tooltip','data-placement'=>'left']);?>
+                    </li>
+                    <li>
+                        <?=Html::a("<span class='adminicon glyphicon glyphicon-globe'></span>".Yii::t('app','Sessions'), ['/session/admin'],
+                            ['title'=>Yii::t('app','Sessions'),'data-toggle'=>'tooltip','data-placement'=>'left']);?>
                     </li>
                     <li>
                         <?=Html::a("<span class='adminicon glyphicon glyphicon-folder-close'></span>".Yii::t('app','Decrees'), ['/decree/admin'],

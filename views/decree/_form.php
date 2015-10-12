@@ -6,6 +6,8 @@ use vova07\imperavi\Widget;
 use yii\helpers\Url;
 use kartik\file\FileInput;
 use kartik\date\DatePicker;
+use yii\helpers\ArrayHelper;
+use app\models\Session;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Decree */
@@ -18,9 +20,11 @@ use kartik\date\DatePicker;
 
     <?php echo $form->field($model, 'ru',['options'=>['class'=>'form-group field140']])->dropDownList(['кыргызча','русский'],[]); ?>
 
+    <?=$form->field($model, 'session')->dropDownList(
+        ArrayHelper::map(Session::find()->orderBy('id DESC')->all(), 'id', 'title'),['prompt'=>Yii::t('app', 'Select session')] )
+    ?>
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
     <?= $form->field($model, 'number')->textInput(['maxlength' => true]) ?>
-    <?= $form->field($model, 'session')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'content')->widget(Widget::className(), [
         'settings' => [
@@ -66,7 +70,7 @@ use kartik\date\DatePicker;
 
     <?php
 
-    echo $form->field($model, 'date',['options'=>['class'=>'form-group field140']])->widget(DatePicker::classname(), [
+    /*echo $form->field($model, 'date',['options'=>['class'=>'form-group field140']])->widget(DatePicker::classname(), [
         'removeButton' => false,
         'language'=>'ru',
         'pluginOptions' => [
@@ -74,7 +78,7 @@ use kartik\date\DatePicker;
             'format' => 'yyyy-mm-dd',
             'todayHighlight' => true,
         ]
-    ]);
+    ]);*/
     ?>
 
     <div class="form-group field140">

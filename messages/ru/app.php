@@ -172,4 +172,12 @@ return [
     'Update Deputy'=>'Радактировать депутата',
     'Delete Deputy'=>'Удалить депутата',
     'Create Deputy'=>'Добавить депутата',
+
+    'Session'=>'Сессия',
+    'Sessions'=>'Сессии',
+    'Update Session'=>'Радактировать сессию',
+    'Delete Session'=>'Удалить сессию',
+    'Create Session'=>'Добавить сессию',
+
+    'Select session'=>'Выбрать сессию',
 ];

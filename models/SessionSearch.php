@@ -5,12 +5,9 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Decree;
+use app\models\Results;
 
-/**
- * DecreeSearch represents the model behind the search form about `app\models\Decree`.
- */
-class DecreeSearch extends Decree
+class SessionSearch extends Session
 {
     /**
      * @inheritdoc
@@ -18,8 +15,8 @@ class DecreeSearch extends Decree
     public function rules()
     {
         return [
-            [['id', 'ru', 'views','session_id'], 'integer'],
-            [['date', 'title', 'description', 'content', 'number', 'word', 'pdf'], 'safe'],
+            [['id'], 'integer'],
+            [['date', 'title', 'description'], 'safe'],
         ];
     }
 
@@ -41,7 +38,7 @@ class DecreeSearch extends Decree
      */
     public function search($params)
     {
-        $query = Decree::find();
+        $query = Session::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -58,17 +55,10 @@ class DecreeSearch extends Decree
         $query->andFilterWhere([
             'id' => $this->id,
             'date' => $this->date,
-            'ru' => $this->ru,
-            'views' => $this->views,
         ]);
 
         $query->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['like', 'description', $this->description])
-            ->andFilterWhere(['like', 'content', $this->content])
-            ->andFilterWhere(['like', 'number', $this->number])
-            ->andFilterWhere(['like', 'session_id', $this->session_id])
-            ->andFilterWhere(['like', 'word', $this->word])
-            ->andFilterWhere(['like', 'pdf', $this->pdf]);
+            ->andFilterWhere(['like', 'description', $this->description]);
 
         return $dataProvider;
     }

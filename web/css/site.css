@@ -29,8 +29,6 @@ h2, .h2 {
     padding: 50px 15px 20px;
 }
 
-
-
 .footer {
     height: 60px;
     background-color: #f5f5f5;
@@ -72,6 +70,7 @@ a.asc:after {
 a.desc:after {
     content: /*"\e114"*/ "\e152";
 }
+a:focus{outline: none;}
 
 .sort-numerical a.asc:after {
     content: "\e153";
@@ -137,8 +136,6 @@ h2.title{font-size:20px;margin-top: 0;}
 .img_list{margin-right: 15px;
     text-align: center;
     width: 120px;}
-.img_list img{}
-.desc_list{}
 .desc_list a{ color: #777;
     text-decoration: none;}
 div.item{clear:both; display: inline-block;margin-top: 15px; width: 100%;}
@@ -295,3 +292,4 @@ h3.dots:after{background-color: #ffcb05;
     padding: 1px;}
 .gthumb img{height: 140px;
     max-width: 186px;}
+h4.session{margin:0;}

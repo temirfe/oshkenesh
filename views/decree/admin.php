@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\DecreeSearch */
@@ -18,23 +19,31 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a(Yii::t('app', 'Create Decree'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
-
+<?php $db=Yii::$app->db;
+        $result = $db->createCommand("SELECT id,title FROM session ORDER BY id DESC")->queryAll(); ?>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
             [
-                'attribute' => 'date',
+                'attribute' => 'title',
                 'format' => 'raw',
                 'value' => function($model) {
-                    return date('d.m.Y', strtotime($model->date));
+                    return Html::a($model->title,['decree/view','id'=>$model->id]);
                 },
             ],
-            'title',
             // 'ru',
             // 'views',
              'number',
-             'session',
+
+            [
+                'attribute' => 'session_id',
+                'format' => 'raw',
+                'value' => function($model) {
+                    return $model->session->title;
+                },
+                'filter' => Html::activeDropDownList($searchModel, 'session_id', ArrayHelper::map($result, 'id', 'title'),['class'=>'form-control','prompt' => '']),
+            ],
             // 'word',
             // 'pdf',
         ],
