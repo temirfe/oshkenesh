@@ -288,7 +288,7 @@ class SiteController extends Controller
         }
     }
 
-    public function actionRedirect()
+    public function actionSedirect()
     {
         echo 'req '.$_SERVER['REQUEST_URI'];
         echo '<br />qs '.$_SERVER['QUERY_STRING'];
