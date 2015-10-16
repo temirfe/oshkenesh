@@ -30,7 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
     }?>
     <h1><?= Html::encode($this->title) ?></h1>
     <?php if($model->image) {
-        echo Html::img("@web/uploads/images/".$model->image, ['class'=>'deputy_image', 'alt'=>'']);
+        echo Html::img("@web/uploads/images/small/s_".$model->image, ['class'=>'deputy_image', 'alt'=>'']);
     };?>
     <?php $party=Yii::$app->db->createCommand("SELECT * FROM party WHERE id='{$model->party_id}'")->queryOne();
         echo $party['name'];

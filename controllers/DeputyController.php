@@ -11,6 +11,7 @@ use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
 use yii\imagine\Image;
 use Imagine\Image\Box;
+use Imagine\Image\ImageInterface;
 use yii\filters\AccessControl;
 use app\models\User;
 
@@ -135,16 +136,10 @@ class DeputyController extends Controller
     }
 
     protected function resize($imageName){
-        /*Image::getImagine()->open('uploads/images/'.$imageName)->thumbnail(new Box(120, 200))->save(Yii::getAlias('@webroot').'/uploads/images/'.$imageName);
-        Image::crop('@webroot/uploads/images/' . $imageName, 120, 160)
-            ->save(Yii::getAlias('@webroot/uploads/images/' . $imageName));*/
-
         $webroot=Yii::getAlias('@webroot');
         $imagine=Image::getImagine()->open('uploads/images/'.$imageName);
         $imagine->thumbnail(new Box(600, 600))->save($webroot.'/uploads/images/'.$imageName);
-        $imagine->thumbnail(new Box(160, 200))->save($webroot.'/uploads/images/small/'.$imageName);
-
-        Image::crop($webroot.'/uploads/images/small/'.$imageName,120,160)->save($webroot.'/images/slider/small/'.$imageName);
+        $imagine->thumbnail(new Box(200, 267),ImageInterface::THUMBNAIL_OUTBOUND)->save($webroot.'/uploads/images/small/s_'.$imageName);
     }
     /**
      * Deletes an existing Deputy model.
