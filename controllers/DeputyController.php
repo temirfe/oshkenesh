@@ -95,9 +95,7 @@ class DeputyController extends Controller
                 $imageName=time(). '.' . $model->imageFile->extension;
                 $model->imageFile->saveAs('uploads/images/' . $imageName);
                 $model->image=$imageName;
-                Image::getImagine()->open('uploads/images/'.$imageName)->thumbnail(new Box(120, 200))->save(Yii::getAlias('@webroot').'/uploads/images/'.$imageName);
-                Image::crop('@webroot/uploads/images/' . $imageName, 120, 160)
-                    ->save(Yii::getAlias('@webroot/uploads/images/' . $imageName));
+                $this->resize($imageName);
             }
             $model->save(false);
             return $this->redirect(['view', 'id' => $model->id]);
@@ -124,9 +122,7 @@ class DeputyController extends Controller
                 $imageName=time(). '.' . $model->imageFile->extension;
                 $model->imageFile->saveAs('uploads/images/' . $imageName);
                 $model->image=$imageName;
-                Image::getImagine()->open('uploads/images/'.$imageName)->thumbnail(new Box(120, 200))->save(Yii::getAlias('@webroot').'/uploads/images/'.$imageName);
-                Image::crop('@webroot/uploads/images/' . $imageName, 120, 160)
-                    ->save(Yii::getAlias('@webroot/uploads/images/' . $imageName));
+                $this->resize($imageName);
             }
 
             $model->save(false);
@@ -138,6 +134,18 @@ class DeputyController extends Controller
         }
     }
 
+    protected function resize($imageName){
+        /*Image::getImagine()->open('uploads/images/'.$imageName)->thumbnail(new Box(120, 200))->save(Yii::getAlias('@webroot').'/uploads/images/'.$imageName);
+        Image::crop('@webroot/uploads/images/' . $imageName, 120, 160)
+            ->save(Yii::getAlias('@webroot/uploads/images/' . $imageName));*/
+
+        $webroot=Yii::getAlias('@webroot');
+        $imagine=Image::getImagine()->open('uploads/images/'.$imageName);
+        $imagine->thumbnail(new Box(600, 600))->save($webroot.'/uploads/images/'.$imageName);
+        $imagine->thumbnail(new Box(160, 200))->save($webroot.'/uploads/images/small/'.$imageName);
+
+        Image::crop($webroot.'/uploads/images/small/'.$imageName,120,160)->save($webroot.'/images/slider/small/'.$imageName);
+    }
     /**
      * Deletes an existing Deputy model.
      * If deletion is successful, the browser will be redirected to the 'index' page.

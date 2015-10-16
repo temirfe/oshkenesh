@@ -214,10 +214,44 @@ SwiperAsset::register($this);
         </div>
     </div>
     <footer class="footer">
-        <div class="container">
-            <p class="pull-left">&copy; Ош Шаардык Кеңеши <?= date('Y') ?></p>
+        <div class="container" style="padding:0;">
+            <div class="footer_menu row">
+                <div class="footer_menu_item col-md-2">
+                    <div class="footer_menu_item_title"><?=Yii::t('app', 'Documents') ?></div>
+                    <?=Html::a(Yii::t('app', 'Legislation'),['/legislation/index']);?>
+                    <?=Html::a(Yii::t('app', 'Decrees'),['/session/index']);?>
+                    <?=Html::a(Yii::t('app', 'Bills'),['/bill/index']);?>
+                </div>
 
-            <p class="pull-right"></p>
+                <div class="footer_menu_item col-md-2">
+                    <div class="footer_menu_item_title"><?=Yii::t('app', 'Structure') ?></div>
+                    <?=Html::a(Yii::t('app', 'Presidium'),['/page/1']);?>
+                    <?=Html::a(Yii::t('app', 'Deputy Commission'),['/page/2']);?>
+                    <?=Html::a(Yii::t('app', 'Deputies'),['/deputy/index']);?>
+                </div>
+                <div class="footer_menu_item col-md-2">
+                    <div class="footer_menu_item_title"><?=Yii::t('app', 'Activity') ?></div>
+                    <?=Html::a(Yii::t('app', 'Plans'),['/plan']);?>
+                    <?=Html::a(Yii::t('app', 'Results'),['/results']);?>
+                </div>
+                <div class="footer_menu_item col-md-2">
+                    <div class="footer_menu_item_title"><?=Yii::t('app', 'Contact') ?></div>
+                    <?=Html::a(Yii::t('app', 'Contacts'),['/page/5']);?>
+                    <?=Html::a(Yii::t('app', 'Vacancy'),['/page/4']);?>
+                </div>
+                <div class="footer_menu_item col-md-2 footer_menu_rest">
+                    <?php
+                        echo Html::a(Yii::t('app', 'News'), ['/news/index']);
+                        echo Html::a(Yii::t('app', 'Apparatus'),'/page/3');
+                        echo Html::a(Yii::t('app', 'Gallery'),['/gallery']);
+                    ?>
+                </div>
+            </div>
+            <div style="color:#fff; margin:15px 0;">
+
+                <p class="pull-left"><?=Yii::t('app','Osh city Kenesh reference service:');?> (3222) 31-98-83</p>
+                <p class="pull-right">&copy; <?=Yii::t('app','Osh city Kenesh');?> <?= date('Y') ?></p>
+            </div>
         </div>
     </footer>
 

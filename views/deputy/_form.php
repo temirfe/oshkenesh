@@ -29,7 +29,6 @@ use app\models\Party;
     ]; else $iniImg=false;
     echo $form->field($model, 'imageFile')->widget(FileInput::classname(), [
         'options' => ['accept' => 'image/*'],
-        'name' => 'input-ru[]',
         'language' => 'ru',
         'pluginOptions' => [
             'showCaption' => false,
@@ -37,7 +36,7 @@ use app\models\Party;
             'showUpload' => false,
             'initialPreview'=>$iniImg,
         ],
-    ]); ?>
+    ])->label(Yii::t('app','Image File')); ?>
     <?= $form->field($model, 'content')->widget(Widget::className(), [
         'settings' => [
             'lang' => 'ru',

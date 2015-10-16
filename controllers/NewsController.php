@@ -16,6 +16,7 @@ use Imagine\Image\Box;
 use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
 use app\models\User;
+use yii\helpers\Html;
 /**
  * NewsController implements the CRUD actions for News model.
  */
@@ -112,8 +113,9 @@ class NewsController extends Controller
      */
     public function actionView($id)
     {
+        $model=$this->findModel($id);
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
         ]);
     }
 

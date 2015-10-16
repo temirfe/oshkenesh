@@ -180,4 +180,6 @@ return [
     'Create Session'=>'Добавить сессию',
 
     'Select session'=>'Выбрать сессию',
+    'Image File'=>'Фотография',
+    'Osh city Kenesh reference service:'=>'Справочная служба Городского Кеңеша:',
 ];

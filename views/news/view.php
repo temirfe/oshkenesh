@@ -72,7 +72,21 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'News'), 'url' => ['i
     <div class="row-fluid">
         <div class="col-md-8 col-lg-8 text-content">
             <div>
-                <?=Html::img("@web/uploads/images/".$model->image, ['class'=>'news_image', 'alt'=>''])?>
+                <?php
+                    $img=Html::img("@web/uploads/images/".$model->image, ['class'=>'news_image', 'alt'=>'']);
+                    $src="@web/uploads/images/".$model->image;
+                    echo Html::a($img,$src,['rel'=>'fancybox']);
+
+                //change images in content into fancybox
+                preg_match_all('/(<img[^>]*">)/sui',$model->content,$matches);
+                if(isset($matches[0][0])){
+                    foreach($matches[0] as $match){
+                        preg_match('/src="([^"]+)"/ui',$match,$src);
+                        $replace=Html::a($match,$src[1],['rel'=>'fancybox']);
+                        $model->content=str_replace($match,$replace,$model->content);
+                    }
+                }
+                ?>
             </div>
             <div class="article_text">
                 <?=$model->content;?>
@@ -89,7 +103,6 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'News'), 'url' => ['i
                 </div>
                 <div class="my-button iblock">
                     <a target="_blank" class="mrc__plugin_uber_like_button" href="http://connect.mail.ru/share" data-mrc-config="{'nc' : '1', 'cm' : '2', 'sz' : '20', 'st' : '3', 'tp' : 'mm'}">Нравится</a>
-                    <script src="http://cdn.connect.mail.ru/js/loader.js" type="text/javascript" charset="UTF-8"></script>
                 </div>
 
                 <div class="ok-button iblock">
@@ -153,6 +166,36 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'News'), 'url' => ['i
             <a href="javascript:window.print()" class="print print_hide nodecor printshare"><span class="glyphicon glyphicon-print"></span> <?=Yii::t('app', 'Print')?></a>
         </div>
     </div>
+<?php
+echo newerton\fancybox\FancyBox::widget([
+    'target' => 'a[rel=fancybox]',
+    'helpers' => true,
+    'mouse' => true,
+    'config' => [
+        'maxWidth' => '99%',
+        'maxHeight' => '99%',
+        'playSpeed' => 4000,
+        'padding' => 0,
+        'fitToView' => false,
+        'autoSize' => false,
+        'closeClick' => false,
+        'prevEffect' => 'elastic',
+        'nextEffect' => 'elastic',
+        'closeBtn' => false,
+        'openOpacity' => true,
+        'helpers' => [
+            'title' => ['type' => 'over'],
+            'buttons' => [],
+            'thumbs' => ['width' => 68, 'height' => 50],
+            'overlay' => [
+                'css' => [
+                    'background' => 'rgba(0, 0, 0, 0.8)'
+                ],
+                'locked'=>false
+            ]
+        ],
+    ]
+]);?>
     <script>
         !function (d, id, did, st) {
             var js = d.createElement("script");
@@ -180,3 +223,6 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'News'), 'url' => ['i
         }(document, 'script', 'facebook-jssdk'));
     <!-- facebook end----->
     </script>
+    <!--mailru begin-->
+    <script src="http://cdn.connect.mail.ru/js/loader.js" type="text/javascript" charset="UTF-8"></script>
+    <!--mailru end-->

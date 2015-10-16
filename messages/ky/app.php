@@ -183,4 +183,6 @@ return [
     'Create Session'=>'Сессия кошуу',
 
     'Select session'=>'Сессияны танда',
+    'Image File'=>'Сүрөт',
+    'Osh city Kenesh reference service:'=>'Шаардык Кеңешинин сурап-билүү кызматы:',
 ];
