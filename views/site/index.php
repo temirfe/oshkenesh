@@ -8,7 +8,7 @@ $this->title = Yii::t('app','Osh city Kenesh');
 $db=Yii::$app->db;
 $news = $db->cache(function ($db) {
     return $db->createCommand("SELECT id,title,`date`,image FROM news ORDER BY date DESC LIMIT 4")->queryAll();
-},300);
+},3600);
 //$news = $db->createCommand("SELECT id,title,`date`,image FROM news ORDER BY date DESC LIMIT 4")->queryAll();
 $main_news=array();
 $other_news=array();
@@ -32,11 +32,15 @@ $bills= $db->cache(function ($db) {
     return $db->createCommand("SELECT id,title FROM bill ORDER BY id DESC LIMIT 2")->queryAll();
 },3600);
 
-/*$galleries= $db->cache(function ($db) {
-    return $db->createCommand("SELECT id,title, main_img, directory FROM gallery ORDER BY id DESC LIMIT 4")->queryAll();
-},3600);*/
+$announce = $db->cache(function ($db) {
+    return $db->createCommand("SELECT id,title,`date` FROM announce ORDER BY id DESC LIMIT 1")->queryOne();
+},3600);
 
-$galleries= $db->createCommand("SELECT id,title, main_img, directory FROM gallery ORDER BY id DESC LIMIT 4")->queryAll();
+$galleries= $db->cache(function ($db) {
+    return $db->createCommand("SELECT id,title, main_img, directory FROM gallery ORDER BY id DESC LIMIT 4")->queryAll();
+},3600);
+
+//$galleries= $db->createCommand("SELECT id,title, main_img, directory FROM gallery ORDER BY id DESC LIMIT 4")->queryAll();
 ?>
 <style type="text/css">
     .logo1{display: none;}
@@ -65,7 +69,6 @@ $galleries= $db->createCommand("SELECT id,title, main_img, directory FROM galler
     }
 
     .main_gal{margin-top:30px; border-top: 1px solid #eaeaea;}
-    .gal_wrap{}
     .gal_title{
         clear: both;
         margin-top: 5px;
@@ -73,8 +76,11 @@ $galleries= $db->createCommand("SELECT id,title, main_img, directory FROM galler
         text-align: center;
     }
     .gal_title a{color:#000;}
-    .gal_index_item{}
-    .gal_index_item img{}
+    .searchicon{color:#ccc;}
+    .search_btn{background-color: transparent; border-color: transparent;}
+    .search_btn:hover{background-color:#0066b3;}
+    .search_btn:hover .searchicon{color:#fff;}
+    .search_input{box-shadow: none;}
 
 </style>
 <div class="site-index">
@@ -85,6 +91,7 @@ $galleries= $db->createCommand("SELECT id,title, main_img, directory FROM galler
     <div class="ask pull-right btn btn-success">
         <?=Html::a(Yii::t('app', 'Questions / Suggestions'),Url::toRoute(['feedback/create']))?>
     </div>
+    <?php include_once('_search.php');?>
     <div class="row">
         <div class="col-md-6 mains_news">
             <?php
@@ -143,11 +150,6 @@ $galleries= $db->createCommand("SELECT id,title, main_img, directory FROM galler
             </div>
             <div class="announce">
                 <h3><?=Yii::t('app', 'Announce');?></h3>
-                <?php
-                    $announce = $db->cache(function ($db) {
-                        return $db->createCommand("SELECT id,title,`date` FROM announce ORDER BY id DESC LIMIT 1")->queryOne();
-                    },300);
-                ?>
                 <div class="announce_title"><?=Html::a(Html::encode($announce['title']),Url::toRoute(['announce/view','id'=>$main_news['id']]))?></div>
                 <div class="entry_news_date"><?=date("d.m.Y",strtotime($announce['date']));?></div>
             </div>

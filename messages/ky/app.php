@@ -52,6 +52,8 @@ return [
     'Close'=>'Жабуу',
     'Pages'=>'Барактар',
     'Full name'=>'Аты-жөнү',
+    'Search'=>'Издөө',
+    'Search Results'=>'Издөө жыйынтыктары',
 
     'Osh city Kenesh' => 'Ош шаардык Кеңеши',
     'Legislation' => 'Мыйзамдар',
