@@ -63,6 +63,7 @@ $config = [
             ),
         ],
         'assetManager' => [
+            'appendTimestamp' => true,
             'bundles' => [
                 [
                     'yii\web\JqueryAsset' => [
@@ -77,7 +78,6 @@ $config = [
                     'baseUrl' => '@web',
                     'css' => ['css/bootstrap.min.css']
                 ],
-                'appendTimestamp' => true,
             ],
         ],
         'authManager' => [
