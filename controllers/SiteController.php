@@ -16,6 +16,7 @@ use app\models\ResetPasswordForm;
 use yii\base\InvalidParamException;
 use yii\web\BadRequestHttpException;
 use yii\web\UploadedFile;
+use yii\db\Query;
 
 class SiteController extends Controller
 {
@@ -65,6 +66,84 @@ class SiteController extends Controller
         return $this->render('index');
     }
 
+    public function actionSearch()
+    {
+        $page=''; $announcement='';
+        $bill='';
+        $decree='';
+        $deputy='';
+        $feedback='';
+        $gallery='';
+        $legislation='';
+        $news='';
+        $plan='';
+        $results='';
+        if(isset($_POST['search']) && strlen($_POST['search'])>=3)
+        {
+            //$results=$pages||$news || $events ? array_merge($pages, $news, $events):null;
+
+            $query=new Query();
+            $page=$query->select(['id', 'title','content'])
+                ->from('page')
+                ->where('title LIKE :search OR content LIKE :search', [':search' =>"%{$_POST['search']}%"])
+                ->all();
+            $bill=$query->select(['id', 'title','content'])
+                ->from('bill')
+                ->where('title LIKE :search OR content LIKE :search', [':search' =>"%{$_POST['search']}%"])
+                ->all();
+            $decree=$query->select(['id', 'title','content'])
+                ->from('decree')
+                ->where('title LIKE :search OR content LIKE :search', [':search' =>"%{$_POST['search']}%"])
+                ->all();
+            $announcement=$query->select(['id', 'title','content'])
+                ->from('announce')
+                ->where('title LIKE :search OR content LIKE :search', [':search' =>"%{$_POST['search']}%"])
+                ->all();
+            $legislation=$query->select(['id', 'title','content'])
+                ->from('legislation')
+                ->where('title LIKE :search OR content LIKE :search', [':search' =>"%{$_POST['search']}%"])
+                ->all();
+
+            $deputy=$query->select(['id', 'fullname','content','content_ru'])
+                ->from('deputy')
+                ->where('fullname LIKE :search OR content LIKE :search OR content_ru LIKE :search', [':search' =>"%{$_POST['search']}%"])
+                ->all();
+            $feedback=$query->select(['id', 'text','answer'])
+                ->from('feedback')
+                ->where('public=1 AND (text LIKE :search OR answer LIKE :search)', [':search' =>"%{$_POST['search']}%"])
+                ->all();
+            $gallery=$query->select(['id', 'title','title_ru','description','description_ru'])
+                ->from('gallery')
+                ->where('title LIKE :search OR title_ru LIKE :search OR description LIKE :search or description_ru LIKE :search', [':search' =>"%{$_POST['search']}%"])
+                ->all();
+
+            $news=$query->select(['id', 'title','description','content'])
+                ->from('news')
+                ->where('title LIKE :search OR content LIKE :search OR description LIKE :search', [':search' =>"%{$_POST['search']}%"])
+                ->all();
+            $plan=$query->select(['id', 'title','description','content'])
+                ->from('plan')
+                ->where('title LIKE :search OR content LIKE :search OR description LIKE :search', [':search' =>"%{$_POST['search']}%"])
+                ->all();
+            $results=$query->select(['id', 'title','description','content'])
+                ->from('results')
+                ->where('title LIKE :search OR content LIKE :search OR description LIKE :search', [':search' =>"%{$_POST['search']}%"])
+                ->all();
+        }
+        return $this->render('searchResult',[
+            'page'=>$page,
+            'announcement'=>$announcement,
+            'bill'=>$bill,
+            'decree'=>$decree,
+            'deputy'=>$deputy,
+            'feedback'=>$feedback,
+            'gallery'=>$gallery,
+            'legislation'=>$legislation,
+            'news'=>$news,
+            'plan'=>$plan,
+            'results'=>$results,
+        ]);
+    }
     public function actionUpload()
     {
 

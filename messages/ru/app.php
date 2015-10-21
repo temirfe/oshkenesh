@@ -51,6 +51,8 @@ return [
     'Close'=>'Закрыть',
     'Pages'=>'Страницы',
     'Full name'=>'Ф.И.О.',
+    'Search'=>'Поиск',
+    'Search Results'=>'Результаты поиска',
 
     'Osh city Kenesh' => 'Ошский городской Кеңеш',
     'Legislation' => 'Законы',

@@ -31,9 +31,11 @@ $decrees = $db->cache(function ($db) {
 $bills= $db->cache(function ($db) {
     return $db->createCommand("SELECT id,title FROM bill ORDER BY id DESC LIMIT 2")->queryAll();
 },600);
-
 $galleries= $db->cache(function ($db) {
     return $db->createCommand("SELECT id,title, main_img, directory FROM gallery ORDER BY id DESC LIMIT 4")->queryAll();
+},600);
+$announce = $db->cache(function ($db) {
+    return $db->createCommand("SELECT id,title,`date` FROM announce ORDER BY id DESC LIMIT 1")->queryOne();
 },600);
 
 //$galleries= $db->createCommand("SELECT id,title, main_img, directory FROM gallery ORDER BY id DESC LIMIT 4")->queryAll();
@@ -65,7 +67,6 @@ $galleries= $db->cache(function ($db) {
     }
 
     .main_gal{margin-top:30px; border-top: 1px solid #eaeaea;}
-    .gal_wrap{}
     .gal_title{
         clear: both;
         margin-top: 5px;
@@ -73,8 +74,11 @@ $galleries= $db->cache(function ($db) {
         text-align: center;
     }
     .gal_title a{color:#000;}
-    .gal_index_item{}
-    .gal_index_item img{}
+    .searchicon{color:#ccc;}
+    .search_btn{background-color: transparent; border-color: transparent;}
+    .search_btn:hover{background-color:#0066b3;}
+    .search_btn:hover .searchicon{color:#fff;}
+    .search_input{box-shadow: none;}
 
 </style>
 <div class="site-index">
@@ -85,6 +89,7 @@ $galleries= $db->cache(function ($db) {
     <div class="ask pull-right btn btn-success">
         <?=Html::a(Yii::t('app', 'Questions / Suggestions'),Url::toRoute(['feedback/create']))?>
     </div>
+    <?php include_once('_search.php');?>
     <div class="row">
         <div class="col-md-6 mains_news">
             <?php
@@ -113,24 +118,6 @@ $galleries= $db->cache(function ($db) {
             </div>
 
         </div>
-        <script type="text/javascript">
-            window.onload=function(){
-                (function($){$.fn.hoverIntent=function(handlerIn,handlerOut,selector){var cfg={interval:100,sensitivity:6,timeout:0};if(typeof handlerIn==="object"){cfg=$.extend(cfg,handlerIn)}else{if($.isFunction(handlerOut)){cfg=$.extend(cfg,{over:handlerIn,out:handlerOut,selector:selector})}else{cfg=$.extend(cfg,{over:handlerIn,out:handlerIn,selector:handlerOut})}}var cX,cY,pX,pY;var track=function(ev){cX=ev.pageX;cY=ev.pageY};var compare=function(ev,ob){ob.hoverIntent_t=clearTimeout(ob.hoverIntent_t);if(Math.sqrt((pX-cX)*(pX-cX)+(pY-cY)*(pY-cY))<cfg.sensitivity){$(ob).off("mousemove.hoverIntent",track);ob.hoverIntent_s=true;return cfg.over.apply(ob,[ev])}else{pX=cX;pY=cY;ob.hoverIntent_t=setTimeout(function(){compare(ev,ob)},cfg.interval)}};var delay=function(ev,ob){ob.hoverIntent_t=clearTimeout(ob.hoverIntent_t);ob.hoverIntent_s=false;return cfg.out.apply(ob,[ev])};var handleHover=function(e){var ev=$.extend({},e);var ob=this;if(ob.hoverIntent_t){ob.hoverIntent_t=clearTimeout(ob.hoverIntent_t)}if(e.type==="mouseenter"){pX=ev.pageX;pY=ev.pageY;$(ob).on("mousemove.hoverIntent",track);if(!ob.hoverIntent_s){ob.hoverIntent_t=setTimeout(function(){compare(ev,ob)},cfg.interval)}}else{$(ob).off("mousemove.hoverIntent",track);if(ob.hoverIntent_s){ob.hoverIntent_t=setTimeout(function(){delay(ev,ob)},cfg.timeout)}}};return this.on({"mouseenter.hoverIntent":handleHover,"mouseleave.hoverIntent":handleHover},cfg.selector)}})(jQuery);
-
-                $('.js_news').hoverIntent(function(){
-                        var id=$(this).attr('news');
-                        $('.js_news_img').hide();
-                        $('.js_img_'+id).show();
-                        $('.js_main_news').hide();
-                    },
-                    function(){
-                        $('.js_news_img').hide();
-                        $('.js_first_img').show();
-                        $('.js_main_news').show();
-                    }
-                );
-            };
-        </script>
         <div class="col-md-3">
             <?php foreach($other_news as $on){
                 ?>
