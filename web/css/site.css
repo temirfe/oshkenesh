@@ -166,19 +166,18 @@ article.item{}
     border-top: 1px solid #eaeaea;
     border-bottom: 1px solid #eaeaea;
 }
-.toraga_image{border: 1px solid #ccc;
-    display: inline-block;
-    padding: 2px;}
+.toraga_image{}
 
 .toraga_image a{}
 .toraga_image img{max-height: 160px;
-    max-width: 120px;}
+    max-width: 226px;}
 .toraga_name span {
     color: #777;
     display: block;
     font-size: 12px;
     padding: 5px 0 2px;
 }
+.deputy_image{max-width: 120px max-height:160px;}
 /*--------customize bootstrap start-------------------*/
 .navbar-inverse .navbar-nav > li > a {
     transition: color 400ms cubic-bezier(0.23, 1, 0.32, 1) 0s;
@@ -251,6 +250,7 @@ p.MsoSignature, li.MsoSignature, div.MsoSignature {
 .other_news_title a{
     color: #333;
     font-size: 16px;
+    display: block;
 }
 .toraga_name a{
     font-size: 16px;}

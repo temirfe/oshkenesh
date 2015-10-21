@@ -78,7 +78,7 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'News'), 'url' => ['i
                     echo Html::a($img,$src,['rel'=>'fancybox']);
 
                 //change images in content into fancybox
-                preg_match_all('/(<img[^>]*">)/sui',$model->content,$matches);
+                preg_match_all('/(<img[^>]*>)/sui',$model->content,$matches);
                 if(isset($matches[0][0])){
                     foreach($matches[0] as $match){
                         preg_match('/src="([^"]+)"/ui',$match,$src);

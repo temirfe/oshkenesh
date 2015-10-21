@@ -11,6 +11,7 @@ use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use app\models\User;
 use yii\data\ActiveDataProvider;
+use vova07\imperavi\actions\GetAction;
 
 /**
  * PageController implements the CRUD actions for Page model.
@@ -40,6 +41,36 @@ class PageController extends Controller
                     ],
                 ],
             ],
+        ];
+    }
+
+    public function actions()
+    {
+        return [
+            'image-upload' => [
+                'class' => 'vova07\imperavi\actions\UploadAction',
+                'url' => Yii::getAlias('@web').'/uploads/images/', // Directory URL address, where files are stored.
+                'path' => '@webroot/uploads/images', // Or absolute path to directory where files are stored.
+                //'validatorOptions' => ['maxSize' => 40000],    //макс. размер файла
+            ],
+            'images-get' => [
+                'class' => 'vova07\imperavi\actions\GetAction',
+                'url' => Yii::getAlias('@web').'/uploads/images/', // Directory URL address, where files are stored.
+                'path' => '@webroot/uploads/images', // Or absolute path to directory where files are stored.
+                'type' => GetAction::TYPE_IMAGES,
+            ],
+            'file-upload' => [
+                'class' => 'vova07\imperavi\actions\UploadAction',
+                'url' => Yii::getAlias('@web').'/uploads/files/', // Directory URL address, where files are stored.
+                'path' => '@webroot/uploads/files', // Or absolute path to directory where files are stored.
+                "uploadOnlyImage"=>false
+            ],
+            'files-get' => [
+                'class' => 'vova07\imperavi\actions\GetAction',
+                'url' => Yii::getAlias('@web').'/uploads/files/', // Directory URL address, where files are stored.
+                'path' => '@webroot/uploads/files', // Or absolute path to directory where files are stored.
+                'type' => GetAction::TYPE_FILES,
+            ]
         ];
     }
 

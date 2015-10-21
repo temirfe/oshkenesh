@@ -185,4 +185,11 @@ return [
     'Select session'=>'Сессияны танда',
     'Image File'=>'Сүрөт',
     'Osh city Kenesh reference service:'=>'Шаардык Кеңешинин сурап-билүү кызматы:',
+
+    'Toraga'=>'Төрага',
+    'Toragas'=>'Төрага',
+    'Update Toraga'=>'Төраганы өзгөртүү',
+    'Delete Toraga'=>'Төраганы өчүрүү',
+    'Create Toraga'=>'Төрага кошуу',
+    'Select Deputy'=>'Депутатты танда',
 ];

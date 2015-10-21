@@ -182,6 +182,10 @@ SwiperAsset::register($this);
                         <?=Html::a("<span class='adminicon glyphicon glyphicon-comment'></span>".Yii::t('app','Comments '), ['/comment/admin'],
                             ['title'=>Yii::t('app','Comments'),'data-toggle'=>'tooltip','data-placement'=>'left']);?>
                     </li>
+                    <li>
+                        <?=Html::a("<span class='adminicon glyphicon glyphicon-king'></span>".Yii::t('app','Toraga'), ['/toraga/update/1'],
+                            ['title'=>Yii::t('app','Toraga'),'data-toggle'=>'tooltip','data-placement'=>'left']);?>
+                    </li>
                 </ul>
             </div>
         </section>

@@ -3,6 +3,7 @@
 /* @var $this yii\web\View */
 use yii\helpers\Html;
 use yii\helpers\Url;
+use app\models\Toraga;
 $this->title = Yii::t('app','Osh city Kenesh');
 
 $db=Yii::$app->db;
@@ -16,27 +17,26 @@ $other_news=array();
 
 $result = $db->cache(function ($db) {
     return $db->createCommand("SELECT id,fullname, image,listorder FROM deputy WHERE image<>''")->queryAll();
-},3600);
+},600);
 //$result = $db->createCommand("SELECT id,fullname,listorder,image FROM deputy WHERE image<>''")->queryAll();
-$toraga=array();
 
 $legislations = $db->cache(function ($db) {
     return $db->createCommand("SELECT id,title FROM legislation LIMIT 3")->queryAll();
-},3600);
+},600);
 
 $decrees = $db->cache(function ($db) {
     return $db->createCommand("SELECT id,title FROM decree ORDER BY id DESC LIMIT 2")->queryAll();
-},3600);
+},600);
 
 $bills= $db->cache(function ($db) {
     return $db->createCommand("SELECT id,title FROM bill ORDER BY id DESC LIMIT 2")->queryAll();
-},3600);
+},600);
 
-/*$galleries= $db->cache(function ($db) {
+$galleries= $db->cache(function ($db) {
     return $db->createCommand("SELECT id,title, main_img, directory FROM gallery ORDER BY id DESC LIMIT 4")->queryAll();
-},3600);*/
+},600);
 
-$galleries= $db->createCommand("SELECT id,title, main_img, directory FROM gallery ORDER BY id DESC LIMIT 4")->queryAll();
+//$galleries= $db->createCommand("SELECT id,title, main_img, directory FROM gallery ORDER BY id DESC LIMIT 4")->queryAll();
 ?>
 <style type="text/css">
     .logo1{display: none;}
@@ -88,29 +88,55 @@ $galleries= $db->createCommand("SELECT id,title, main_img, directory FROM galler
     <div class="row">
         <div class="col-md-6 mains_news">
             <?php
+            $i=0;
             foreach ($news as $n) {
-                if($n['image'] && empty($main_news)) $main_news=$n;
-                else $other_news[]=$n;
+                if($i==0) {
+                    $visible='';
+                    $main_news=$n;
+                    $firs_img='js_first_img';
+                    }
+                else {$visible='display:none;'; $other_news[]=$n; $firs_img='';}
+                $img=Html::img("@web/uploads/images/".$n['image'], ['alt'=>$n['title']]);
+                echo Html::a($img,Url::toRoute(['news/view','id'=>$n['id']]),['class'=>$firs_img.' js_news_img js_img_'.$n['id'], 'style'=>$visible]);
+                $i++;
             }
             ?>
             <?php
-                $img=Html::img("@web/uploads/images/".$main_news['image'], ['class'=>'', 'alt'=>$main_news['title']]);
-                echo Html::a($img,Url::toRoute(['news/view','id'=>$main_news['id']]));
-            ?>
-            <div class="entry_news_date mains_news_date">
+            /*  $img=Html::img("@web/uploads/images/".$main_news['image'], ['alt'=>$main_news['title']]);
+                echo Html::a($img,Url::toRoute(['news/view','id'=>$main_news['id']]),['class'=>'js_main_img_'.$main_news['id']]);
+            */?>
+            <div class="entry_news_date mains_news_date js_main_news">
                 <?=date("d.m.Y",strtotime($main_news['date']));?>
             </div>
-            <div class="mains_news_title">
+            <div class="mains_news_title js_main_news">
                 <?=Html::a(Html::encode($main_news['title']),Url::toRoute(['news/view','id'=>$main_news['id']]))?>
             </div>
 
         </div>
+        <script type="text/javascript">
+            window.onload=function(){
+                (function($){$.fn.hoverIntent=function(handlerIn,handlerOut,selector){var cfg={interval:100,sensitivity:6,timeout:0};if(typeof handlerIn==="object"){cfg=$.extend(cfg,handlerIn)}else{if($.isFunction(handlerOut)){cfg=$.extend(cfg,{over:handlerIn,out:handlerOut,selector:selector})}else{cfg=$.extend(cfg,{over:handlerIn,out:handlerIn,selector:handlerOut})}}var cX,cY,pX,pY;var track=function(ev){cX=ev.pageX;cY=ev.pageY};var compare=function(ev,ob){ob.hoverIntent_t=clearTimeout(ob.hoverIntent_t);if(Math.sqrt((pX-cX)*(pX-cX)+(pY-cY)*(pY-cY))<cfg.sensitivity){$(ob).off("mousemove.hoverIntent",track);ob.hoverIntent_s=true;return cfg.over.apply(ob,[ev])}else{pX=cX;pY=cY;ob.hoverIntent_t=setTimeout(function(){compare(ev,ob)},cfg.interval)}};var delay=function(ev,ob){ob.hoverIntent_t=clearTimeout(ob.hoverIntent_t);ob.hoverIntent_s=false;return cfg.out.apply(ob,[ev])};var handleHover=function(e){var ev=$.extend({},e);var ob=this;if(ob.hoverIntent_t){ob.hoverIntent_t=clearTimeout(ob.hoverIntent_t)}if(e.type==="mouseenter"){pX=ev.pageX;pY=ev.pageY;$(ob).on("mousemove.hoverIntent",track);if(!ob.hoverIntent_s){ob.hoverIntent_t=setTimeout(function(){compare(ev,ob)},cfg.interval)}}else{$(ob).off("mousemove.hoverIntent",track);if(ob.hoverIntent_s){ob.hoverIntent_t=setTimeout(function(){delay(ev,ob)},cfg.timeout)}}};return this.on({"mouseenter.hoverIntent":handleHover,"mouseleave.hoverIntent":handleHover},cfg.selector)}})(jQuery);
+
+                $('.js_news').hoverIntent(function(){
+                        var id=$(this).attr('news');
+                        $('.js_news_img').hide();
+                        $('.js_img_'+id).show();
+                        $('.js_main_news').hide();
+                    },
+                    function(){
+                        $('.js_news_img').hide();
+                        $('.js_first_img').show();
+                        $('.js_main_news').show();
+                    }
+                );
+            };
+        </script>
         <div class="col-md-3">
             <?php foreach($other_news as $on){
                 ?>
-                <div class="other_news">
+                <div class="other_news js_other_news">
                     <div class="other_news_title">
-                        <?=Html::a(Html::encode($on['title']),Url::toRoute(['news/view','id'=>$on['id']]))?>
+                        <?=Html::a(Html::encode($on['title']),Url::toRoute(['news/view','id'=>$on['id']]),['class'=>'js_news', 'news'=>$on['id']])?>
                     </div>
                     <div class="entry_news_date other_news_date">
                         <?=date("d.m.Y",strtotime($on['date']));?>
@@ -122,22 +148,19 @@ $galleries= $db->createCommand("SELECT id,title, main_img, directory FROM galler
         </div>
         <div class="col-md-3">
             <div class="toraga">
-                <?php
-                foreach ($result as $deputy) {
-                    if($deputy['listorder']==1) $toraga=$deputy;
-                }
+                <?php $toraga=Toraga::findOne(1);
 
                 ?>
                 <div class="toraga_image">
                     <?php
-                    $img=Html::img("@web/uploads/images/".$toraga['image'], ['alt'=>'']);
-                    echo Html::a($img,Url::toRoute(['deputy/view','id'=>$toraga['id']]));
+                    $img=Html::img("@web/uploads/images/".$toraga->image, ['alt'=>'']);
+                    echo Html::a($img,Url::toRoute(['deputy/view','id'=>$toraga->id]));
                     ?>
                 </div>
                 <div class="toraga_name">
                     <span><?=Yii::t('app', 'Chairman');?></span>
                     <?php
-                    echo Html::a($toraga['fullname'],Url::toRoute(['deputy/view','id'=>$toraga['id']]));
+                    echo Html::a($toraga->deputy->fullname,Url::toRoute(['deputy/view','id'=>$toraga->id]));
                     ?>
                 </div>
             </div>
@@ -148,7 +171,7 @@ $galleries= $db->createCommand("SELECT id,title, main_img, directory FROM galler
                         return $db->createCommand("SELECT id,title,`date` FROM announce ORDER BY id DESC LIMIT 1")->queryOne();
                     },300);
                 ?>
-                <div class="announce_title"><?=Html::a(Html::encode($announce['title']),Url::toRoute(['announce/view','id'=>$main_news['id']]))?></div>
+                <div class="announce_title"><?=Html::a(Html::encode($announce['title']),Url::toRoute(['announce/view','id'=>$announce['id']]))?></div>
                 <div class="entry_news_date"><?=date("d.m.Y",strtotime($announce['date']));?></div>
             </div>
         </div>
@@ -199,7 +222,8 @@ $galleries= $db->createCommand("SELECT id,title, main_img, directory FROM galler
                 <!-- Slides -->
                 <?php
                 foreach ($result as $deputy) {
-                    if($deputy['listorder']!=1) {
+                    if($deputy['listorder']!=1)
+                    {
                         ?>
                         <div class="swiper-slide">
                             <div class="toraga_image">
@@ -246,6 +270,4 @@ $galleries= $db->createCommand("SELECT id,title, main_img, directory FROM galler
             }
         ?>
     </div>
-
-
 </div>
