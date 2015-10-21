@@ -288,8 +288,8 @@ h3.dots:after{background-color: #ffcb05;
 h4.session{margin:0;}
 .footer {
     background-image: linear-gradient(to bottom, rgba(0, 44, 77, 0.9) 0%, rgba(0, 44, 77, 0.9) 100%), url("img/flag.svg");
-    background-position: 0 -156px;
-    background-size: 1311px auto;
+    background-position: 0 -169px;
+    background-size: 1445px auto;
     padding-top: 35px;
 }
 .footer_menu_item a{  color: #91d0ff; display: block; padding: 4px 0;}
