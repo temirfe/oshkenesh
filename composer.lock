@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3a87ba673669bf4f83e01efd213542bb",
+    "hash": "9ec43689299b4238a98a741f72974f1f",
     "content-hash": "419560e06b2b1ab359837254d464f210",
     "packages": [
         {
@@ -892,17 +892,17 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/newerton/yii2-fancybox.git",
-                "reference": "55105b97a1b3ab7ee6fa28e50b40cb328b8d31aa"
+                "reference": "d9e61c4e0fab730aa93377d081bbdcb469da13fa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/newerton/yii2-fancybox/zipball/55105b97a1b3ab7ee6fa28e50b40cb328b8d31aa",
-                "reference": "55105b97a1b3ab7ee6fa28e50b40cb328b8d31aa",
+                "url": "https://api.github.com/repos/newerton/yii2-fancybox/zipball/d9e61c4e0fab730aa93377d081bbdcb469da13fa",
+                "reference": "d9e61c4e0fab730aa93377d081bbdcb469da13fa",
                 "shasum": ""
             },
             "require": {
-                "bower-asset/fancybox": "@stable",
-                "bower-asset/jquery-mousewheel": "~3.1.3",
+                "bower-asset/fancybox": ">=2.1.5",
+                "bower-asset/jquery-mousewheel": ">=3.1.13",
                 "php": ">=5.4.0",
                 "yiisoft/yii2": "*"
             },
@@ -929,7 +929,7 @@
                 "fancybox",
                 "yii2"
             ],
-            "time": "2015-05-20 02:05:47"
+            "time": "2015-10-16 18:27:45"
         },
         {
             "name": "swiftmailer/swiftmailer",
