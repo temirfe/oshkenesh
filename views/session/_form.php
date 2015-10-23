@@ -12,6 +12,9 @@ use kartik\date\DatePicker;
 <div class="session-form">
 
     <?php $form = ActiveForm::begin(); ?>
+    <?php
+    if($model->isNewRecord && Yii::$app->language=='ru') $model->ru=1;
+    echo $form->field($model, 'ru',['options'=>['class'=>'form-group field140']])->dropDownList(['кыргызча','русский'],[]); ?>
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 

@@ -5,10 +5,17 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use app\models\Toraga;
 $this->title = Yii::t('app','Osh city Kenesh');
-
 $db=Yii::$app->db;
-$news = $db->cache(function ($db) {
-    return $db->createCommand("SELECT id,title,`date`,image FROM news ORDER BY date DESC LIMIT 4")->queryAll();
+$lang=Yii::$app->language;
+if($lang=='ru')
+{
+    $content_lang='1';
+}
+else{
+    $content_lang='0';
+}
+$news = $db->cache(function ($db) use($content_lang) {
+    return $db->createCommand("SELECT id,title,`date`,image FROM news WHERE ru='{$content_lang}' ORDER BY `date` DESC LIMIT 4")->queryAll();
 },300);
 //$news = $db->createCommand("SELECT id,title,`date`,image FROM news ORDER BY date DESC LIMIT 4")->queryAll();
 $main_news=array();
@@ -20,26 +27,31 @@ $result = $db->cache(function ($db) {
 },600);
 //$result = $db->createCommand("SELECT id,fullname,listorder,image FROM deputy WHERE image<>''")->queryAll();
 
-$legislations = $db->cache(function ($db) {
-    return $db->createCommand("SELECT id,title FROM legislation LIMIT 3")->queryAll();
+$legislations = $db->cache(function ($db) use($content_lang) {
+    return $db->createCommand("SELECT id,title FROM legislation WHERE ru='{$content_lang}' LIMIT 3")->queryAll();
 },600);
 
-$decrees = $db->cache(function ($db) {
-    return $db->createCommand("SELECT id,title FROM decree ORDER BY id DESC LIMIT 2")->queryAll();
+$decrees = $db->cache(function ($db) use($content_lang) {
+    return $db->createCommand("SELECT id,title FROM decree WHERE ru='{$content_lang}' ORDER BY id DESC LIMIT 2")->queryAll();
 },600);
 
-$bills= $db->cache(function ($db) {
-    return $db->createCommand("SELECT id,title FROM bill ORDER BY id DESC LIMIT 2")->queryAll();
+$bills= $db->cache(function ($db) use($content_lang) {
+    return $db->createCommand("SELECT id,title FROM bill WHERE ru='{$content_lang}' ORDER BY id DESC LIMIT 2")->queryAll();
 },600);
 $galleries= $db->cache(function ($db) {
-    return $db->createCommand("SELECT id,title, main_img, directory FROM gallery ORDER BY id DESC LIMIT 4")->queryAll();
+    return $db->createCommand("SELECT id,title,title_ru, main_img, directory FROM gallery ORDER BY id DESC LIMIT 4")->queryAll();
 },600);
-$announce = $db->cache(function ($db) {
-    return $db->createCommand("SELECT id,title,`date` FROM announce ORDER BY id DESC LIMIT 1")->queryOne();
+$announce = $db->cache(function ($db) use($content_lang) {
+    return $db->createCommand("SELECT id,title,`date` FROM announce WHERE ru='{$content_lang}' ORDER BY id DESC LIMIT 1")->queryOne();
 },600);
 
 //$galleries= $db->createCommand("SELECT id,title, main_img, directory FROM gallery ORDER BY id DESC LIMIT 4")->queryAll();
+/*$toraga = $db->cache(function ($db) {
+    return $db->createCommand("SELECT toraga.*, deputy.fullname FROM toraga LEFT JOIN deputy ON toraga.deputy_id=deputy.id")->queryOne();
+},600);*/
+$toraga=$db->createCommand("SELECT toraga.*, deputy.fullname FROM toraga LEFT JOIN deputy ON toraga.deputy_id=deputy.id")->queryOne();
 ?>
+
 <style type="text/css">
     .logo1{display: none;}
     .main_laws{ border-bottom: 1px solid #eaeaea;
@@ -111,10 +123,10 @@ $announce = $db->cache(function ($db) {
                 echo Html::a($img,Url::toRoute(['news/view','id'=>$main_news['id']]),['class'=>'js_main_img_'.$main_news['id']]);
             */?>
             <div class="entry_news_date mains_news_date js_main_news">
-                <?=date("d.m.Y",strtotime($main_news['date']));?>
+                <?php if($main_news) echo date("d.m.Y",strtotime($main_news['date']));?>
             </div>
             <div class="mains_news_title js_main_news">
-                <?=Html::a(Html::encode($main_news['title']),Url::toRoute(['news/view','id'=>$main_news['id']]))?>
+                <?php if($main_news) echo Html::a(Html::encode($main_news['title']),Url::toRoute(['news/view','id'=>$main_news['id']]))?>
             </div>
 
         </div>
@@ -135,31 +147,23 @@ $announce = $db->cache(function ($db) {
         </div>
         <div class="col-md-3">
             <div class="toraga">
-                <?php $toraga=Toraga::findOne(1);
-
-                ?>
                 <div class="toraga_image">
                     <?php
-                    $img=Html::img("@web/uploads/images/".$toraga->image, ['alt'=>'']);
-                    echo Html::a($img,Url::toRoute(['deputy/view','id'=>$toraga->id]));
+                    $img=Html::img("@web/uploads/images/".$toraga['image'], ['alt'=>'']);
+                    echo Html::a($img,Url::toRoute(['deputy/view','id'=>$toraga['id']]));
                     ?>
                 </div>
                 <div class="toraga_name">
                     <span><?=Yii::t('app', 'Chairman');?></span>
                     <?php
-                    echo Html::a($toraga->deputy->fullname,Url::toRoute(['deputy/view','id'=>$toraga->id]));
+                    echo Html::a($toraga['fullname'],Url::toRoute(['deputy/view','id'=>$toraga['deputy_id']]));
                     ?>
                 </div>
             </div>
             <div class="announce">
                 <h3><?=Yii::t('app', 'Announce');?></h3>
-                <?php
-                    $announce = $db->cache(function ($db) {
-                        return $db->createCommand("SELECT id,title,`date` FROM announce ORDER BY id DESC LIMIT 1")->queryOne();
-                    },300);
-                ?>
-                <div class="announce_title"><?=Html::a(Html::encode($announce['title']),Url::toRoute(['announce/view','id'=>$announce['id']]))?></div>
-                <div class="entry_news_date"><?=date("d.m.Y",strtotime($announce['date']));?></div>
+                <div class="announce_title"><?php if(!empty($announce['title'])) echo Html::a(Html::encode($announce['title']),Url::toRoute(['announce/view','id'=>$announce['id']]))?></div>
+                <div class="entry_news_date"><?php if(!empty($announce['date'])) echo date("d.m.Y",strtotime($announce['date']));?></div>
             </div>
         </div>
     </div>
@@ -242,6 +246,7 @@ $announce = $db->cache(function ($db) {
         <h3 class="dots"><?=Yii::t('app', 'Gallery');?></h3>
         <?php
             foreach($galleries as $gal){
+                if($lang=='ru'){$gtitle=$gal['title_ru'];} else{$gtitle=$gal['title'];}
                 ?>
                 <div class="gal_wrap pull-left col-sm-3">
                     <div class="gal_index_item">
@@ -250,7 +255,7 @@ $announce = $db->cache(function ($db) {
                         ?>
                     </div>
                     <div class="gal_title">
-                        <?=Html::a(Html::encode($gal['title']),Url::toRoute(['gallery/view','id'=>$gal['id']])); ?>
+                        <?=Html::a(Html::encode($gtitle),Url::toRoute(['gallery/view','id'=>$gal['id']])); ?>
                     </div>
                 </div>
         <?php

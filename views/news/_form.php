@@ -15,7 +15,9 @@ use kartik\file\FileInput;
 <div class="news-form">
 
     <?php $form = ActiveForm::begin(['options' => ['enctype'=>'multipart/form-data']]); ?>
-    <?php echo $form->field($model, 'ru',['options'=>['class'=>'form-group field140']])->dropDownList(['кыргызча','русский'],[]); ?>
+    <?php
+    if($model->isNewRecord && Yii::$app->language=='ru') $model->ru=1;
+    echo $form->field($model, 'ru',['options'=>['class'=>'form-group field140']])->dropDownList(['кыргызча','русский'],[]); ?>
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 

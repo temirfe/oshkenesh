@@ -18,10 +18,21 @@ use app\models\Session;
 
     <?php $form = ActiveForm::begin(['options' => ['enctype'=>'multipart/form-data']]); ?>
 
-    <?php echo $form->field($model, 'ru',['options'=>['class'=>'form-group field140']])->dropDownList(['кыргызча','русский'],[]); ?>
+    <?php
+    $lang=Yii::$app->language;
+    if($model->isNewRecord && $lang=='ru') $model->ru=1;
+    echo $form->field($model, 'ru',['options'=>['class'=>'form-group field140']])->dropDownList(['кыргызча','русский'],[]); ?>
 
-    <?=$form->field($model, 'session')->dropDownList(
-        ArrayHelper::map(Session::find()->orderBy('id DESC')->all(), 'id', 'title'),['prompt'=>Yii::t('app', 'Select session')] )
+    <?php
+    if($lang=='ru')
+    {
+        $content_lang='1';
+    }
+    else{
+        $content_lang='0';
+    }
+    echo $form->field($model, 'session_id')->dropDownList(
+        ArrayHelper::map(Session::find()->where(['ru'=>$content_lang])->orderBy('id DESC')->all(), 'id', 'title'),['prompt'=>Yii::t('app', 'Select session')] );
     ?>
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
     <?= $form->field($model, 'number')->textInput(['maxlength' => true]) ?>

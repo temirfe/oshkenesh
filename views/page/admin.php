@@ -27,6 +27,13 @@ $this->params['breadcrumbs'][] = $this->title;
             'title',
             // 'image',
             // 'ru',
+            [
+                'attribute'=>'ru',
+                'value'=>function($model){
+                    if($model->ru=='0') $lang='кыргызча';else $lang='русский';
+                    return $lang;
+                }
+            ],
             // 'views',
 
             ['class' => 'yii\grid\ActionColumn'],

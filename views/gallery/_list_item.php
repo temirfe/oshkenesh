@@ -4,7 +4,8 @@ use yii\helpers\Url;
 ?>
 <article class="item" data-key="<?=$model->id;?>">
     <h2 class="title">
-        <?=Html::a(Html::encode($model->title),Url::toRoute(['gallery/view','id'=>$model->id]),['title'=>$model->title])?>
+        <?php if(Yii::$app->language=='ru') $title=$model->title_ru; else $title=$model->title;
+        echo Html::a(Html::encode($title),Url::toRoute(['gallery/view','id'=>$model->id]),['title'=>$title])?>
     </h2>
     <div class="pull-left gthumb">
         <?=Html::img("@web/uploads/gallery/".$model->directory."/small/".$model->main_img, ['alt'=>'']); ?>

@@ -69,8 +69,15 @@ class LegislationController extends Controller
 
     public function actionIndex()
     {
+        if(Yii::$app->language=='ru')
+        {
+            $content_lang='1';
+        }
+        else{
+            $content_lang='0';
+        }
         $dataProvider = new ActiveDataProvider([
-            'query' => Legislation::find(),
+            'query' => Legislation::find()->where(['ru'=>$content_lang]),
             'pagination' => [
                 'pageSize' => 20,
             ],

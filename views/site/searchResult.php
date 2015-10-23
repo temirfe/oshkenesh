@@ -11,6 +11,15 @@ function word_limiter($string, $number_of_words)
     return trim(strip_tags(implode(' ', array_slice($words, 0, $number_of_words)).$endPixels));
 }
 ?>
+    <div class="ask" style=" width: 322px;;">
+        <?= Html::beginForm(['site/search'], 'post') ?>
+        <div class="form-group rel">
+            <!--type, input name, input value, options-->
+            <?= Html::input('text', 'search', $queryWord, ['class' => 'form-control search_input','minlength'=>3,'placeholder'=>Yii::t('app','Search')]) ?>
+            <?= Html::button("<span class='searchicon glyphicon glyphicon-search '></span>", ['class' => 'btn btn-primary abs search_btn', 'type'=>'submit', 'style'=>'top:0;right:0;']) ?>
+        </div>
+        <?= Html::endForm() ?>
+    </div>
     <h1><?=$thetitle;?></h1>
     <style type="text/css">
         .founded{background-color: #ffff00;}
@@ -92,7 +101,8 @@ if($page)
             <div class="search-result" >
                 <div class="title"><?=Html::a($result['fullname'], ['/deputy/view','id'=>$result['id']]);?></div>
                 <?php
-                $text=word_limiter($result['description'],50);
+                if($langInt=='0') $content=$result['content']; else $content=$result['content_ru'];
+                $text=word_limiter($content,50);
                 $text=preg_replace("/{$_POST['search']}/i", "<span class='founded' >{$_POST['search']}</span>", $text);
                 echo $text;?>
             </div>
@@ -118,11 +128,12 @@ if($page)
     if($gallery){
         foreach($gallery as $result)
         {
+            if($langInt=='0') {$gtitle=$result['title']; $gdesc=$result['description'];} else {$gtitle=$result['title_ru']; $gdesc=$result['description_ru'];}
             ?>
             <div class="search-result" >
-                <div class="title"><?=Html::a($result['title'], ['/gallery/view','id'=>$result['id']]);?></div>
+                <div class="title"><?=Html::a($gtitle, ['/gallery/view','id'=>$result['id']]);?></div>
                 <?php
-                $text=word_limiter($result['description'],50);
+                $text=word_limiter($gdesc,50);
                 $text=preg_replace("/{$_POST['search']}/i", "<span class='founded' >{$_POST['search']}</span>", $text);
                 echo $text;?>
             </div>

@@ -69,8 +69,15 @@ class BillController extends Controller
      */
     public function actionIndex()
     {
+        if(Yii::$app->language=='ru')
+        {
+            $content_lang='1';
+        }
+        else{
+            $content_lang='0';
+        }
         $dataProvider = new ActiveDataProvider([
-            'query' => Bill::find()->orderBy('id DESC'),
+            'query' => Bill::find()->where(['ru'=>$content_lang])->orderBy('id DESC'),
             'pagination' => [
                 'pageSize' => 20,
             ],

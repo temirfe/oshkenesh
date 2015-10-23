@@ -127,8 +127,10 @@ h1.news_title{
 }
 h2.title{font-size:20px;margin-top: 0;}
 .img_list{margin-right: 15px;
+    min-height: 97px;
     text-align: center;
     width: 120px;}
+.img_list img{width:120px;}
 .desc_list a{ color: #777;
     text-decoration: none;}
 div.item{clear:both; display: inline-block;margin-top: 15px; width: 100%;}

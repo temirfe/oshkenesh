@@ -57,7 +57,9 @@ SwiperAsset::register($this);
     <?php
     $current_url=Url::current();
     $yiiuser=Yii::$app->user;
-    if(Yii::$app->language=='ky') {$changeTo='Русский'; $lan='ru';} else {$changeTo='Кыргызча'; $lan='ky';}
+    if(Yii::$app->language=='ky')
+    {$changeTo='Русский'; $lan='ru';$presidium='1';$dp='2';$apparatus='3';}
+    else {$changeTo='Кыргызча'; $lan='ky';$presidium='6';$dp='7';$apparatus='8';}
     ?>
     <div class="wrap">
         <?php
@@ -87,12 +89,12 @@ SwiperAsset::register($this);
             [
                 'label' => Yii::t('app', 'Structure'),
                 'items' => [
-                    ['label' => Yii::t('app', 'Presidium'), 'url' => ['/page/1']],
-                    ['label' => Yii::t('app', 'Deputy Commission'), 'url' => ['/page/2']],
+                    ['label' => Yii::t('app', 'Presidium'), 'url' => ['/page/'.$presidium]],
+                    ['label' => Yii::t('app', 'Deputy Commission'), 'url' => ['/page/'.$dp]],
                     ['label' => Yii::t('app', 'Deputies'), 'url' => ['/deputy/index']],
                 ],
             ],
-            ['label' => Yii::t('app', 'Apparatus'), 'url' => ['/page/3']],
+            ['label' => Yii::t('app', 'Apparatus'), 'url' => ['/page/'.$apparatus]],
             [
                 'label' => Yii::t('app', 'Activity'),
                 'items' => [

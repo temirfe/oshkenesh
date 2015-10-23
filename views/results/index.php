@@ -7,7 +7,7 @@ use yii\widgets\ListView;
 /* @var $searchModel app\models\DeputySearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'News');
+$this->title = Yii::t('app', 'Results');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="deputy-index">

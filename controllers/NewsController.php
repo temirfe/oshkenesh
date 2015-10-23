@@ -84,8 +84,15 @@ class NewsController extends Controller
      */
     public function actionIndex()
     {
+        if(Yii::$app->language=='ru')
+        {
+            $content_lang='1';
+        }
+        else{
+            $content_lang='0';
+        }
         $dataProvider = new ActiveDataProvider([
-            'query' => News::find()->orderBy('date DESC'),
+            'query' => News::find()->where(['ru'=>$content_lang])->orderBy('date DESC'),
             'pagination' => [
                 'pageSize' => 10,
             ],

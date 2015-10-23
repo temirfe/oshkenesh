@@ -46,8 +46,15 @@ class SessionController extends Controller
 
     public function actionIndex()
     {
+        if(Yii::$app->language=='ru')
+        {
+            $content_lang='1';
+        }
+        else{
+            $content_lang='0';
+        }
         $dataProvider = new ActiveDataProvider([
-            'query' => Session::find()->orderBy('date DESC, id DESC'),
+            'query' => Session::find()->where(['ru'=>$content_lang])->orderBy('date DESC, id DESC'),
             'pagination' => [
                 'pageSize' => 15,
             ],

@@ -28,7 +28,7 @@ class Session extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['date'], 'safe'],
+            [['date','ru'], 'safe'],
             [['title'], 'string', 'max' => 255],
             [['description'], 'string', 'max' => 1000]
         ];
@@ -44,6 +44,7 @@ class Session extends \yii\db\ActiveRecord
             'date' => Yii::t('app', 'Date'),
             'title' => Yii::t('app', 'Title'),
             'description' => Yii::t('app', 'Description'),
+            'ru' => Yii::t('app', 'Ru'),
         ];
     }
 }

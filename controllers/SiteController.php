@@ -78,30 +78,33 @@ class SiteController extends Controller
         $news='';
         $plan='';
         $results='';
+        $queryWord='';
+        if(Yii::$app->language=='ru'){$langInt='1';} else{$langInt='0';}
         if(isset($_POST['search']) && strlen($_POST['search'])>=3)
         {
+            $queryWord=$_POST['search'];
             //$results=$pages||$news || $events ? array_merge($pages, $news, $events):null;
 
             $query=new Query();
             $page=$query->select(['id', 'title','content'])
                 ->from('page')
-                ->where('title LIKE :search OR content LIKE :search', [':search' =>"%{$_POST['search']}%"])
+                ->where("ru='{$langInt}' AND (title LIKE :search OR content LIKE :search)", [':search' =>"%{$_POST['search']}%"])
                 ->all();
             $bill=$query->select(['id', 'title','content'])
                 ->from('bill')
-                ->where('title LIKE :search OR content LIKE :search', [':search' =>"%{$_POST['search']}%"])
+                ->where("ru='{$langInt}' AND (title LIKE :search OR content LIKE :search)", [':search' =>"%{$_POST['search']}%"])
                 ->all();
             $decree=$query->select(['id', 'title','content'])
                 ->from('decree')
-                ->where('title LIKE :search OR content LIKE :search', [':search' =>"%{$_POST['search']}%"])
+                ->where("ru='{$langInt}' AND (title LIKE :search OR content LIKE :search)", [':search' =>"%{$_POST['search']}%"])
                 ->all();
             $announcement=$query->select(['id', 'title','content'])
                 ->from('announce')
-                ->where('title LIKE :search OR content LIKE :search', [':search' =>"%{$_POST['search']}%"])
+                ->where("ru='{$langInt}' AND (title LIKE :search OR content LIKE :search)", [':search' =>"%{$_POST['search']}%"])
                 ->all();
             $legislation=$query->select(['id', 'title','content'])
                 ->from('legislation')
-                ->where('title LIKE :search OR content LIKE :search', [':search' =>"%{$_POST['search']}%"])
+                ->where("ru='{$langInt}' AND (title LIKE :search OR content LIKE :search)", [':search' =>"%{$_POST['search']}%"])
                 ->all();
 
             $deputy=$query->select(['id', 'fullname','content','content_ru'])
@@ -119,15 +122,15 @@ class SiteController extends Controller
 
             $news=$query->select(['id', 'title','description','content'])
                 ->from('news')
-                ->where('title LIKE :search OR content LIKE :search OR description LIKE :search', [':search' =>"%{$_POST['search']}%"])
+                ->where("ru='{$langInt}' AND (title LIKE :search OR content LIKE :search OR description LIKE :search)", [':search' =>"%{$_POST['search']}%"])
                 ->all();
             $plan=$query->select(['id', 'title','description','content'])
                 ->from('plan')
-                ->where('title LIKE :search OR content LIKE :search OR description LIKE :search', [':search' =>"%{$_POST['search']}%"])
+                ->where("ru='{$langInt}' AND (title LIKE :search OR content LIKE :search OR description LIKE :search)", [':search' =>"%{$_POST['search']}%"])
                 ->all();
             $results=$query->select(['id', 'title','description','content'])
                 ->from('results')
-                ->where('title LIKE :search OR content LIKE :search OR description LIKE :search', [':search' =>"%{$_POST['search']}%"])
+                ->where("ru='{$langInt}' AND (title LIKE :search OR content LIKE :search OR description LIKE :search)", [':search' =>"%{$_POST['search']}%"])
                 ->all();
         }
         return $this->render('searchResult',[
@@ -142,6 +145,8 @@ class SiteController extends Controller
             'news'=>$news,
             'plan'=>$plan,
             'results'=>$results,
+            'langInt'=>$langInt,
+            'queryWord'=>$queryWord
         ]);
     }
     public function actionUpload()
@@ -339,22 +344,25 @@ class SiteController extends Controller
 
     public function actionTnews(){
         $db=Yii::$app->db;
-        $contents=$db->createCommand("SELECT * FROM content WHERE category_id='1'")->queryAll();
+        $contents=$db->createCommand("SELECT * FROM content WHERE category_id='1' AND content_id>308")->queryAll();
+        $webroot=Yii::getAlias('@webroot');
         foreach($contents as $c){
-            if(!$c['image']) $image=''; else $image=$c['image'];
-            $db->createCommand()->insert('news', [
+            if(!$c['image']) $image=''; else {$image=$c['image']; }
+            /*$db->createCommand()->insert('news', [
                 'title' => $c['title'],
                 'date' => $c['date'],
                 'image' => $image,
                 'content' => $c['content'],
                 'description' => $c['description'],
 
-            ])->execute();
+            ])->execute();*/
+            if($image) copy("http://oshkenesh.kg/images/news_photo/".$image,$webroot.'/uploads/images/small/s_'.$image);
         }
     }
 
     public function actionRun(){
-        $db=Yii::$app->db;
+
+        /*$db=Yii::$app->db;
         $contents=$db->createCommand("SELECT * FROM gallery_o")->queryAll();
         foreach($contents as $c){
             if(!$c['image']) $image=''; else $image=$c['image'];
@@ -364,7 +372,7 @@ class SiteController extends Controller
                 'directory' => $c['uid'],
 
             ])->execute();
-        }
+        }*/
     }
 
     public function actionSedirect()
