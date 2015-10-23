@@ -10,17 +10,6 @@ use yii\widgets\ListView;
 $this->title = Yii::t('app', 'Galleries');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<style type="text/css">
-    .gal_enter{  display: table-cell;
-        height: 144px;
-        vertical-align: middle;}
-    .gthumb {
-        margin-right: 40px;
-    }
-    article.item {
-        display: table;
-    }
-</style>
 <div class="gallery-index">
     <?php if(!Yii::$app->user->isGuest && Yii::$app->user->identity->isAdmin()){
         ?>

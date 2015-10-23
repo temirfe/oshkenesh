@@ -70,13 +70,6 @@ $toraga=$db->createCommand("SELECT toraga.*, deputy.fullname FROM toraga LEFT JO
         height: 8px;
         margin: 0 0 2px 6px;
         width: 8px;}
-    .law_title{margin-bottom: 15px;}
-    .ask{margin-top: 35px;}
-    .ask a{color: #fff;
-        text-decoration: none;}
-    a:active {
-        outline: none;
-    }
 
     .main_gal{margin-top:30px; border-top: 1px solid #eaeaea;}
     .gal_title{
@@ -94,16 +87,21 @@ $toraga=$db->createCommand("SELECT toraga.*, deputy.fullname FROM toraga LEFT JO
 
 </style>
 <div class="site-index">
-    <div class="logowrap">
-        <div class="logo logo2 pull-left"></div>
-        <div class="logotext2"><?=Yii::t('app', 'Osh city Kenesh');?></div>
+    <div class="row newsrow">
+        <div class="logowrap col-md-6">
+            <div class="logo logo2 pull-left"></div>
+            <div class="logotext2"><?=Yii::t('app', 'Osh city Kenesh');?></div>
+        </div>
+        <?php include_once('_search.php');?>
+        <div class="col-md-3">
+            <div class="ask btn btn-success" style="width:100%;">
+                <?=Html::a(Yii::t('app', 'Questions / Suggestions'),Url::toRoute(['feedback/create']))?>
+            </div>
+        </div>
     </div>
-    <div class="ask pull-right btn btn-success">
-        <?=Html::a(Yii::t('app', 'Questions / Suggestions'),Url::toRoute(['feedback/create']))?>
-    </div>
-    <?php include_once('_search.php');?>
+
     <div class="row">
-        <div class="col-md-6 mains_news">
+        <div class="col-md-6 mains_news col-sm-8">
             <?php
             $i=0;
             foreach ($news as $n) {
@@ -113,7 +111,7 @@ $toraga=$db->createCommand("SELECT toraga.*, deputy.fullname FROM toraga LEFT JO
                     $firs_img='js_first_img';
                     }
                 else {$visible='display:none;'; $other_news[]=$n; $firs_img='';}
-                $img=Html::img("@web/uploads/images/".$n['image'], ['alt'=>$n['title']]);
+                $img=Html::img("@web/uploads/images/".$n['image'], ['alt'=>$n['title'],'class'=>'img-responsive']);
                 echo Html::a($img,Url::toRoute(['news/view','id'=>$n['id']]),['class'=>$firs_img.' js_news_img js_img_'.$n['id'], 'style'=>$visible]);
                 $i++;
             }
@@ -130,7 +128,7 @@ $toraga=$db->createCommand("SELECT toraga.*, deputy.fullname FROM toraga LEFT JO
             </div>
 
         </div>
-        <div class="col-md-3">
+        <div class="col-md-3 col-sm-4">
             <?php foreach($other_news as $on){
                 ?>
                 <div class="other_news js_other_news">
@@ -145,7 +143,7 @@ $toraga=$db->createCommand("SELECT toraga.*, deputy.fullname FROM toraga LEFT JO
             }?>
             <p><a class="btn btn-default btn-sm" href="<?=Yii::getAlias('@web');?>/news"><?=Yii::t('app','All news');?> &raquo;</a></p>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-3 col-sm-12">
             <div class="toraga">
                 <div class="toraga_image">
                     <?php
@@ -169,7 +167,7 @@ $toraga=$db->createCommand("SELECT toraga.*, deputy.fullname FROM toraga LEFT JO
     </div>
 
     <div class="row main_laws">
-        <div class="col-md-4">
+        <div class="col-md-4 col-sm-12">
             <h3 class="dots"><?=Yii::t('app', 'Legislation');?></h3>
             <?php foreach($legislations as $leg){
                 ?>
@@ -180,7 +178,7 @@ $toraga=$db->createCommand("SELECT toraga.*, deputy.fullname FROM toraga LEFT JO
             }?>
             <p><a class="btn btn-default btn-sm" href="<?=Yii::getAlias('@web');?>/legislation"><?=Yii::t('app','All legislation');?> &raquo;</a></p>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4 col-sm-12">
             <h3 class="dots"><?=Yii::t('app', 'Decrees');?></h3>
             <?php foreach($decrees as $leg){
                 ?>
@@ -191,7 +189,7 @@ $toraga=$db->createCommand("SELECT toraga.*, deputy.fullname FROM toraga LEFT JO
             }?>
             <p><a class="btn btn-default btn-sm" href="<?=Yii::getAlias('@web');?>/decree"><?=Yii::t('app','All decrees');?> &raquo;</a></p>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4 col-sm-12">
             <h3 class="dots"><?=Yii::t('app', 'Bills');?></h3>
             <?php foreach($bills as $leg){
                 ?>

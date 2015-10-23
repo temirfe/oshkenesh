@@ -12,33 +12,6 @@ use app\models\Comment;
 $this->title = $model->title;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'News'), 'url' => ['index']];
 ?>
-<style type="text/css">
-    .comment-form{overflow: hidden;
-        width: 84%;padding-left: 12px;}
-    .help-block {margin-bottom: 0;}
-    .avatar{width:50px;}
-    .avatar-col{ margin-top: 5px;}
-    .comment-wrap{clear:both;}
-    .comment-col{ margin-top: 2px;}
-    .comment-name{font-weight: bold;}
-    .comment-date{color: #777;
-        display: inline-block;
-        font-size: 12px;
-        line-height: 21px;
-        margin-left: 15px;}
-    .comment-row{border-top: 1px solid #eaeaea;
-        margin: 15px 0 23px;
-        overflow: hidden;
-        padding-top: 10px;}
-    .comment-row .avatar-col{ margin-right: 14px;}
-    .twi-button{margin:0 6px 0 101px;}
-    .social-wrap{margin-top: 45px;
-        position: relative;
-        width: 100%;}
-    .fb-button{position: absolute; left: 0; top:1px;}
-    .my-button{width: 93px;}
-    .print-button{margin-top: 3px;}
-</style>
 <article class="news_view">
     <?php if(!Yii::$app->user->isGuest && Yii::$app->user->identity->isAdmin()){
         ?>
@@ -84,6 +57,7 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'News'), 'url' => ['i
                         preg_match('/src="([^"]+)"/ui',$match,$src);
                         $replace=Html::a($match,$src[1],['rel'=>'fancybox']);
                         $model->content=str_replace($match,$replace,$model->content);
+                        $model->content=preg_replace('/height: \d+px;/i','height: auto; max-width:100%;',$model->content);
                     }
                 }
                 ?>

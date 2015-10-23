@@ -20,7 +20,10 @@ SwiperAsset::register($this);
     <html lang="<?= Yii::$app->language ?>">
     <head>
         <meta charset="<?= Yii::$app->charset ?>">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <meta name="apple-touch-fullscreen" content="yes">
         <?= Html::csrfMetaTags() ?>
         <link rel="shortcut icon" href="<?=Yii::getAlias('@web');?>/favicon.ico?v=2" type="image/x-icon" />
         <link href='https://fonts.googleapis.com/css?family=Roboto+Condensed&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
@@ -64,7 +67,7 @@ SwiperAsset::register($this);
     <div class="wrap">
         <?php
         NavBar::begin([
-            'brandLabel' => '<div class="logo logo1 js_logo1"></div>',
+            'brandLabel' => '<div class="logo logo1 js_logo1"></div><div class="logo_name_mobile">'.Yii::t('app','Osh city Kenesh').'</div>',
             'brandUrl' => Yii::$app->homeUrl,
             'options' => [
                 'class' => 'navbar-inverse navbar-fixed-top',
@@ -115,7 +118,7 @@ SwiperAsset::register($this);
             ],
         ];
         echo Nav::widget([
-            'options' => ['class' => 'navbar-nav navbar-right'],
+            'options' => ['class' => 'navbar-nav navbar-right langbar'],
             'items' => [
                 ['label' => $changeTo, 'url' => ['site/language', 'l' => $lan]],
             ],
@@ -220,7 +223,7 @@ SwiperAsset::register($this);
         </div>
     </div>
     <footer class="footer">
-        <div class="container" style="padding:0;">
+        <div class="container">
             <div class="footer_menu row">
                 <div class="footer_menu_item col-md-2">
                     <div class="footer_menu_item_title"><?=Yii::t('app', 'Documents') ?></div>
