@@ -15,6 +15,7 @@ use yii\widgets\Menu;
 
 AppAsset::register($this);
 SwiperAsset::register($this);
+$lang=Yii::$app->language;
 ?>
 <?php $this->beginPage() ?>
     <!DOCTYPE html>
