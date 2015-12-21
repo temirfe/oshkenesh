@@ -194,4 +194,12 @@ return [
     'Delete Toraga'=>'Төраганы өчүрүү',
     'Create Toraga'=>'Төрага кошуу',
     'Select Deputy'=>'Депутатты танда',
+
+    'Link'=>'Шилтеме',
+    'Links'=>'Шилтемелер',
+    'Url'=>'Шилтеме',
+    'Update Link'=>'Шилтемени өзгөртүү',
+    'Delete Link'=>'Шилтемени өчүрүү',
+    'Create Link'=>'Шилтеме кошуу',
+    'priority'=>'Приоритет'
 ];

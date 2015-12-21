@@ -32,7 +32,7 @@
         $(window).scroll(function() {
             if($( window ).width()>430){ //don't fade out or in if it's mobile
                 if($('.logo2').length){
-                    if ($(window).scrollTop() > 100) {
+                    if ($(window).scrollTop() > 150) {
                         $('.js_logo1').fadeIn();
                     }
                     else {

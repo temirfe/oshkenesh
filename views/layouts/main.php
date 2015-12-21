@@ -131,10 +131,10 @@ SwiperAsset::register($this);
         NavBar::end();
         ?>
         <div class="header_wrap">
-            <div class="row newsrow">
+            <div class="container newsrow">
                 <div class="logowrap col-md-6">
-                    <div class="logo logo2 pull-left"></div>
-                    <div class="logotext2"><?=Yii::t('app', 'Osh city Kenesh');?></div>
+                    <div class="logo logo2 pull-left"><?=Html::a('',Yii::$app->homeUrl,['style'=>'display: block; height: 103px;width: 102px;']);?></div>
+                    <div class="logotext2 ltext_<?=Yii::$app->language;?>"><?=Html::a('',Yii::$app->homeUrl,['style'=>'display: block; height: 27px;width: 300px;']);?><?php //=Yii::t('app', 'Osh city Kenesh');?></div>
                 </div>
                 <?php include_once('_search.php');?>
                 <div class="col-md-3">
@@ -144,33 +144,34 @@ SwiperAsset::register($this);
                 </div>
             </div>
         </div>
-        <div class="container">
-            <?php echo Menu::widget([
-                'items' => [
-                    ['label' => 'HOME', 'url' => ['/']],
-                    ['label' => 'UNDERGRADUATE SCHOOLS', 'url' => ['/undergraduate']],
-                    ['label' => 'GRADUATE SCHOOLS',
-                        'options'=>['class'=>'dropdown'],
-                        'url'=>['#'],
-                        'template' => '<a href="{url}" class="dropdown-toggle" data-toggle="dropdown">{label}<b class="caret"></b></a>',
-                        'items' => [
-                            ['label' => 'BUSINESS (MBA)', 'url' => ['/graduate-schools/business-schools']],
-                            ['label' => 'LAW', 'url' => ['/graduate-schools/law-schools']],
-                        ],
-                    ],
-                    ['label' => 'APPLICATION PROCESS', 'url' => ['/application-process/1']],
-                    ['label' => 'TEST PREP','url'=>['/test-prep/17']],
-                ],
-                'submenuTemplate' => "\n<ul class='dropdown-menu' role='menu'>\n{items}\n</ul>\n",
-                'options' => [
-                    'class' => 'main_menu',
-                ],
-            ]);?>
+        <div class="container main_container">
             <?= Alert::widget() ?>
             <?php if(Yii::$app->controller->action->id=='view')
                 echo Breadcrumbs::widget(['homeLink' =>['label' => Yii::t('app', 'Home'), 'url' => ['/index']],'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : []]) ?>
             <?= $content ?>
         </div>
+        <?php
+        if(Yii::$app->controller->id=='site' && Yii::$app->controller->action->id=='index')
+        {
+        ?>
+            <div class="container main_link">
+                <?php
+                $links = Yii::$app->db->createCommand("SELECT * FROM link")->noCache()->queryAll();
+                foreach($links as $link){
+                if($lang=='ru'){$ltitle=$link['title_ru'];} else{$ltitle=$link['title'];}
+                ?>
+                <div class="link_wrap pull-left">
+                    <?php $uc="<div class='link_title'>{$ltitle}</div><div class='link_url'>{$link['url']}</div>";
+                    echo Html::a($uc,'http://'.$link['url'],['target'=>'_blank']); ?>
+                </div>
+                <?php
+                }
+                ?>
+            </div>
+        <?
+        }
+        ?>
+
     </div>
 
     <?php if(!Yii::$app->user->isGuest && Yii::$app->user->identity->isAdmin()){
@@ -226,6 +227,10 @@ SwiperAsset::register($this);
                     <li>
                         <?=Html::a("<span class='adminicon glyphicon glyphicon-king'></span>".Yii::t('app','Toraga'), ['/toraga/update/1'],
                             ['title'=>Yii::t('app','Toraga'),'data-toggle'=>'tooltip','data-placement'=>'left']);?>
+                    </li>
+                    <li>
+                        <?=Html::a("<span class='adminicon glyphicon glyphicon-link'></span>".Yii::t('app','Links'), ['/link/index'],
+                            ['title'=>Yii::t('app','Links'),'data-toggle'=>'tooltip','data-placement'=>'left']);?>
                     </li>
                 </ul>
             </div>
