@@ -11,6 +11,7 @@ use app\components\widgets\Alert;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 use app\assets\SwiperAsset;
+use yii\widgets\Menu;
 
 AppAsset::register($this);
 SwiperAsset::register($this);
@@ -129,7 +130,42 @@ SwiperAsset::register($this);
         ]);
         NavBar::end();
         ?>
+        <div class="header_wrap">
+            <div class="row newsrow">
+                <div class="logowrap col-md-6">
+                    <div class="logo logo2 pull-left"></div>
+                    <div class="logotext2"><?=Yii::t('app', 'Osh city Kenesh');?></div>
+                </div>
+                <?php include_once('_search.php');?>
+                <div class="col-md-3">
+                    <div class="ask btn btn-success" style="width:100%;">
+                        <?=Html::a(Yii::t('app', 'Questions / Suggestions'),Url::toRoute(['feedback/create']))?>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="container">
+            <?php echo Menu::widget([
+                'items' => [
+                    ['label' => 'HOME', 'url' => ['/']],
+                    ['label' => 'UNDERGRADUATE SCHOOLS', 'url' => ['/undergraduate']],
+                    ['label' => 'GRADUATE SCHOOLS',
+                        'options'=>['class'=>'dropdown'],
+                        'url'=>['#'],
+                        'template' => '<a href="{url}" class="dropdown-toggle" data-toggle="dropdown">{label}<b class="caret"></b></a>',
+                        'items' => [
+                            ['label' => 'BUSINESS (MBA)', 'url' => ['/graduate-schools/business-schools']],
+                            ['label' => 'LAW', 'url' => ['/graduate-schools/law-schools']],
+                        ],
+                    ],
+                    ['label' => 'APPLICATION PROCESS', 'url' => ['/application-process/1']],
+                    ['label' => 'TEST PREP','url'=>['/test-prep/17']],
+                ],
+                'submenuTemplate' => "\n<ul class='dropdown-menu' role='menu'>\n{items}\n</ul>\n",
+                'options' => [
+                    'class' => 'main_menu',
+                ],
+            ]);?>
             <?= Alert::widget() ?>
             <?php if(Yii::$app->controller->action->id=='view')
                 echo Breadcrumbs::widget(['homeLink' =>['label' => Yii::t('app', 'Home'), 'url' => ['/index']],'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : []]) ?>

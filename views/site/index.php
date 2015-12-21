@@ -53,53 +53,10 @@ $toraga=$db->createCommand("SELECT toraga.*, deputy.fullname FROM toraga LEFT JO
 ?>
 
 <style type="text/css">
-    .logo1{display: none;}
-    .main_laws{ border-bottom: 1px solid #eaeaea;
-        border-top: 1px solid #eaeaea;
-        margin: 60px 0;
-        padding-bottom: 15px;
-        background-color: #f9f9f9;}
-    h3.dots{ color: #333;
-        font-family: "roboto condensed",sans-serif;
-        font-size: 20px;
-        margin-bottom: 15px;}
-    h3.dots:after{background-color: #ffcb05;
-        border-radius: 4px;
-        content: "";
-        display: inline-block;
-        height: 8px;
-        margin: 0 0 2px 6px;
-        width: 8px;}
 
-    .main_gal{margin-top:30px; border-top: 1px solid #eaeaea;}
-    .gal_title{
-        clear: both;
-        margin-top: 5px;
-        max-width: 200px;
-        text-align: center;
-    }
-    .gal_title a{color:#000;}
-    .searchicon{color:#ccc;}
-    .search_btn{background-color: transparent; border-color: transparent;}
-    .search_btn:hover{background-color:#0066b3;}
-    .search_btn:hover .searchicon{color:#fff;}
-    .search_input{box-shadow: none;}
 
 </style>
 <div class="site-index">
-    <div class="row newsrow">
-        <div class="logowrap col-md-6">
-            <div class="logo logo2 pull-left"></div>
-            <div class="logotext2"><?=Yii::t('app', 'Osh city Kenesh');?></div>
-        </div>
-        <?php include_once('_search.php');?>
-        <div class="col-md-3">
-            <div class="ask btn btn-success" style="width:100%;">
-                <?=Html::a(Yii::t('app', 'Questions / Suggestions'),Url::toRoute(['feedback/create']))?>
-            </div>
-        </div>
-    </div>
-
     <div class="row">
         <div class="col-md-6 mains_news col-sm-8">
             <?php
