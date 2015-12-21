@@ -198,7 +198,7 @@ $toraga=$db->createCommand("SELECT toraga.*, deputy.fullname FROM toraga LEFT JO
 
     <div class="row main_gal">
 
-        <h3 class="dots"><?=Yii::t('app', 'Gallery');?></h3>
+        <h3 class="dots" style="margin-left:15px;"><?=Yii::t('app', 'Gallery');?></h3>
         <?php
             foreach($galleries as $gal){
                 if($lang=='ru'){$gtitle=$gal['title_ru'];} else{$gtitle=$gal['title'];}
