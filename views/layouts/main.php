@@ -137,12 +137,12 @@ $lang=Yii::$app->language;
                     <div class="logo logo2 pull-left"><?=Html::a('',Yii::$app->homeUrl,['style'=>'display: block; height: 103px;width: 102px;']);?></div>
                     <div class="logotext2 ltext_<?=Yii::$app->language;?>"><?=Html::a('',Yii::$app->homeUrl,['style'=>'display: block; height: 27px;width: 300px;']);?><?php //=Yii::t('app', 'Osh city Kenesh');?></div>
                 </div>
-                <?php include_once('_search.php');?>
-                <div class="col-md-3">
+                <div class="col-md-3 row pull-right">
                     <div class="ask btn btn-success" style="width:100%;">
                         <?=Html::a(Yii::t('app', 'Questions / Suggestions'),Url::toRoute(['feedback/create']))?>
                     </div>
                 </div>
+                <?php include_once('_search.php');?>
             </div>
         </div>
         <div class="container main_container">
@@ -157,7 +157,7 @@ $lang=Yii::$app->language;
         ?>
             <div class="container main_link">
                 <?php
-                $links = Yii::$app->db->createCommand("SELECT * FROM link")->noCache()->queryAll();
+                $links = Yii::$app->db->createCommand("SELECT * FROM link ORDER BY `priority`")->noCache()->queryAll();
                 foreach($links as $link){
                 if($lang=='ru'){$ltitle=$link['title_ru'];} else{$ltitle=$link['title'];}
                 ?>

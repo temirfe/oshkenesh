@@ -233,4 +233,35 @@ class NewsController extends Controller
         $name=time()."_".rand(1000,100000).'.'.$ext;
         Image::getImagine()->open('big/'.escapeshellarg($row['image']))->thumbnail(new Box(120, 100))->save(Yii::getAlias('@webroot').'/small/s_'.$name);
     }*/
+
+    //import latest news from old site
+    public function actionImport(){
+        die();
+        $db=Yii::$app->db;
+        $contents=$db->createCommand("SELECT * FROM content WHERE category_id='1' AND content_id>319")->queryAll();
+        $webroot=Yii::getAlias('@webroot');
+        foreach($contents as $c){
+            if(!$c['image']) $image=''; else {$image=$c['image']; }
+            $db->createCommand()->insert('news', [
+                'title' => $c['title'],
+                'date' => $c['date'],
+                'image' => $image,
+                'content' => $c['content'],
+                'description' => $c['description'],
+
+            ])->execute();
+            if($image) {
+                copy("http://oshkenesh.kg/images/news_photo/".$image,$webroot.'/uploads/images/small/s_'.$image);
+                copy("http://oshkenesh.kg/images/news_photo/big/".$image,$webroot.'/uploads/images/'.$image);
+            }
+
+            preg_match_all("/editor\/images\/([^.]+).jpg/s",$c['content'],$matches);
+            if(isset($matches[1])){
+                foreach($matches[1] as $m){
+                    $image=$m.'.jpg';
+                    copy("http://oshkenesh.kg/images/editor/images/".$image,$webroot.'/images/editor/images/'.$image);
+                }
+            }
+        }
+    }
 }

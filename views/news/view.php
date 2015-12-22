@@ -56,8 +56,9 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'News'), 'url' => ['i
                     foreach($matches[0] as $match){
                         preg_match('/src="([^"]+)"/ui',$match,$src);
                         $replace=Html::a($match,$src[1],['rel'=>'fancybox']);
+                        $replace=Html::a($match,$src[1],['rel'=>'fancybox']);
+                        $replace=preg_replace('/height: \d+px;/i','height: auto; max-width:100%;',$replace);
                         $model->content=str_replace($match,$replace,$model->content);
-                        $model->content=preg_replace('/height: \d+px;/i','height: auto; max-width:100%;',$model->content);
                     }
                 }
                 ?>
