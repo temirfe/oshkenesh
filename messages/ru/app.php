@@ -55,7 +55,7 @@ return [
     'Search Results'=>'Результаты поиска',
 
     'Osh city Kenesh' => 'Ошский городской Кеңеш',
-    'Legislation' => 'Законы',
+    'Legislation' => 'Законодательства',
     'Documents' => 'Документы',
     'Decrees' => 'Постановления',
     'Structure' => 'Структура',
@@ -71,6 +71,7 @@ return [
     'Date of adoption' => 'Дата принятия',
     'Ru' => 'Язык',
     'Document in MS Word' => 'В формате MS Word',
+    'Document in MS Excel' => 'В формате MS Excel',
     'Document in PDF' => 'В формате PDF',
     'Decree number' => 'Номер постановления',
     'Session' => 'Назваение сессии',

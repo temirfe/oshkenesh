@@ -28,7 +28,7 @@ class Session extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['date','ru'], 'safe'],
+            [['date','ru','content'], 'safe'],
             [['title'], 'string', 'max' => 255],
             [['description'], 'string', 'max' => 1000]
         ];
@@ -45,6 +45,19 @@ class Session extends \yii\db\ActiveRecord
             'title' => Yii::t('app', 'Title'),
             'description' => Yii::t('app', 'Description'),
             'ru' => Yii::t('app', 'Ru'),
+            'content' => Yii::t('app', 'Content'),
         ];
+    }
+
+    public function beforeSave($input){
+        if(parent::beforeSave($input)){
+            $this->content=str_replace('images/editor','uploads',$this->content);
+            $this->content=str_replace('http://oshkenesh.kg','',$this->content);
+            $this->content=str_replace('http://ru.oshkenesh.kg','',$this->content);
+            $this->content=str_replace('ru.oshkenesh.kg','',$this->content);
+            $this->content=str_replace('http://','',$this->content);
+            return true;
+        }
+        return false;
     }
 }

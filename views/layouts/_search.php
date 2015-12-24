@@ -1,7 +1,7 @@
 <?php
 use yii\helpers\Html;
 ?>
-<div class="col-md-3">
+<div class="col-md-3 col-xs-12">
     <div class="ask">
         <?= Html::beginForm(['site/search'], 'post') ?>
         <div class="form-group rel">

@@ -9,6 +9,10 @@ use yii\widgets\DetailView;
 $this->title = $model->title;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Pages'), 'url' => ['index']];
 ?>
+<style type="text/css">
+    h1 {margin-bottom: 15px;}
+    table{width:100%;}
+</style>
 <div class="page-view">
     <?php if(!Yii::$app->user->isGuest && Yii::$app->user->identity->isAdmin()){
         ?>

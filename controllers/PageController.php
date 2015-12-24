@@ -181,4 +181,16 @@ class PageController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
+    public function actionShow(){
+        $from=Yii::$app->request->get('from');
+        $lang=Yii::$app->language;
+        if($from=='deputy_commission'){if($lang='ru') $id=7; else $id=2;}
+        if(isset($id)){
+            return $this->render('view', [
+                'model' => $this->findModel($id),
+            ]);
+        }
+        else throw new \yii\web\NotFoundHttpException();
+    }
 }

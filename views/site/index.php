@@ -53,8 +53,7 @@ $toraga=$db->createCommand("SELECT toraga.*, deputy.fullname FROM toraga LEFT JO
 ?>
 
 <style type="text/css">
-
-
+    .main_container {padding: 20px 15px;}
 </style>
 <div class="site-index">
     <div class="row">

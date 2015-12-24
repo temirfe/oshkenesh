@@ -47,7 +47,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     $value='';
                     if($model->word){
                         if($model->word_size > 1024) $word_size=round($model->word_size/1024,2)." MB"; else $word_size=$model->word_size." KB";
-                        $value.='<div><span class="glyphicon glyphicon-file blue"></span> '.Html::a(Yii::t('app', 'Document in MS Word')." (".$word_size.")",
+                        if(strpos($model->word,'.xls')!==false) $document='Document in MS Excel'; else $document='Document in MS Word';
+                        $value.='<div><span class="glyphicon glyphicon-file blue"></span> '.Html::a(Yii::t('app', $document)." (".$word_size.")",
                                 "@web/uploads/files/".$model->word, ['class' => ''])."</div>";
                     }
 

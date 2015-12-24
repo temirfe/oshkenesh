@@ -5,16 +5,16 @@ use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Decree */
-
-$this->title = $model->title;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Decrees'), 'url' => ['index']];
+$this->title=$model->title;
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Decrees'), 'url' => ['/session/index']];
+$this->params['breadcrumbs'][] = ['label' => $model->session->title, 'url' => ['/session/'.$model->session_id]];
 ?>
-<div class="decree-view">
+<div class="decree-view big_padding">
     <?php if(!Yii::$app->user->isGuest && Yii::$app->user->identity->isAdmin()){
         ?>
         <div class="pull-right">
             <div class="btn-group" role="group" aria-label="admin-actions">
-                <?= Html::a('<span class="glyphicon glyphicon-plus" aria-hidden="true" title="'.Yii::t('app', 'Add new').'"></span>', ['create'], ['class' => 'btn btn-success btn-sm']) ?>
+                <?= Html::a('<span class="glyphicon glyphicon-plus" aria-hidden="true" title="'.Yii::t('app', 'Add new').'"></span>', ['create','s'=>$model->session_id], ['class' => 'btn btn-success btn-sm']) ?>
                 <?= Html::a('<span class="glyphicon glyphicon-pencil" aria-hidden="true" title="'.Yii::t('app', 'Update').'"></span>', ['update', 'id' => $model->id], ['class' => 'btn btn-primary btn-sm']) ?>
                 <?= Html::a('<span class="glyphicon glyphicon-remove" aria-hidden="true" title="'.Yii::t('app', 'Delete').'"></span>', ['delete', 'id' => $model->id], [
                     'class' => 'btn btn-danger btn-sm',
@@ -27,14 +27,13 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Decrees'), 'url' => 
         </div>
     <?php
     }?>
-
-    <h1><?= Html::encode($this->title) ?></h1>
     <div class="pull-left">
         <?php
 
         if($model->word){
             if($model->word_size > 1024) $word_size=round($model->word_size/1024,2)." MB"; else $word_size=$model->word_size." KB";
-            echo '<span class="glyphicon glyphicon-file blue"></span> '.Html::a(Yii::t('app', 'Document in MS Word')." (".$word_size.")",
+            if(strpos($model->word,'.xls')!==false) $document='Document in MS Excel'; else $document='Document in MS Word';
+            echo '<span class="glyphicon glyphicon-file blue"></span> '.Html::a(Yii::t('app', $document)." (".$word_size.")",
                     "@web/uploads/files/".$model->word, ['class' => '']);
         } ?>
     </div>

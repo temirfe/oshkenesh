@@ -116,16 +116,19 @@ class DecreeController extends Controller
             $model->wordFile = UploadedFile::getInstance($model, 'wordFile');
             $model->pdfFile = UploadedFile::getInstance($model, 'pdfFile');
             if($model->wordFile){
-                $fileName=time(). '.' . $model->wordFile->extension;
+                $fileName=$model->wordFile->name;
                 $model->wordFile->saveAs('uploads/files/' . $fileName);
                 $model->word=$fileName;
-                $model->word_size=round($model->wordFile->size/1024,1); //kb
+                $size=$model->wordFile->size/1024;
+                $size=round($size,1);
+                $model->word_size=(string)$size; //kb
             }
             if($model->pdfFile){
-                $fileName=time(). '.' . $model->pdfFile->extension;
+                $fileName=$model->pdfFile->name;
                 $model->pdfFile->saveAs('uploads/files/' . $fileName);
                 $model->pdf=$fileName;
-                $model->pdf_size=round($model->pdfFile->size/1024,1); //kb
+                $size=$model->wordFile->size/1024;
+                $model->pdf_size=(string)round($size,1); //kb
             }
             $model->save(false);
             return $this->redirect(['view', 'id' => $model->id]);
@@ -152,18 +155,20 @@ class DecreeController extends Controller
             if($model->wordFile){
                 $old ='uploads/files/'.$model->word;
                 @unlink($old);
-                $fileName=time(). '.' . $model->wordFile->extension;
+                $fileName=$model->wordFile->name;
                 $model->wordFile->saveAs('uploads/files/' . $fileName);
                 $model->word=$fileName;
-                $model->word_size=round($model->wordFile->size/1024,1); //kb
+                $size=$model->wordFile->size/1024;
+                $model->word_size=(string)round($size,1); //kb
             }
             if($model->pdfFile){
                 $old ='uploads/files/'.$model->pdf;
                 @unlink($old);
-                $fileName=time(). '.' . $model->pdfFile->extension;
+                $fileName=$model->pdfFile->name;
                 $model->pdfFile->saveAs('uploads/files/' . $fileName);
                 $model->pdf=$fileName;
-                $model->pdf_size=round($model->pdfFile->size/1024,1); //kb
+                $size=$model->pdfFile->size/1024;
+                $model->pdf_size=(string)round($size,1); //kb
             }
             $model->save(false);
             return $this->redirect(['view', 'id' => $model->id]);
@@ -182,9 +187,15 @@ class DecreeController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model=$this->findModel($id);
+        $webroot=Yii::getAlias('@webroot').'/uploads/files/';
+        if($model->word) @unlink($webroot.$model->word);
+        if($model->pdf) @unlink($webroot.$model->pdf);
+        $model->delete();
 
-        return $this->redirect(['index']);
+
+        if($s=Yii::$app->request->get('s')) $red=['/session/view','id'=>$s]; else $red=['index'];
+        return $this->redirect($red);
     }
 
     /**

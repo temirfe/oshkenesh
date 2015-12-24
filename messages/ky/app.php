@@ -72,6 +72,7 @@ return [
     'Date of adoption' => 'Кабыл алынган күн',
     'Ru' => 'Тил версиясы',
     'Document in MS Word' => 'MS Word форматында',
+    'Document in MS Excel' => 'MS Excel форматында',
     'Document in PDF' => 'PDF форматында',
     'Decree number' => 'Токтомдун номери',
     'Session name' => 'Сессиянын аталышы',

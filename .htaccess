@@ -11,15 +11,7 @@
     RewriteEngine On
 	
     # Frontend redirect
-    #RewriteCond %{REQUEST_URI} ^(.*)$
-    #RewriteRule ^(.*)$ web/$1
-
-        RewriteCond %{REQUEST_URI} ^/.*
-        RewriteRule ^(.*)$ web/$1 [L]
-
-        RewriteCond %{REQUEST_URI} !^/web/
-        RewriteCond %{REQUEST_FILENAME} !-d
-        RewriteCond %{REQUEST_FILENAME} !-f
-        RewriteRule ^ web/index.php [L]
+    RewriteCond %{REQUEST_URI} ^(.*)$
+    RewriteRule ^(.*)$ web/$1
 
 </IfModule>

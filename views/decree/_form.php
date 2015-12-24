@@ -31,10 +31,11 @@ use app\models\Session;
     else{
         $content_lang='0';
     }
+    if($sess_id=Yii::$app->request->get('s')) $model->session_id=$sess_id;
     echo $form->field($model, 'session_id')->dropDownList(
         ArrayHelper::map(Session::find()->where(['ru'=>$content_lang])->orderBy('id DESC')->all(), 'id', 'title'),['prompt'=>Yii::t('app', 'Select session')] );
     ?>
-    <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'title')->textInput(['maxlength' => true])->label('Токтомдун аталышы') ?>
     <?= $form->field($model, 'number')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'content')->widget(Widget::className(), [
@@ -57,11 +58,12 @@ use app\models\Session;
     echo $form->field($model, 'wordFile')->widget(FileInput::classname(), [
         'language' => 'ru',
         'pluginOptions' => [
+            'browseClass' => 'btn btn-default',
             'showCaption' => false,
             'showRemove' => false,
             'showUpload' => false,
             'initialPreview'=>$iniWord,
-            'allowedFileExtensions'=>['doc','docx','rtf']
+            'allowedFileExtensions'=>['doc','docx','rtf','xls','xlsx']
         ],
     ]); ?>
 
@@ -71,6 +73,7 @@ use app\models\Session;
     echo $form->field($model, 'pdfFile')->widget(FileInput::classname(), [
         'language' => 'ru',
         'pluginOptions' => [
+            'browseClass' => 'btn btn-default',
             'showCaption' => false,
             'showRemove' => false,
             'showUpload' => false,

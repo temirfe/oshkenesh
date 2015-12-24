@@ -3,6 +3,8 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\date\DatePicker;
+use vova07\imperavi\Widget;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Session */
@@ -29,6 +31,20 @@ use kartik\date\DatePicker;
             'todayHighlight' => true,
         ]
     ]);?>
+    <?= $form->field($model, 'content')->widget(Widget::className(), [
+        'settings' => [
+            'lang' => 'ru',
+            'minHeight' => 200,
+            'fileUpload' => Url::to(['/decree/file-upload']),
+            'fileManagerJson' => Url::to(['/decree/files-get']),
+            'plugins' => [
+                'filemanager',
+                'table',
+                'fontsize',
+                'fullscreen',
+            ],
+        ]
+    ]); ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

@@ -137,7 +137,7 @@ $lang=Yii::$app->language;
                     <div class="logo logo2 pull-left"><?=Html::a('',Yii::$app->homeUrl,['style'=>'display: block; height: 103px;width: 102px;']);?></div>
                     <div class="logotext2 ltext_<?=Yii::$app->language;?>"><?=Html::a('',Yii::$app->homeUrl,['style'=>'display: block; height: 27px;width: 300px;']);?><?php //=Yii::t('app', 'Osh city Kenesh');?></div>
                 </div>
-                <div class="col-md-3 row pull-right">
+                <div class="col-md-3 questions_wrap col-xs-12 pull-right">
                     <div class="ask btn btn-success" style="width:100%;">
                         <?=Html::a(Yii::t('app', 'Questions / Suggestions'),Url::toRoute(['feedback/create']))?>
                     </div>
@@ -305,6 +305,7 @@ $lang=Yii::$app->language;
             </div>
         </div>
     </footer>
+
 
     <?php $this->endBody() ?>
     </body>

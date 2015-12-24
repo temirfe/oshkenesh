@@ -23,8 +23,6 @@ class Decree extends \yii\db\ActiveRecord
 {
     public $wordFile;
     public $pdfFile;
-    public $word_size;
-    public $pdf_size;
     /**
      * @inheritdoc
      */
@@ -39,15 +37,15 @@ class Decree extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['date'], 'safe'],
-            [['title'], 'required'],
+            [['date','word_size','pdf_size'], 'safe'],
+            [['session_id','title'], 'required'],
             [['content','word','pdf','word_size','pdf_size'], 'string'],
             [['ru', 'views','session_id'], 'integer'],
             [['title'], 'string', 'max' => 500],
             [['description'], 'string', 'max' => 1000],
             [['number'], 'string', 'max' => 20],
             [['word', 'pdf'], 'string', 'max' => 255],
-            [['wordFile'], 'file', 'extensions' => 'doc,docx,rtf'],
+            [['wordFile'], 'file', 'extensions' => 'doc,docx,rtf,xls,xlsx'],
             [['pdfFile'], 'file', 'extensions' => 'pdf']
         ];
     }
@@ -78,4 +76,16 @@ class Decree extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Session::className(), ['id' => 'session_id']);
     }
+
+   /* public function beforeSave($input){
+        if(parent::beforeSave($input)){
+            $this->content=str_replace('\\','ү',$this->content);
+            $this->content=str_replace('Ё','Ң',$this->content);
+            $this->content=str_replace('ё','ң',$this->content);
+            $this->content=str_replace('ъ','ө',$this->content);
+            $this->content=str_replace('Ъ','Ө',$this->content);
+            return true;
+        }
+        return false;
+    }*/
 }
