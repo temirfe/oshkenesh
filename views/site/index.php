@@ -201,11 +201,17 @@ $toraga=$db->createCommand("SELECT toraga.*, deputy.fullname FROM toraga LEFT JO
                     ?>
                 </div>
             </div>
-            <div class="announce">
-                <h3><?=Yii::t('app', 'Announce');?></h3>
-                <div class="announce_title"><?php if(!empty($announce['title'])) echo Html::a(Html::encode($announce['title']),Url::toRoute(['announce/view','id'=>$announce['id']]))?></div>
-                <div class="entry_news_date"><?php if(!empty($announce['date'])) echo date("d.m.Y",strtotime($announce['date']));?></div>
-            </div>
+            <?php
+            if($announce){
+                ?>
+                <div class="announce">
+                    <h3><?=Yii::t('app', 'Announce');?></h3>
+                    <div class="announce_title"><?php if(!empty($announce['title'])) echo Html::a(Html::encode($announce['title']),Url::toRoute(['announce/view','id'=>$announce['id']]))?></div>
+                    <div class="entry_news_date"><?php if(!empty($announce['date'])) echo date("d.m.Y",strtotime($announce['date']));?></div>
+                </div>
+            <?php
+            }
+            ?>
             <div class="main_link">
                 <?php
                 $links = Yii::$app->db->createCommand("SELECT * FROM link ORDER BY `priority`")->noCache()->queryAll();
