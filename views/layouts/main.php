@@ -151,28 +151,6 @@ $lang=Yii::$app->language;
                 echo Breadcrumbs::widget(['homeLink' =>['label' => Yii::t('app', 'Home'), 'url' => ['/index']],'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : []]) ?>
             <?= $content ?>
         </div>
-        <?php
-        if(Yii::$app->controller->id=='site' && Yii::$app->controller->action->id=='index')
-        {
-        ?>
-            <div class="container main_link">
-                <?php
-                $links = Yii::$app->db->createCommand("SELECT * FROM link ORDER BY `priority`")->noCache()->queryAll();
-                foreach($links as $link){
-                if($lang=='ru'){$ltitle=$link['title_ru'];} else{$ltitle=$link['title'];}
-                ?>
-                <div class="link_wrap pull-left">
-                    <?php $uc="<div class='link_title'>{$ltitle}</div><div class='link_url'>{$link['url']}</div>";
-                    echo Html::a($uc,'http://'.$link['url'],['target'=>'_blank']); ?>
-                </div>
-                <?php
-                }
-                ?>
-            </div>
-        <?
-        }
-        ?>
-
     </div>
 
     <?php if(!Yii::$app->user->isGuest && Yii::$app->user->identity->isAdmin()){

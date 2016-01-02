@@ -10,6 +10,9 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use app\models\User;
+use yii\web\UploadedFile;
+use yii\imagine\Image;
+use Imagine\Image\Box;
 
 /**
  * LinkController implements the CRUD actions for Link model.
@@ -78,7 +81,15 @@ class LinkController extends Controller
     {
         $model = new Link();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
+            if($model->imageFile){
+                $imageName=time(). '.' . $model->imageFile->extension;
+                $model->imageFile->saveAs('uploads/images/' . $imageName);
+                $model->image=$imageName;
+                Image::getImagine()->open('uploads/images/'.$imageName)->thumbnail(new Box(120, 120))->save(Yii::getAlias('@webroot').'/uploads/images/small/s_'.$imageName);
+            }
+            $model->save(false);
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
@@ -97,7 +108,15 @@ class LinkController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
+            if($model->imageFile){
+                $imageName=time(). '.' . $model->imageFile->extension;
+                $model->imageFile->saveAs('uploads/images/' . $imageName);
+                $model->image=$imageName;
+                Image::getImagine()->open('uploads/images/'.$imageName)->thumbnail(new Box(200, 120))->save(Yii::getAlias('@webroot').'/uploads/images/small/s_'.$imageName);
+            }
+            $model->save(false);
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [

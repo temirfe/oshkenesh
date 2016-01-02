@@ -14,6 +14,7 @@ use Yii;
  */
 class Link extends \yii\db\ActiveRecord
 {
+    public $imageFile;
     /**
      * @inheritdoc
      */
@@ -29,7 +30,7 @@ class Link extends \yii\db\ActiveRecord
     {
         return [
             [['url', 'title', 'title_ru'], 'required'],
-            [['url'], 'string', 'max' => 255],
+            [['url','image'], 'string', 'max' => 255],
             [['title', 'title_ru'], 'string', 'max' => 500],
             [['priority'], 'safe']
         ];
@@ -46,6 +47,7 @@ class Link extends \yii\db\ActiveRecord
             'title' => Yii::t('app', 'Title'),
             'title_ru' => Yii::t('app', 'Title Ru'),
             'priority' => Yii::t('app', 'priority'),
+            'image' => Yii::t('app', 'Image'),
         ];
     }
 

@@ -21,12 +21,12 @@
 
         var mySwiper = new Swiper ('.swiper-container', {
             // If we need pagination
-            slidesPerView: 6,
+            slidesPerView: 5,
             spaceBetween: 30,
             freeMode: true,
             autoplay: 2500,
             scrollbar: '.swiper-scrollbar',
-            autoplayDisableOnInteraction:false
+            autoplayDisableOnInteraction:false,
         });
 
         $(window).scroll(function() {
@@ -55,11 +55,13 @@
                     $('.js_news_img').hide();
                     $('.js_img_'+id).show();
                     $('.js_main_news').hide();
+                    $('.js_other_news').css('background-color','#fff');
+                    $(this).parents('.js_other_news').css('background-color','#eef5fa');
                 },
                 function(){
-                    $('.js_news_img').hide();
+                    /*$('.js_news_img').hide();
                     $('.js_first_img').show();
-                    $('.js_main_news').show();
+                    $('.js_main_news').show();*/
                 }
             );
         }
