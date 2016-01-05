@@ -55,7 +55,7 @@
                     $('.js_news_img').hide();
                     $('.js_img_'+id).show();
                     $('.js_main_news').hide();
-                    $('.js_other_news').css('background-color','#fff');
+                    $('.js_other_news').css('background-color','transparent');
                     $(this).parents('.js_other_news').css('background-color','#eef5fa');
                 },
                 function(){

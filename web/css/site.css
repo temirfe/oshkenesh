@@ -28,11 +28,14 @@ h2, .h2 {
 
 .main_container {
     background-color: #fff;
+    background-image: url("/css/img/big10.png");
+    background-position: top center;
+    background-repeat: no-repeat;
     border-top: 5px solid #ffcb05;
     box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
     margin-top: -5px;
-    padding:20px 80px 40px 40px;
+    padding: 20px 80px 40px 40px;
 }
 
 .jumbotron {
