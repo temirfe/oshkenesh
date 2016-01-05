@@ -85,9 +85,9 @@ class LinkController extends Controller
             $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
             if($model->imageFile){
                 $imageName=time(). '.' . $model->imageFile->extension;
-                $model->imageFile->saveAs('uploads/images/' . $imageName);
+                $model->imageFile->saveAs('images/' . $imageName);
                 $model->image=$imageName;
-                Image::getImagine()->open('uploads/images/'.$imageName)->thumbnail(new Box(120, 120))->save(Yii::getAlias('@webroot').'/uploads/images/small/s_'.$imageName);
+                Image::getImagine()->open('images/'.$imageName)->thumbnail(new Box(250, 120))->save(Yii::getAlias('@webroot').'/images/'.$imageName);
             }
             $model->save(false);
             return $this->redirect(['view', 'id' => $model->id]);
@@ -112,9 +112,9 @@ class LinkController extends Controller
             $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
             if($model->imageFile){
                 $imageName=time(). '.' . $model->imageFile->extension;
-                $model->imageFile->saveAs('uploads/images/' . $imageName);
+                $model->imageFile->saveAs('images/' . $imageName);
                 $model->image=$imageName;
-                Image::getImagine()->open('uploads/images/'.$imageName)->thumbnail(new Box(200, 120))->save(Yii::getAlias('@webroot').'/uploads/images/small/s_'.$imageName);
+                Image::getImagine()->open('images/'.$imageName)->thumbnail(new Box(250, 120))->save(Yii::getAlias('@webroot').'/images/'.$imageName);
             }
             $model->save(false);
             return $this->redirect(['view', 'id' => $model->id]);

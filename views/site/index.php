@@ -214,14 +214,16 @@ $toraga=$db->createCommand("SELECT toraga.*, deputy.fullname FROM toraga LEFT JO
             ?>
             <div class="main_link">
                 <?php
-                $links = Yii::$app->db->createCommand("SELECT * FROM link ORDER BY `priority`")->noCache()->queryAll();
+                $links = Yii::$app->db->createCommand("SELECT * FROM link ORDER BY `priority`")->queryAll();
                 foreach($links as $link){
                     if($lang=='ru'){$ltitle=$link['title_ru'];} else{$ltitle=$link['title'];}
                     ?>
                     <div class="link_wrap">
-                        <?php $uc="<div class='link_title'>{$ltitle}</div><div class='link_url'>{$link['url']}</div>";
-                        echo Html::a($uc,'http://'.$link['url'],['target'=>'_blank']);
-                        echo Html::img('/uploads/images/small/s_'.$link['image'],['alt'=>''])
+                        <?php
+                        $img=Html::img('/images/'.$link['image'],['alt'=>'']);
+
+                        echo Html::a($img,'http://'.$link['url'],['target'=>'_blank','title'=>$ltitle]);
+
                         ?>
                     </div>
                 <?php

@@ -493,35 +493,9 @@ h3.dots:after{background-color: #ffcb05;
     background-position: center center;
     background-repeat: no-repeat;margin-top: 51px;}
 .main_link{padding:0;}
-.link_wrap{    background-color: #fbfbff;
-    border: 1px solid #dddde2;
-    margin: 20px 0;
-    position: relative;}
-.link_wrap img{bottom: 7px;
-    max-height: 35px;
-    max-width: 40px;
-    opacity: 0.5;
-    position: absolute;
-    right: 5px;}
-.link_wrap:hover img{opacity:1;}
-.link_wrap a{
-    background: transparent none repeat scroll 0 0;
-    color: #020c22;
-    display: block;
-    font-size: 16px;
-    line-height: 1.2;
-    padding: 23px;
-    position: relative;
-    text-decoration: none;
-    z-index: 2;
-}
-.link_wrap:hover{background-color: #fff;}
-.link_url{
-    color: #0a3fb4;
-    display: block;
-    font-size: 13px;
-    margin-top: 10px;
-    text-transform: uppercase;}
+.link_wrap{
+    margin: 20px 0;}
+.link_wrap img{    max-width: 238px;}
 .scrollUp{ background-color: #555;
     border-radius: 4px;
     bottom: -100px;
