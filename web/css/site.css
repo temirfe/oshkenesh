@@ -493,9 +493,9 @@ h3.dots:after{background-color: #ffcb05;
     background-position: center center;
     background-repeat: no-repeat;margin-top: 51px;}
 .main_link{padding:0;}
-.link_wrap{
-    margin: 20px 0;}
-.link_wrap img{    max-width: 238px;}
+.link_wrap{margin: 20px 0;}
+.link_wrap:hover{box-shadow: 0 0 4px #888;}
+.link_wrap img{max-width: 238px; width:100%;}
 .scrollUp{ background-color: #555;
     border-radius: 4px;
     bottom: -100px;
@@ -510,4 +510,3 @@ h3.dots:after{background-color: #ffcb05;
     padding-top: 10px;}
 .big_padding{padding:0 35px 30px;}
 .gal_index_item img{width:100%;}
-.link_title{}
